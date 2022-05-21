@@ -1,0 +1,36 @@
+{
+  "name": "ttc-2022-device-practical-training-01",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "directories": {
+    "doc": "docs"
+  },
+  "scripts": {
+    "serve": "npx honkit serve base src",
+    "build": "npx honkit build base docs",
+    "gyazo": "start C:\\workspace\\_my_application\\gyazo_uploader\\GayzoUploader-win32-x64\\GayzoUploader.exe"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/1ft-seabass/ttc-2022-device-practical-training-01.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/1ft-seabass/ttc-2022-device-practical-training-01/issues"
+  },
+  "homepage": "https://github.com/1ft-seabass/ttc-2022-device-practical-training-01#readme",
+  "devDependencies": {
+    "honkit": "^3.6.20"
+  },
+  "dependencies": {
+    "gitbook-plugin-advanced-emoji": "^0.2.2",
+    "gitbook-plugin-anchors": "^0.7.1",
+    "gitbook-plugin-back-to-top-button": "^0.1.4",
+    "gitbook-plugin-copy-code-button": "0.0.2",
+    "gitbook-plugin-hide-published-with": "0.0.1",
+    "gitbook-plugin-intopic-toc": "^1.1.1"
+  }
+}
