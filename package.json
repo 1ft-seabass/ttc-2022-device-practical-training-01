@@ -7,8 +7,8 @@
     "doc": "docs"
   },
   "scripts": {
-    "serve": "npx honkit serve base src",
-    "build": "npx honkit build base docs",
+    "serve": "honkit serve base src",
+    "build": "honkit build base docs",
     "gyazo": "start C:\\workspace\\_my_application\\gyazo_uploader\\GayzoUploader-win32-x64\\GayzoUploader.exe"
   },
   "repository": {
