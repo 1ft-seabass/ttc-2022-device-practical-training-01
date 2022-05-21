@@ -10,7 +10,7 @@
         <meta property="og:title" content="タイトル">
         <meta property="og:description" content="詳細説明">
         <meta property="og:locale" content="ja">
-        <title>第2回 · タイトル</title>
+        <title>第2回 Node-REDの概要 · タイトル</title>
         <meta http-equiv="X-UA-Compatible" content="IE=edge" />
         <meta name="description" content="">
         <meta name="generator" content="HonKit 3.7.1">
@@ -75,6 +75,8 @@
     <link rel="shortcut icon" href="../gitbook/images/favicon.ico" type="image/x-icon">
 
     
+    <link rel="next" href="../lecture03/00-introduction.html" />
+    
     
     <link rel="prev" href="../" />
     
@@ -123,7 +125,20 @@
                 <a href="00-introduction.html">
             
                     
-                    第2回
+                    第2回 Node-REDの概要
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.3" data-path="../lecture03/00-introduction.html">
+            
+                <a href="../lecture03/00-introduction.html">
+            
+                    
+                    第3回 環境の整備
             
                 </a>
             
@@ -161,7 +176,7 @@
     <!-- Title -->
     <h1>
         <i class="fa fa-circle-o-notch fa-spin"></i>
-        <a href=".." >第2回</a>
+        <a href=".." >第2回 Node-REDの概要</a>
     </h1>
 </div>
 
@@ -200,29 +215,179 @@
 <p>実現するために様々な技術が必要だからといって、あまりにも慎重に、机上だけで現場を想像し完全に設計し作りきるために膨大な時間がかかることを比べれば、プロトタイピングによってリアルに試行錯誤を行って、より現場に合わせていくことができます。</p>
 <p>ざっくりいえば「失敗を嫌がり考えすぎて動けなくなる前に、小さくつくって動きだして試行錯誤を大事にする」開発手法ともいえます。</p>
 <h2 id="ノーコード・ローコード"><a name="ノーコード・ローコード" class="plugin-anchor" href="#ノーコード・ローコード"><i class="fa fa-link" aria-hidden="true"></i></a>ノーコード・ローコード</h2>
-<p>さて、プロトタイピングの一つの側面である「すばやくつくる」という点で、プログラムしっかり書かなくても仕組みが作れるノーコード・ローコードツールが様々な業界で登場し注目されています。</p>
+<p>さて、プロトタイピングの一つの側面である「すばやくつくる」という点で、プログラムしっかり書かなくても GUI で仕組みが作れるノーコード・ローコードツールが様々な業界で登場し注目されています。</p>
 <p>ノーコード・ローコードツールの大まかな説明です。</p>
 <ul>
 <li>ノーコードツール<ul>
-<li>プログラムを「まったく書かず」にアプリケーションを開発できるツール</li>
+<li>プログラムを「まったく書かず」に GUI でアプリケーションを開発できるツール</li>
 </ul>
 </li>
 <li>ローコードツール<ul>
-<li>プログラムを「あまり書かず」にアプリケーションを開発できるツール</li>
+<li>プログラムを「あまり書かず」に GUI でアプリケーションを開発できるツール</li>
 </ul>
 </li>
 </ul>
-<p>Node-RED を使う前に、さまざまノーコードツール・ローコードツールを紹介していきましょう。</p>
+<p>余談ですが、従来からあるソースコードを書くアプリケーション開発（スクラッチ開発）は、ノーコード・ローコードと対比してプロコードと言います。</p>
+<p>ノーコード・ローコードツールの効用は以下の通りです。</p>
+<blockquote>
 <ul>
+<li><p>時間の節約</p>
+<ul>
+<li>開発チームがアプリを開発するまで待つことなく、会社に所属するほとんど誰もが自分でアプリを作成できます。</li>
+</ul>
+</li>
+<li><p>生産性の向上</p>
+<ul>
+<li>開発者の負担を軽減してコーディングが必要なアプリの構築に集中できるようにし、その結果としてチームの業務を効率化します。</li>
+</ul>
+</li>
+<li><p>コストの削減</p>
+<ul>
+<li>企業が新しい開発者を雇うことなく、既存のスタッフを市民開発者として活躍させます。これにより専門の開発者は、より多くのアプリをより短い時間で作成できます。</li>
+</ul>
+</li>
+<li><p>柔軟性の獲得</p>
+<ul>
+<li>ローコード プラットフォームを活用するとアプリを簡単に変更できるので、コードの記述に膨大な時間を費やさずに済みます。</li>
+</ul>
+</li>
+</ul>
+<p>参考文献 : ローコード開発とは | Microsoft Power Apps <a href="https://powerapps.microsoft.com/ja-jp/what-is-low-code/" target="_blank">https://powerapps.microsoft.com/ja-jp/what-is-low-code/</a></p>
+</blockquote>
+<p>これは企業での利用目線では、大変分かりやすい説明です。もう少し、私たち開発者の目線で置き換えてみます。</p>
+<ul>
+<li>時間の節約<ul>
+<li>GUI で作りたい仕組みを機能パーツをつないで直感的に作れるため、プログラムのミスや組み合わせの不具合に悩まされずに開発に集中できる。</li>
+<li>作りたい仕組みを実現するときに、新しく組み合わせる技術を扱う場合でも、機能パーツでその技術を扱う要素が GUI で表現されてまとまっているため、すぐに扱うことができる。</li>
+</ul>
+</li>
+<li>生産性の向上 = コストの削減<ul>
+<li>GUI で目で見てすぐ仕組みが分かるため、チームで開発する場合でも、別途仕組みと伝える資料なしに分担して進めやすい。</li>
+<li>1人で開発する場合も、見てすぐ理解できる状態を保ちつつ継続的に開発が進められる。</li>
+<li>開発するためのツールがプロコードで開発するときより準備しやすいことが多く、チーム内での状態を合わせやすい。</li>
+</ul>
+</li>
+<li>柔軟性の獲得<ul>
+<li>今までの仕組みを一部変更する場合も、GUI と機能をつなげる特徴によってその対応もしやすくなります。</li>
+<li>変更がしやすくなることにより、より自由に果敢により良くする変更や機能追加にチャレンジすることができるようになります。</li>
+</ul>
+</li>
+</ul>
+<p>ざっくりいうと、いち開発者としては「とりかかりやすく、つくりやすく、変えやすく、伝えやすくなる」効用があります。</p>
+<h2 id="ノーコードツール・ローコードツール紹介"><a name="ノーコードツール・ローコードツール紹介" class="plugin-anchor" href="#ノーコードツール・ローコードツール紹介"><i class="fa fa-link" aria-hidden="true"></i></a>ノーコードツール・ローコードツール紹介</h2>
+<p>Node-RED を使う前に、さまざま分野のノーコードツール・ローコードツールを紹介します。</p>
+<ul>
+<li>デザイン<ul>
+<li>Figma <a href="https://www.figma.com/" target="_blank">https://www.figma.com/</a></li>
+<li>Adobe XD <a href="https://www.adobe.com/jp/products/xd.html" target="_blank">https://www.adobe.com/jp/products/xd.html</a></li>
+<li>Sketch <a href="https://www.sketch.com/" target="_blank">https://www.sketch.com/</a></li>
+</ul>
+</li>
+<li>WEB アプリ作成<ul>
+<li>Yappli <a href="https://yapp.li/" target="_blank">https://yapp.li/</a></li>
+<li>Bubble <a href="https://bubble.io/" target="_blank">https://bubble.io/</a></li>
+<li>Google AppSheet <a href="https://about.appsheet.com/home/" target="_blank">https://about.appsheet.com/home/</a></li>
+<li>OutSystems <a href="https://www.outsystems.com/ja-jp/" target="_blank">https://www.outsystems.com/ja-jp/</a></li>
+<li>Kintone <a href="https://kintone.cybozu.co.jp/" target="_blank">https://kintone.cybozu.co.jp/</a></li>
+</ul>
+</li>
+<li>API<ul>
 <li>IFTTT <a href="https://ifttt.com/" target="_blank">https://ifttt.com/</a><ul>
 <li>さまざまな WEB サービスを簡単につなげて利用できる WEB サービス</li>
 </ul>
 </li>
-<li></li>
+<li>Zapier <a href="https://zapier.com/" target="_blank">https://zapier.com/</a></li>
+<li>Make(Integromat) <a href="https://www.integromat.com/en" target="_blank">https://www.integromat.com/en</a></li>
+</ul>
+</li>
+<li>ロボティックプロセスオートメーション(Robotic Process Automation)<ul>
+<li>Power Automate <a href="https://powerautomate.microsoft.com/ja-jp/" target="_blank">https://powerautomate.microsoft.com/ja-jp/</a></li>
+<li>UiPath <a href="https://www.uipath.com/ja/" target="_blank">https://www.uipath.com/ja/</a></li>
+<li>WinActor <a href="https://winactor.biz/" target="_blank">https://winactor.biz/</a></li>
+</ul>
+</li>
+<li>教育<ul>
+<li>Scratch <a href="https://scratch.mit.edu/" target="_blank">https://scratch.mit.edu/</a></li>
+</ul>
+</li>
+<li>デバイス・IoT<ul>
+<li>micro:bit MakeCode <a href="https://makecode.microbit.org/#" target="_blank">https://makecode.microbit.org/#</a></li>
+<li>Tinkercad <a href="https://www.tinkercad.com/" target="_blank">https://www.tinkercad.com/</a></li>
+</ul>
+</li>
 </ul>
 <h2 id="ローコードツールの重要性"><a name="ローコードツールの重要性" class="plugin-anchor" href="#ローコードツールの重要性"><i class="fa fa-link" aria-hidden="true"></i></a>ローコードツールの重要性</h2>
-<p>さて、プロトタイピングの大事さはお伝えしましたが、IoT において簡単なプロトタイプ（試作品）を作るともなると、ネットワーク、ハードウェアデバイス、アプリケーション、サーバとさまざまな技術があるため</p>
-<p>プロトタイピングにおけるローコードツールの重要性を把握。</p>
+<p>プロトタイピングの大事さはお伝えしましたが、IoT において簡単なプロトタイプ（試作品）を作るともなると、ネットワーク、ハードウェアデバイス、アプリケーション、サーバとさまざまな技術があるため、とりかかるのもパワーがいるでしょう。</p>
+<p>こういったときに、ノーコード・ローコードツールは良いサポートをしてくれます。</p>
+<p>現場の状況に合わせるため不確実性が強い IoT に、いきなりプログラムを精密に組むことなく、複合技術で組み合わせの難しさが軽減されながら、まずアイデアからざっくりとした仕組みを考え GUI で作れるとしたら開発パワーが適切にかけられ、すばやくプロトタイプ（試作品）をつくることができます。</p>
+<p>前節で「ノーコード・ローコードツールの効用」に触れましたが、「とりかかりやすく、つくりやすく、変えやすく、伝えやすくなる」効用をフルに活用にして、技術を学びはじめる今の時期から IoT を自分なりにつくっていきましょう！</p>
+<h2 id="node-red-とは"><a name="node-red-とは" class="plugin-anchor" href="#node-red-とは"><i class="fa fa-link" aria-hidden="true"></i></a>Node-RED とは</h2>
+<p>以降、「テキスト」は、メイン教材である <code>はじめてのNode-RED［ver.1.3.0対応版］</code> のことを指します。</p>
+<ul>
+<li>教材<ul>
+<li>テキスト はじめに</li>
+</ul>
+</li>
+<li>内容<ul>
+<li>ローコードツール Node-RED の概要を把握します。</li>
+</ul>
+</li>
+</ul>
+<h2 id="node-red-の歩み"><a name="node-red-の歩み" class="plugin-anchor" href="#node-red-の歩み"><i class="fa fa-link" aria-hidden="true"></i></a>Node-RED の歩み</h2>
+<ul>
+<li>教材<ul>
+<li>テキスト 1.1</li>
+</ul>
+</li>
+<li>内容<ul>
+<li>Node-RED の歴史や背景を把握します。</li>
+</ul>
+</li>
+</ul>
+<h2 id="node-red-の周辺"><a name="node-red-の周辺" class="plugin-anchor" href="#node-red-の周辺"><i class="fa fa-link" aria-hidden="true"></i></a>Node-RED の周辺</h2>
+<ul>
+<li>教材<ul>
+<li>テキスト 1.1</li>
+</ul>
+</li>
+<li>内容<ul>
+<li>Node-RED サイトやコミュニティの動きを把握します。</li>
+</ul>
+</li>
+</ul>
+<h2 id="node-red-の動作環境"><a name="node-red-の動作環境" class="plugin-anchor" href="#node-red-の動作環境"><i class="fa fa-link" aria-hidden="true"></i></a>Node-RED の動作環境</h2>
+<ul>
+<li>教材<ul>
+<li>テキスト 2.1</li>
+</ul>
+</li>
+<li>内容<ul>
+<li>Node-RED のさまざまな動作可能な環境を把握します。</li>
+</ul>
+</li>
+</ul>
+<h2 id="授業での動作環境"><a name="授業での動作環境" class="plugin-anchor" href="#授業での動作環境"><i class="fa fa-link" aria-hidden="true"></i></a>授業での動作環境</h2>
+<ul>
+<li>教材<ul>
+<li>テキスト 2.2</li>
+</ul>
+</li>
+<li>内容<ul>
+<li>Node-RED を授業での動作させる場合の手順を把握します。</li>
+</ul>
+</li>
+</ul>
+<h2 id="raspberry-pi-での動作"><a name="raspberry-pi-での動作" class="plugin-anchor" href="#raspberry-pi-での動作"><i class="fa fa-link" aria-hidden="true"></i></a>Raspberry Pi での動作</h2>
+<ul>
+<li>教材<ul>
+<li>テキスト 2.3</li>
+</ul>
+</li>
+<li>内容<ul>
+<li>Raspberry Pi での動作のさせ方を把握します。</li>
+</ul>
+</li>
+</ul>
 
                                 
                                 </section>
@@ -250,10 +415,14 @@
 
             
                 
-                <a href="../" class="navigation navigation-prev navigation-unique" aria-label="Previous page: Introduction">
+                <a href="../" class="navigation navigation-prev " aria-label="Previous page: Introduction">
                     <i class="fa fa-angle-left"></i>
                 </a>
                 
+                
+                <a href="../lecture03/00-introduction.html" class="navigation navigation-next " aria-label="Next page: 第3回 環境の整備">
+                    <i class="fa fa-angle-right"></i>
+                </a>
                 
             
         
@@ -262,7 +431,7 @@
     <script>
         var gitbook = gitbook || [];
         gitbook.push(function() {
-            gitbook.page.hasChanged({"page":{"title":"第2回","level":"1.2","depth":1,"previous":{"title":"Introduction","level":"1.1","depth":1,"path":"README.md","ref":"README.md","articles":[]},"dir":"ltr"},"config":{"plugins":["anchors","hide-published-with","copy-code-button","intopic-toc","back-to-top-button"],"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"pluginsConfig":{"intopic-toc":{"selector":".markdown-section h1, .markdown-section h2, .markdown-section h3, .markdown-section h4, .markdown-section h5, .markdown-section h6","mode":"nested","maxDepth":6,"isCollapsed":true,"isScrollspyActive":true,"visible":true,"label":"In this article"},"search":{},"lunr":{"maxIndexSize":1000000,"ignoreSpecialCharacters":false},"hide-published-with":{},"fontsettings":{"theme":"white","family":"sans","size":2},"highlight":{},"back-to-top-button":{},"copy-code-button":{},"theme-default":{"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"showLevel":false},"anchors":{}},"theme":"default","pdf":{"pageNumbers":true,"fontSize":12,"fontFamily":"Arial","paperSize":"a4","chapterMark":"pagebreak","pageBreaksBefore":"/","margin":{"right":62,"left":62,"top":56,"bottom":56},"embedFonts":false},"structure":{"langs":"LANGS.md","readme":"README.md","glossary":"GLOSSARY.md","summary":"SUMMARY.md"},"variables":{},"title":"タイトル","language":"ja","gitbook":"*","description":"詳細説明"},"file":{"path":"lecture02/00-introduction.md","mtime":"2022-05-21T03:45:50.289Z","type":"markdown"},"gitbook":{"version":"3.7.1","time":"2022-05-21T03:46:06.172Z"},"basePath":"..","book":{"language":""}});
+            gitbook.page.hasChanged({"page":{"title":"第2回 Node-REDの概要","level":"1.2","depth":1,"next":{"title":"第3回 環境の整備","level":"1.3","depth":1,"path":"lecture03/00-introduction.md","ref":"lecture03/00-introduction.md","articles":[]},"previous":{"title":"Introduction","level":"1.1","depth":1,"path":"README.md","ref":"README.md","articles":[]},"dir":"ltr"},"config":{"plugins":["anchors","hide-published-with","copy-code-button","intopic-toc","back-to-top-button"],"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"pluginsConfig":{"intopic-toc":{"selector":".markdown-section h1, .markdown-section h2, .markdown-section h3, .markdown-section h4, .markdown-section h5, .markdown-section h6","mode":"nested","maxDepth":6,"isCollapsed":true,"isScrollspyActive":true,"visible":true,"label":"In this article"},"search":{},"lunr":{"maxIndexSize":1000000,"ignoreSpecialCharacters":false},"hide-published-with":{},"fontsettings":{"theme":"white","family":"sans","size":2},"highlight":{},"back-to-top-button":{},"copy-code-button":{},"theme-default":{"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"showLevel":false},"anchors":{}},"theme":"default","pdf":{"pageNumbers":true,"fontSize":12,"fontFamily":"Arial","paperSize":"a4","chapterMark":"pagebreak","pageBreaksBefore":"/","margin":{"right":62,"left":62,"top":56,"bottom":56},"embedFonts":false},"structure":{"langs":"LANGS.md","readme":"README.md","glossary":"GLOSSARY.md","summary":"SUMMARY.md"},"variables":{},"title":"タイトル","language":"ja","gitbook":"*","description":"詳細説明"},"file":{"path":"lecture02/00-introduction.md","mtime":"2022-05-21T06:10:05.624Z","type":"markdown"},"gitbook":{"version":"3.7.1","time":"2022-05-21T06:11:14.783Z"},"basePath":"..","book":{"language":""}});
         });
     </script>
 </div>
