@@ -23,7 +23,8 @@
   },
   "homepage": "https://github.com/1ft-seabass/ttc-2022-device-practical-training-01#readme",
   "devDependencies": {
-    "honkit": "^3.6.20"
+    "honkit": "^3.6.20",
+    "nth-check": ">=2.0.1"
   },
   "dependencies": {
     "gitbook-plugin-advanced-emoji": "^0.2.2",
