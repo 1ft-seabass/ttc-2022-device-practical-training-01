@@ -1,3 +1,7 @@
-# ttc-2022-device-practical-training-01
+# README
 
-README
+![image](https://i.gyazo.com/8781fdd988c99ba2d7fa10710cbb932b.png)
+
+この資料は、東京テクニカルカレッジ IoT + AI 科 1 年生 2 期 デバイス実習1授業のサブテキストです。
+
+左にあるメニューから、今日の授業回をクリックしてサブテキストを表示しましょう。
