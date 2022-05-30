@@ -18,7 +18,7 @@ const char *mqttEndpoint = "mqtt.beebotte.com";
 // 今回使いたい Beebotte のポート
 const int mqttPort = 1883;
 // 今回使いたい Beebotte のユーザー名
-const char *mqttUsername = "token_mXifMiMpNxl24LDD";
+const char *mqttUsername = "";
 // 今回使いたい Beebotte のパスワード
 const char *mqttPassword = "";
  
