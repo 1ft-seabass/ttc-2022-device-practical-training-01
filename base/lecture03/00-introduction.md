@@ -88,3 +88,14 @@ Node.js とは、JavaScript 実行環境の一つ。元々は Web サーバー�
     - Control + C
   - Raspberry Pi の場合
     - Control + C
+
+## ビジュアルプログラミングIoTLT の話
+
+![image](https://i.gyazo.com/7b074f03c679f6409f05b7208ba90164.png)
+
+[ビジュアルプログラミングIoTLT vol.11 - connpass](https://iotlt.connpass.com/event/248321/)
+
+- 田中が運営してます
+- いろいろなビジュアルプログラミングと IoT な事例が見れます
+- よかったら視聴してみてください。オンラインです。
+- そして、ぜひ登壇も！どんなにシンプルでもいいんですよ。
