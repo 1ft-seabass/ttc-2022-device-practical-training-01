@@ -3,8 +3,8 @@
 * [Introduction](README.md)
 * [第2回 Node-REDの概要](lecture02/00-introduction.md)
 * [第3回 環境の整備](lecture03/00-introduction.md)
-* 第4回 基本操作演習
-* 第5回 HTTP フロー作成の演習
+* [第4回 基本操作演習](lecture04/00-introduction.md)
+* [第5回 HTTP フロー作成の演習](lecture05/00-introduction.md)
 * 第6回 MQTT プロトコル
 * 第7回 MQTT データ連携演習
 * 第8回 デバイス MQTT 接続
