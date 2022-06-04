@@ -253,6 +253,8 @@ http request ノードの設定の `出力形式` をUTF文字列から `JSONオ
 
 node-red-contrib-image-output ノードをインストールして画像表示をします。
 
+[Node-RED で public-apis の柴犬画像 API につないで表示させるメモ – 1ft-seabass.jp.MEMO](https://www.1ft-seabass.jp/memo/2020/09/04/nodered-connect-shibainu/)
+
 ## HTTP API の多様さ
 
 様々な HTTP API の種類や役割を把握します。
