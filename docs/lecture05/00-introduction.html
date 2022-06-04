@@ -328,6 +328,70 @@
 </ul>
 </li>
 </ul>
+<p>HTTP は Hypertext Transfer Protocol という正式名称です。 Web ブラウザが Web サーバと通信する際に主として使用する通信プロトコルです。</p>
+<p>よくある例としては、みなさんが Web ブラウザからアドレスバーで URL を入力して HTML などのテキストによって記述された Web ページなどのコンテンツを表示するときのデータの送受信に用いられます。</p>
+<p>参考文献</p>
+<ul>
+<li>Hypertext Transfer Protocol - Wikipedia<ul>
+<li><a href="https://ja.wikipedia.org/wiki/Hypertext_Transfer_Protocol" target="_blank">https://ja.wikipedia.org/wiki/Hypertext_Transfer_Protocol</a></li>
+</ul>
+</li>
+<li>HTTP の基本 - HTTP | MDN<ul>
+<li><a href="https://developer.mozilla.org/ja/docs/Web/HTTP/Basics_of_HTTP" target="_blank">https://developer.mozilla.org/ja/docs/Web/HTTP/Basics_of_HTTP</a></li>
+</ul>
+</li>
+</ul>
+<p>実際には、このような仕組みになっています。</p>
+<blockquote>
+<p>HTTPはリクエスト-レスポンス型のプロトコルであり、クライアントがサーバにリクエストメッセージを送信する。 基本的な考え方は非常に単純で、「何を」「どうして」欲しいのかを伝える。URLが「何を」、メソッドが「どうして」に当たる。 サーバはこれにレスポンスメッセージを返し、基本的にこの時点で初期状態に戻る。つまり、サーバはクライアントの状態を保存しない。</p>
+<p>Hypertext Transfer Protocol - Wikipedia - <a href="https://ja.wikipedia.org/wiki/Hypertext_Transfer_Protocol" target="_blank">https://ja.wikipedia.org/wiki/Hypertext_Transfer_Protocol</a></p>
+</blockquote>
+<p>この説明は、仕様をちゃんと説明してはいるのですが、ちょっととっつきにくいかもしれません。もう少し、噛み砕いていきましょう。</p>
+<p><img src="https://i.gyazo.com/8d8b5bcd165aa9851160c0aeac32169d.png" alt="image"></p>
+<p>こちらの図を見つつ、<a href="https://developer.mozilla.org/ja/docs/Web/HTTP/Session" target="_blank">典型的な HTTP セッション</a> を追っていきます。</p>
+<p>まず、クライアントからサーバーへ URL で「何か」決めて問い合わせます。また、HTTP ヘッダーでクライアントからサーバーが追加情報を渡すことができます。</p>
+<ul>
+<li>HTTP メソッド<ul>
+<li>リソースに対して実行したいアクションを宣言します。いろいろありますが GET と POST を使うことが多いです。</li>
+<li><a href="https://developer.mozilla.org/ja/docs/Web/HTTP/Headers" target="_blank">https://developer.mozilla.org/ja/docs/Web/HTTP/Headers</a></li>
+</ul>
+</li>
+<li>HTTP ヘッダー<ul>
+<li>HTTP リクエストやレスポンスでクライアントやサーバーが追加情報を渡すことができます</li>
+<li><a href="https://developer.mozilla.org/ja/docs/Web/HTTP/Headers" target="_blank">https://developer.mozilla.org/ja/docs/Web/HTTP/Headers</a></li>
+</ul>
+</li>
+</ul>
+<p><img src="https://i.gyazo.com/03d1c316f872a525a4bb30e7fffa412a.png" alt="image"></p>
+<p>そして、サーバーが HTTP リクエストから受け取った内容で、今度は HTTP レスポンスという形で応答します。こちらの図を見つつ、<a href="https://developer.mozilla.org/ja/docs/Web/HTTP/Session" target="_blank">典型的な HTTP セッション</a> を追っていきます。</p>
+<p>まず、HTTP ヘッダーでサーバーからクライアントへ追加情報を渡すことができます。そして、HTTP 応答ステータスコードで正常に完了したどうかを伝えます。こちらを、みなさんのブラウザが受信すると Web ページが表示されます。</p>
+<ul>
+<li>HTTP 応答ステータスコード（HTTP レスポンスステータスコード）<ul>
+<li>特定の HTTP リクエストが正常に完了したどうかを示します。200 が Success で応答成功です。その他に、有名なものとして 404 , 500 , 503 などがあります。</li>
+<li>404 Not Found<ul>
+<li>サーバーがリクエストされたリソースを発見できないこと</li>
+</ul>
+</li>
+<li>500 Internal Server Error<ul>
+<li>サーバー側で処理方法がわからない事態が発生したことを示します。</li>
+</ul>
+</li>
+<li>503 Service Unavailable<ul>
+<li>サーバーはリクエストを処理する準備ができていないことを示します。</li>
+</ul>
+</li>
+<li>参考文献（一覧はこちら）<ul>
+<li><a href="https://developer.mozilla.org/ja/docs/Web/HTTP/Status" target="_blank">https://developer.mozilla.org/ja/docs/Web/HTTP/Status</a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<p>全体の図としては以下の通りです。</p>
+<p><img src="https://i.gyazo.com/6052386b6f5bdf2b17b7692149fd2d92.png" alt="image"></p>
+<p>本来、みなさんのブラウザで URL にアクセスして何かしらが表示されるまでには、このような流れで行われています。いろいろありますね。</p>
+<p>ですが、今回はすべて覚える必要はないです。 Node-RED で HTTP プロトコルを扱うために、ざっくりこのような流れになっているんだなと理解できていれば OK です。</p>
+<p>Node-RED はこのあたりをすべてノードとして用意されています。今回の話を思い出しながら、実際に手を動かしつつ、理解を深めていきましょう。</p>
 <h2 id="http-関連ノード"><a name="http-関連ノード" class="plugin-anchor" href="#http-関連ノード"><i class="fa fa-link" aria-hidden="true"></i></a>HTTP 関連ノード</h2>
 <p>Node-RED の HTTP 関連ノードを把握します。</p>
 <ul>
@@ -336,6 +400,25 @@
 </ul>
 </li>
 </ul>
+<p><img src="https://i.gyazo.com/ca582e17aeb4de45625760c773071930.png" alt="image"></p>
+<p>まず、パレットのネットワークというカテゴリを見てみましょう。こちらには、HTTP だけでなく他のプロトコルのノードも揃っています。</p>
+<p><img src="https://i.gyazo.com/0564898e622f8e2a865a2d0b7c0af39a.png" alt="image"></p>
+<p>その中でも HTTP 関連ノードは 3 つあります。</p>
+<ul>
+<li>http in<ul>
+<li>HTTPエンドポイントを作成し、Webサービスを構成します。</li>
+</ul>
+</li>
+<li>http response<ul>
+<li>HTTP Inノードで受け付けたリクエストに対するレスポンスを送り返します。</li>
+</ul>
+</li>
+<li>http request<ul>
+<li>HTTPリクエストを送信し、レスポンスを返します。</li>
+</ul>
+</li>
+</ul>
+<p>こちらを使って HTTP のフローを体験していきましょう。</p>
 <h2 id="http-レスポンスフロー概要"><a name="http-レスポンスフロー概要" class="plugin-anchor" href="#http-レスポンスフロー概要"><i class="fa fa-link" aria-hidden="true"></i></a>HTTP レスポンスフロー概要</h2>
 <p>HTTP レスポンスフローの流れを把握します。</p>
 <ul>
@@ -368,6 +451,9 @@
 </ul>
 </li>
 </ul>
+<p>さて、HTTP プロトコルは Web 上で重要な役割ですが、その中でも API という世界観を把握しておきましょう。</p>
+<p>API とは、 Application Programming Interface の頭文字です。データを提供したり、何かしらの機能を提供するソフトウェアの一部を、私たちのような外部の人間が扱えるように公開されている窓口です。HTTP プロトコルでやり取りしていることが多いです。</p>
+<p>たとえば、WEBアプリケーションなどインターネットの様々な仕組みを構築するとき、 API からデータを取得して加工して表示することが多いです。データや機能を借り受けるということですね。</p>
 <h2 id="サンプル-api-解説"><a name="サンプル-api-解説" class="plugin-anchor" href="#サンプル-api-解説"><i class="fa fa-link" aria-hidden="true"></i></a>サンプル API 解説</h2>
 <p>今回のつなぐ サンプル API について把握します。</p>
 <ul>
@@ -376,6 +462,21 @@
 </ul>
 </li>
 </ul>
+<p>かわいい柴犬画像をランダムに返答してくれる shibe.online というAPIを使ってみましょう。</p>
+<p><img src="https://i.gyazo.com/ffdaa58d8fb284e2d0095d4ba8f60d8b.png" alt="image"></p>
+<p><a href="https://shibe.online/" target="_blank">https://shibe.online/</a> こちらです。</p>
+<p>HTTP リクエストの仕様として読み解くと以下のようになります。</p>
+<ul>
+<li>HTTP リクエスト方法<ul>
+<li>GET メソッド</li>
+</ul>
+</li>
+<li>アクセスする API の URL<ul>
+<li><a href="http://shibe.online/api/shibes" target="_blank">http://shibe.online/api/shibes</a></li>
+</ul>
+</li>
+</ul>
+<p>これのみです。追加で設定すべきパラメータもなく、これは、GET リクエストのためブラウザからアクセスでき、とても扱いやすいAPIです。</p>
 <h2 id="http-リクエストフロー概要"><a name="http-リクエストフロー概要" class="plugin-anchor" href="#http-リクエストフロー概要"><i class="fa fa-link" aria-hidden="true"></i></a>HTTP リクエストフロー概要</h2>
 <p>今回の API に接続しデータを取得する流れを学びます。</p>
 <ul>
@@ -384,6 +485,17 @@
 </ul>
 </li>
 </ul>
+<p><img src="https://i.gyazo.com/baedc63f4a27f63eb33277aeb49481eb.png" alt="image"></p>
+<p>まず、パレットから http request ノードをワークスペースにドラッグアンドドロップしましょう。</p>
+<p><img src="https://i.gyazo.com/c408d12ed4e8cac8f21f908895ec1ba6.png" alt="image"></p>
+<p>http request ノードをワークスペースに配置しました。</p>
+<p><img src="https://i.gyazo.com/247a57dbff5c98d92558dc25d8c8a7bb.png" alt="image"></p>
+<p>inject ノードをワークスペースに配置して、動かすきっかけを指示できるようにします。</p>
+<p><img src="https://i.gyazo.com/c7fa03567191282fe7dda707b2755b90.png" alt="image"></p>
+<p>debug ノードをワークスペースに配置して http request ノードが、どこかのURLにアクセスして取得したデータをデバッグタブに表示できるようにします。</p>
+<p><img src="https://i.gyazo.com/79d9e7553396c09fb9d2daf96a726d20.png" alt="image"></p>
+<p>inject ノード → http request ノード → debug ノード とつなぎます。</p>
+<p>これで「何かの API につなぐ」仕組みはひとまず出来上がりました。</p>
 <h2 id="http-リクエストフロー作成"><a name="http-リクエストフロー作成" class="plugin-anchor" href="#http-リクエストフロー作成"><i class="fa fa-link" aria-hidden="true"></i></a>HTTP リクエストフロー作成</h2>
 <p>今回のAPI に接続する HTTP リクエストフローを作成します。</p>
 <ul>
@@ -392,6 +504,56 @@
 </ul>
 </li>
 </ul>
+<p><img src="https://i.gyazo.com/5eedcc78773990656fca5301fbc7acf4.png" alt="image"></p>
+<p>さきほどのワークスペースに戻って http request ノードをダブルクリックして詳細の設定をしましょう。</p>
+<p><img src="https://i.gyazo.com/9c1791d6a5975656247eecd4992aa495.png" alt="image"></p>
+<p>このような設定項目があります。HTTP リクエストをするために様々な設定があります。</p>
+<p><img src="https://i.gyazo.com/ace03d6fefff738b0df25119c855e122.png" alt="image"></p>
+<p>今回は</p>
+<table>
+<thead>
+<tr>
+<th>項目名</th>
+<th>変更する内容</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>メソッド</td>
+<td>GET</td>
+</tr>
+<tr>
+<td>URL</td>
+<td><a href="http://shibe.online/api/shibes" target="_blank">http://shibe.online/api/shibes</a></td>
+</tr>
+</tbody>
+</table>
+<p>で設定します。</p>
+<p>完了をクリックします。</p>
+<p><img src="https://i.gyazo.com/2bdb7bcee8bd0219254ac90c8fe8e91f.png" alt="image"></p>
+<p>デプロイをクリックして Node-RED に設定を反映させます。</p>
+<h3 id="動かしてみる"><a name="動かしてみる" class="plugin-anchor" href="#動かしてみる"><i class="fa fa-link" aria-hidden="true"></i></a>動かしてみる</h3>
+<p><img src="https://i.gyazo.com/d02727178bb7fb092a36642e2eb0d9ee.png" alt="image"></p>
+<p>それでは inject ノードの <img src="https://i.gyazo.com/917722feaa1444c55f1a19ece002757d.png" alt="image"> のボタンをクリックしましょう。</p>
+<p><img src="https://i.gyazo.com/e14573b0bc320cc1788a7da6e49cb27d.png" alt="image"></p>
+<p>サイドバーのデバッグタブには、柴犬画像APIからリクエストが表示されます。</p>
+<h3 id="返答データを文字列からjsonに変更する"><a name="返答データを文字列からjsonに変更する" class="plugin-anchor" href="#返答データを文字列からjsonに変更する"><i class="fa fa-link" aria-hidden="true"></i></a>返答データを文字列からJSONに変更する</h3>
+<p><img src="https://i.gyazo.com/c62e6add7dce215f1ba6a586783c66ad.png" alt="image"></p>
+<p>現状では取得したデータは文字列です。今後扱いやすいようにJSONに変更しましょう。</p>
+<p>文字列のままだと頑張って読んで探して取り出す必要がありますが、JSONデータで受け取れると入れ子構造で目的のデータが取り出しやすくなります。</p>
+<p>それでは、http request ノードをダブルクリックをしてプロパティ編集画面を表示します。</p>
+<p><img src="https://i.gyazo.com/1ecc81ac7419329c1b33ca3d5915e6d5.png" alt="image"></p>
+<p>http request ノードの設定の <code>出力形式</code> をUTF文字列から <code>JSONオブジェクト</code> 変更します。</p>
+<p><img src="https://i.gyazo.com/d51b5faaace99acf648a267bb27b91c9.png" alt="image"></p>
+<p>すると、文字列ができるかぎり JSON に変換されます。</p>
+<p><img src="https://i.gyazo.com/534bb947897bd27e2a15a946df46e3fe.png" alt="image"></p>
+<p>ためしに、fileにある柴犬画像URLをコピーして</p>
+<p><img src="https://i.gyazo.com/4474f4c2d24782d82ac5674162877792.png" alt="image"></p>
+<p>ブラウザのアドレスバーにペーストしてアクセスしてみましょう。</p>
+<p><img src="https://i.gyazo.com/0390ba400e7bc4ef1b68c19dbdbd3b55.jpg" alt="image"></p>
+<p>無事、柴犬画像が見れていますね！</p>
+<h3 id="時間があれば（エクストラ）"><a name="時間があれば（エクストラ）" class="plugin-anchor" href="#時間があれば（エクストラ）"><i class="fa fa-link" aria-hidden="true"></i></a>時間があれば（エクストラ）</h3>
+<p>node-red-contrib-image-output ノードをインストールして画像表示をします。</p>
 <h2 id="http-api-の多様さ"><a name="http-api-の多様さ" class="plugin-anchor" href="#http-api-の多様さ"><i class="fa fa-link" aria-hidden="true"></i></a>HTTP API の多様さ</h2>
 <p>様々な HTTP API の種類や役割を把握します。</p>
 <ul>
@@ -400,6 +562,13 @@
 </ul>
 </li>
 </ul>
+<p><a href="https://gyazo.com/ca62ef1b64e4d0b133bfe8491b36d000" target="_blank"><img src="https://i.gyazo.com/ca62ef1b64e4d0b133bfe8491b36d000.png" alt="Image from Gyazo"></a></p>
+<p>さて、こちらの図は、私が使ったことのある API や知っている API をまとめてみたものです。</p>
+<p>みなさんもイチから仕組みを構築してシステムをつくることももちろん大事ですが、このように API を知ることで、データを用意出来たり、ひとりでは難しい仕組みを導入出来たり、API を通じて新しい技術に触れることができます。</p>
+<p>そして、フリーのAPIのリストコレクション <a href="https://github.com/public-apis/public-apis" target="_blank">public-apis</a> をご紹介します。</p>
+<p><img src="https://i.gyazo.com/b3c1f4c2b1625cba88d3e862fcb7570e.png" alt="image"></p>
+<p>英語ですが、実に 100 以上の API があり見ているだけで楽しいです。私が図で示したような広がりが、実感できるでしょう。</p>
+<p>このような、API をはじめとした、すぐに作れるツールやアプローチを知っていることで、よりプロトタイピングが磨かれるので、手を動かしつつ技術に触れつつ、鍛えていきましょう。</p>
 
                                 
                                 </section>
@@ -439,7 +608,7 @@
     <script>
         var gitbook = gitbook || [];
         gitbook.push(function() {
-            gitbook.page.hasChanged({"page":{"title":"第5回 HTTP フロー作成の演習","level":"1.5","depth":1,"next":{"title":"第6回 MQTT プロトコル","level":"1.6","depth":1,"ref":"","articles":[]},"previous":{"title":"第4回 基本操作演習","level":"1.4","depth":1,"path":"lecture04/00-introduction.md","ref":"lecture04/00-introduction.md","articles":[]},"dir":"ltr"},"config":{"plugins":["anchors","hide-published-with","copy-code-button","intopic-toc","back-to-top-button"],"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"pluginsConfig":{"intopic-toc":{"selector":".markdown-section h1, .markdown-section h2, .markdown-section h3, .markdown-section h4, .markdown-section h5, .markdown-section h6","mode":"nested","maxDepth":6,"isCollapsed":true,"isScrollspyActive":true,"visible":true,"label":"In this article"},"search":{},"lunr":{"maxIndexSize":1000000,"ignoreSpecialCharacters":false},"hide-published-with":{},"fontsettings":{"theme":"white","family":"sans","size":2},"highlight":{},"back-to-top-button":{},"copy-code-button":{},"theme-default":{"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"showLevel":false},"anchors":{}},"theme":"default","pdf":{"pageNumbers":true,"fontSize":12,"fontFamily":"Arial","paperSize":"a4","chapterMark":"pagebreak","pageBreaksBefore":"/","margin":{"right":62,"left":62,"top":56,"bottom":56},"embedFonts":false},"structure":{"langs":"LANGS.md","readme":"README.md","glossary":"GLOSSARY.md","summary":"SUMMARY.md"},"variables":{},"title":"タイトル","language":"ja","gitbook":"*","description":"詳細説明"},"file":{"path":"lecture05/00-introduction.md","mtime":"2022-06-02T07:39:19.835Z","type":"markdown"},"gitbook":{"version":"3.7.1","time":"2022-06-02T07:49:35.021Z"},"basePath":"..","book":{"language":""}});
+            gitbook.page.hasChanged({"page":{"title":"第5回 HTTP フロー作成の演習","level":"1.5","depth":1,"next":{"title":"第6回 MQTT プロトコル","level":"1.6","depth":1,"ref":"","articles":[]},"previous":{"title":"第4回 基本操作演習","level":"1.4","depth":1,"path":"lecture04/00-introduction.md","ref":"lecture04/00-introduction.md","articles":[]},"dir":"ltr"},"config":{"plugins":["anchors","hide-published-with","copy-code-button","intopic-toc","back-to-top-button"],"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"pluginsConfig":{"intopic-toc":{"selector":".markdown-section h1, .markdown-section h2, .markdown-section h3, .markdown-section h4, .markdown-section h5, .markdown-section h6","mode":"nested","maxDepth":6,"isCollapsed":true,"isScrollspyActive":true,"visible":true,"label":"In this article"},"search":{},"lunr":{"maxIndexSize":1000000,"ignoreSpecialCharacters":false},"hide-published-with":{},"fontsettings":{"theme":"white","family":"sans","size":2},"highlight":{},"back-to-top-button":{},"copy-code-button":{},"theme-default":{"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"showLevel":false},"anchors":{}},"theme":"default","pdf":{"pageNumbers":true,"fontSize":12,"fontFamily":"Arial","paperSize":"a4","chapterMark":"pagebreak","pageBreaksBefore":"/","margin":{"right":62,"left":62,"top":56,"bottom":56},"embedFonts":false},"structure":{"langs":"LANGS.md","readme":"README.md","glossary":"GLOSSARY.md","summary":"SUMMARY.md"},"variables":{},"title":"タイトル","language":"ja","gitbook":"*","description":"詳細説明"},"file":{"path":"lecture05/00-introduction.md","mtime":"2022-06-04T13:19:31.978Z","type":"markdown"},"gitbook":{"version":"3.7.1","time":"2022-06-04T13:19:55.493Z"},"basePath":"..","book":{"language":""}});
         });
     </script>
 </div>
