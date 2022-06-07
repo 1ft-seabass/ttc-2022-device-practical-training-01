@@ -555,6 +555,34 @@
 <h3 id="時間があれば（エクストラ）"><a name="時間があれば（エクストラ）" class="plugin-anchor" href="#時間があれば（エクストラ）"><i class="fa fa-link" aria-hidden="true"></i></a>時間があれば（エクストラ）</h3>
 <p>node-red-contrib-image-output ノードをインストールして画像表示をします。</p>
 <p><a href="https://www.1ft-seabass.jp/memo/2020/09/04/nodered-connect-shibainu/" target="_blank">Node-RED で public-apis の柴犬画像 API につないで表示させるメモ – 1ft-seabass.jp.MEMO</a></p>
+<ul>
+<li>主な手順<ul>
+<li>node-red-contrib-image-output ノードをインストール<ul>
+<li>メインテキスト P.54 を見ながら</li>
+</ul>
+</li>
+<li>先ほどのフローに function ノードを加える</li>
+<li>その後に node-red-contrib-image-output ノードを加える</li>
+<li>function ノードで柴犬画像 API から取得した JSON データから <code>msg.payload[0]</code> と 0 番目の配列が取得出来るように修正</li>
+<li>デプロイして試してみる</li>
+<li>データの流れを変える(change)、 change ノードの説明</li>
+<li>function ノードを change ノードに入れ替える</li>
+<li>change ノードの設定の値の代入先を設定<ul>
+<li>コード的には msg.payload = msg.payload[0] を目指す</li>
+<li>値の代入の設定になっているか確認する</li>
+<li>値の代入先の項目を空欄から msg.payload にする。</li>
+<li>左のノードに送るメッセージに設定するという意味</li>
+</ul>
+</li>
+<li>change ノードの代入する対象の値を設定<ul>
+<li>対象の値 を msg に設定（文字列や数字でなく右のノードから来るメッセージ msg を指定）</li>
+<li>対象の値を <code>payload[0]</code> に設定。</li>
+<li>右のノードから来るメッセージ msg の payload の中が配列なので 0 番目の柴犬画像 API の画像 URL を使うという意味。</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
 <h2 id="http-api-の多様さ"><a name="http-api-の多様さ" class="plugin-anchor" href="#http-api-の多様さ"><i class="fa fa-link" aria-hidden="true"></i></a>HTTP API の多様さ</h2>
 <p>様々な HTTP API の種類や役割を把握します。</p>
 <ul>
@@ -609,7 +637,7 @@
     <script>
         var gitbook = gitbook || [];
         gitbook.push(function() {
-            gitbook.page.hasChanged({"page":{"title":"第5回 HTTP フロー作成の演習","level":"1.5","depth":1,"next":{"title":"第6回 MQTT プロトコル","level":"1.6","depth":1,"ref":"","articles":[]},"previous":{"title":"第4回 基本操作演習","level":"1.4","depth":1,"path":"lecture04/00-introduction.md","ref":"lecture04/00-introduction.md","articles":[]},"dir":"ltr"},"config":{"plugins":["anchors","hide-published-with","copy-code-button","intopic-toc","back-to-top-button"],"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"pluginsConfig":{"intopic-toc":{"selector":".markdown-section h1, .markdown-section h2, .markdown-section h3, .markdown-section h4, .markdown-section h5, .markdown-section h6","mode":"nested","maxDepth":6,"isCollapsed":true,"isScrollspyActive":true,"visible":true,"label":"In this article"},"search":{},"lunr":{"maxIndexSize":1000000,"ignoreSpecialCharacters":false},"hide-published-with":{},"fontsettings":{"theme":"white","family":"sans","size":2},"highlight":{},"back-to-top-button":{},"copy-code-button":{},"theme-default":{"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"showLevel":false},"anchors":{}},"theme":"default","pdf":{"pageNumbers":true,"fontSize":12,"fontFamily":"Arial","paperSize":"a4","chapterMark":"pagebreak","pageBreaksBefore":"/","margin":{"right":62,"left":62,"top":56,"bottom":56},"embedFonts":false},"structure":{"langs":"LANGS.md","readme":"README.md","glossary":"GLOSSARY.md","summary":"SUMMARY.md"},"variables":{},"title":"タイトル","language":"ja","gitbook":"*","description":"詳細説明"},"file":{"path":"lecture05/00-introduction.md","mtime":"2022-06-04T13:21:55.347Z","type":"markdown"},"gitbook":{"version":"3.7.1","time":"2022-06-05T06:26:28.303Z"},"basePath":"..","book":{"language":""}});
+            gitbook.page.hasChanged({"page":{"title":"第5回 HTTP フロー作成の演習","level":"1.5","depth":1,"next":{"title":"第6回 MQTT プロトコル","level":"1.6","depth":1,"ref":"","articles":[]},"previous":{"title":"第4回 基本操作演習","level":"1.4","depth":1,"path":"lecture04/00-introduction.md","ref":"lecture04/00-introduction.md","articles":[]},"dir":"ltr"},"config":{"plugins":["anchors","hide-published-with","copy-code-button","intopic-toc","back-to-top-button"],"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"pluginsConfig":{"intopic-toc":{"selector":".markdown-section h1, .markdown-section h2, .markdown-section h3, .markdown-section h4, .markdown-section h5, .markdown-section h6","mode":"nested","maxDepth":6,"isCollapsed":true,"isScrollspyActive":true,"visible":true,"label":"In this article"},"search":{},"lunr":{"maxIndexSize":1000000,"ignoreSpecialCharacters":false},"hide-published-with":{},"fontsettings":{"theme":"white","family":"sans","size":2},"highlight":{},"back-to-top-button":{},"copy-code-button":{},"theme-default":{"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"showLevel":false},"anchors":{}},"theme":"default","pdf":{"pageNumbers":true,"fontSize":12,"fontFamily":"Arial","paperSize":"a4","chapterMark":"pagebreak","pageBreaksBefore":"/","margin":{"right":62,"left":62,"top":56,"bottom":56},"embedFonts":false},"structure":{"langs":"LANGS.md","readme":"README.md","glossary":"GLOSSARY.md","summary":"SUMMARY.md"},"variables":{},"title":"タイトル","language":"ja","gitbook":"*","description":"詳細説明"},"file":{"path":"lecture05/00-introduction.md","mtime":"2022-06-07T00:13:06.081Z","type":"markdown"},"gitbook":{"version":"3.7.1","time":"2022-06-07T00:13:17.539Z"},"basePath":"..","book":{"language":""}});
         });
     </script>
 </div>

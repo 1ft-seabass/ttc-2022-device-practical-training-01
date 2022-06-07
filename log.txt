@@ -1,0 +1,53 @@
+
+
+Please upgrade the firmware
+Attempting to connect to WPA SSID: aterm-6f974b
+You're connected to the networkSSID: aterm-6f974b
+BSSID: 98:F1:99:78:56:E2
+signal strength (RSSI):-51
+Encryption Type:4
+
+IP Address: 192.168.179.2
+192.168.179.2
+MAC address: 84:CC:A8:2F:D2:CC
+SSID: aterm-6f974b
+BSSID: 98:F1:99:78:56:E2
+signal strength (RSSI):-49
+Encryption Type:4
+
+SSID: aterm-6f974b
+BSSID: 98:F1:99:78:56:E2
+signal strength (RSSI):-49
+Encryption Type:4
+
+SSID: aterm-6f974b
+BSSID: 98:F1:99:78:56:E2
+signal strength (RSSI):-50
+Encryption Type:4
+
+SSID: aterm-6f974b
+BSSID: 98:F1:99:78:56:E2
+signal strength (RSSI):-51
+Encryption Type:4
+
+SSID: aterm-6f974b
+BSSID: 98:F1:99:78:56:E2
+signal strength (RSSI):-53
+Encryption Type:4
+
+
+Please upgrade the firmware
+Attempting to connect to WPA SSID: IoT1101
+You're connected to the networkSSID: IoT1101
+BSSID: BC:5C:4C:75:76:36
+signal strength (RSSI):-49
+Encryption Type:4
+
+IP Address: 172.19.3.29
+172.19.3.29
+MAC address: 84:CC:A8:2F:D2:CC
+SSID: IoT1101
+BSSID: BC:5C:4C:75:76:36
+signal strength (RSSI):-49
+Encryption Type:4
+

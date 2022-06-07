@@ -255,6 +255,26 @@ node-red-contrib-image-output ノードをインストールして画像表示�
 
 [Node-RED で public-apis の柴犬画像 API につないで表示させるメモ – 1ft-seabass.jp.MEMO](https://www.1ft-seabass.jp/memo/2020/09/04/nodered-connect-shibainu/)
 
+- 主な手順
+  - node-red-contrib-image-output ノードをインストール
+    - メインテキスト P.54 を見ながら
+  - 先ほどのフローに function ノードを加える
+  - その後に node-red-contrib-image-output ノードを加える
+  - function ノードで柴犬画像 API から取得した JSON データから `msg.payload[0]` と 0 番目の配列が取得出来るように修正
+  - デプロイして試してみる
+  - データの流れを変える(change)、 change ノードの説明
+  - function ノードを change ノードに入れ替える
+  - change ノードの設定の値の代入先を設定
+    - コード的には msg.payload = msg.payload[0] を目指す
+    - 値の代入の設定になっているか確認する
+    - 値の代入先の項目を空欄から msg.payload にする。
+    - 左のノードに送るメッセージに設定するという意味
+  - change ノードの代入する対象の値を設定
+    - 対象の値 を msg に設定（文字列や数字でなく右のノードから来るメッセージ msg を指定）
+    - 対象の値を `payload[0]` に設定。
+    - 右のノードから来るメッセージ msg の payload の中が配列なので 0 番目の柴犬画像 API の画像 URL を使うという意味。
+
+
 ## HTTP API の多様さ
 
 様々な HTTP API の種類や役割を把握します。
