@@ -11,12 +11,10 @@ MQTTは、モノのインターネット（IoT）用に作られたメッセー�
 
 また、ネットワーク帯域幅が最小（ネットワークが細く・遅い）状況でも、リモートでセンサーやデバイスを接続するのに最適です。
 
+![image](https://i.gyazo.com/56b2b9e564db928ebe70566f85d8e817.png)
+
 MQTT のくわしい使い方は、MQTT の仕様を伝える有名な Web サイト MQTT.org https://mqtt.org/ をみていきましょう。
 
-パブリッシュ/サブスクライブ
-
-
-http://devcenter.magellanic-clouds.com/learning/mqtt-spec.html
 
 ## MQTT 利用シーン
 
@@ -24,6 +22,23 @@ IoT における MQTT の利用シーンを把握します。
 
 - 教材
   - サブテキスト
+
+> ![image](https://i.gyazo.com/f3124e146e9d45c7baf844d7054220e2.png)
+> 
+> MQTT.org https://mqtt.org/ のトップページの翻訳
+
+- 双方向制御するもの
+- 数百万の IoT デバイスがつながっても稼働するもの
+- 通信環境が悪い場合でも確実に送りたいもの
+- データを軽量に効率的に送りたいもの
+
+このあたりがポイントです。
+
+- 大量にデバイスをつなぎセンサーデータを集めたいとき
+- ロボットアームのような遠隔で何かしらを動かしたいとき
+- 
+
+時間があれば MQTT.org のユースケース https://mqtt.org/use-cases/ も見ていきましょう。 
 
 ## MQTT ノード概要
 
