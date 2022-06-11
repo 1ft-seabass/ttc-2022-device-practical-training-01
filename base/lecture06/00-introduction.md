@@ -38,6 +38,8 @@ IoT における MQTT の利用シーンを把握します。
 - ロボットアームのような遠隔で何かしらを動かしたいとき
 - 
 
+![image](https://i.gyazo.com/3f18f61e5c1b8b93e1c61d2901aca1e2.jpg)
+
 時間があれば MQTT.org のユースケース https://mqtt.org/use-cases/ も見ていきましょう。 
 
 ## MQTT ノード概要
@@ -51,12 +53,16 @@ Node-RED の MQTT ノードについて把握します。
 
 パレットには MQTT 関連のノードとして MQTT の購読（Subscriber）として機能する mqtt in ノードと、MQTT の発行（Publisher）として機能する mqtt out ノードがあります。
 
+技術的なくわしい用語や仕組みは次回説明するので、今回はまず動かすことで体験していきましょう。
+
 ## MQTT ブローカー
 
 教材の MQTT ブローカーを把握します。
 
 - 教材
   - サブテキスト
+
+![image](https://i.gyazo.com/807b4351a8300dd22c0c7f47293c5888.jpg)
 
 今回の教材では、講師が事前に用意した [beebotte](https://beebotte.com/) の MQTT ブローカーを生徒のみなさんで共有して使います。
 
@@ -85,6 +91,10 @@ MQTT ノードを使った受信フローを作成します。
 
 - 教材
   - サブテキスト
+
+![image](https://i.gyazo.com/04239974c6ae9381dd86bd7eda8eef5a.png)
+
+mqtt in ノードをつかって、まず MQTT ブローカに接続してデータを受信する準備を行いましょう。
 
 ![image](https://i.gyazo.com/e4295e95d66bdeb4145f01dd41faa6be.png)
 
@@ -311,7 +321,7 @@ inject ノードのボタンをクリックします。
 
 ログインできたらアカウント登録は成功です。
 
-### Beebotte で
+### Beebotte で 自分の MQTT ブローカー設定を作成
 
 講師が作成した MQTT ブローカーを同じような設定で自分の MQTT ブローカーを設定しましょう。
 
