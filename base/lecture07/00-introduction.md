@@ -53,6 +53,8 @@ ttc2022/res
 
 みなさんは、すでに Beebotte では、このように ttc2022 の階層の res という指定をしました。これは Beebotte の MQTT ブローカ仕様 https://beebotte.com/docs/mqtt として決められていますが、MQTT の仕様としては、自由に決められるものです。
 
+![image](https://i.gyazo.com/3509d32c6e67ac5baa0f43948516a824.png)
+
 住所のイメージに近いかもしれません。
 
 ```
@@ -103,12 +105,16 @@ building/F1/sensors/#
 
 1階の温度・湿度・気圧データが取得できます。
 
+前回、講師のブローカでみなさんがデータで送り合う仕組みも、同一トピックだから色々なデータが飛び交っていましたが、本来であればセンサーごとにトピックを分けると、効率よくデータ発行と購読が出来るようになります。
+
 ## サブスクライブフロー作成
 
 Node-RED でデータ受信フローを作成します。
 
 - 教材
   - サブテキスト
+
+![image](https://i.gyazo.com/1ffdb3ae405928f949d269038150fcf0.png)
 
 今回のデータ受信フローは、講師の MQTT ブローカーにもう一度つないで、今度は別のトピックを購読してダミーの温度・湿度センサーデータを受け取り、IoT データの購読を体験します。
 
@@ -274,7 +280,66 @@ Node-RED でデータ送信フローを作成します。
 - 教材
   - サブテキスト
 
-今回は、
+![image](https://i.gyazo.com/2c867f0781aabab1cc600c80b44353d7.png)
+
+講師の MQTT ブローカーを経由して、同じく MQTT ブローカーとつながったオンラインの表示の仕組みやデバイスに情報を送ってみましょう。
+
+### フロー作成
+
+![image](https://i.gyazo.com/e79c4ec88edd9e85db67728bd0798c8b.png)
+
+今回は inject ノードと mqtt out ノードをワークスペースに配置します。
+
+では MQTT ブローカに送るデータを設定します。
+
+```js
+{"name":"<name>","color":"<color>"}
+```
+
+- name
+  - 半角英数字を使って自分の名前かハンドルネームを設定します。ひらがなや全角英数字はNG。
+    - 例 : seigo , wombat10 など
+- color
+  - あらかじめ設定された半角英字の色の名前を設定します
+    - blue
+      - 青
+    - red
+      - 赤
+    - green
+      - 緑
+
+たとえば、名前が seigo で、色の名前が赤の場合は
+
+```js
+{"name":"seigo","color":"red"}
+```
+
+となります。
+
+inject ノードのプロパティで、このデータを送るよう設定します。
+
+![image](https://i.gyazo.com/953ee274a6e595ac23c1b20bab9ed703.png)
+
+- msg.payload の設定
+  - `{}` マークの JSON オブジェクト指定します
+  - 値を `{"name":"seigo","color":"red"}` のように設定します
+    - この値は、皆さんの名前は独自のものにしましょう。（あとあとわかりやすくするため）
+
+つづいて、mqtt out ノードのプロパティで、講師の MQTT ブローカを設定し、今回用のパブリッシュするトピックを設定します。
+
+![image](https://i.gyazo.com/3910a35c1e22a99077654316bf8de939.png)
+
+- サーバ
+  - Teacher MQTT Broker
+- トピック
+  - ttc2022/control
+
+設定ができたら、
+
+![image](https://i.gyazo.com/eab4be1c4e188aee9581749553399a00.png)
+
+デプロイをクリックして反映させます。
+
 
 ## パブリッシュ実践
 
@@ -283,13 +348,49 @@ Node-RED でデータ送信フローを動かして確認します。
 - 教材
   - サブテキスト
 
+![image](https://i.gyazo.com/50e3dcf24ff12bfda1e952df3d2b3649.jpg)
+
+ここで、講師の方で、オンラインの表示の仕組みやデバイスを用意します。
+
+![image](https://i.gyazo.com/2c867f0781aabab1cc600c80b44353d7.png)
+
+このように動きます。
+
+- 後ろのオンラインの表示の仕組み
+  - 講師 MQTT ブローカーと連携
+  - 一番左上が最新で順々に、送られてきた名前と色を背景色を表示されます
+  - 右下に最新の送信されたログが表示されます
+- 前にある M5Stack というデバイス
+  - 講師 MQTT ブローカーと連携
+  - こちらも最新の送られてきた名前と色を背景色を表示されます
+
+![image](https://i.gyazo.com/9fca1d19efdb2aa5aa49bc605ed70786.png)
+
+inject ノードをクリックして、データを送って、オンラインの表示の仕組みやデバイスを変化させてみましょう。
+
+うまくいったら、以下を試してみましょう。
+
+- ほかの色に変えてみる
+  - `{"name":"seigo","color":"red"}` → `{"name":"seigo","color":"green"}`
+- 名前を変えてみる
+  - `{"name":"seigo","color":"red"}` → `{"name":"SEIGO :)","color":"red"}` 
+
+![image](https://i.gyazo.com/3b79f12b375b7ec426f8c47ed509fa02.png)
+
+実は今回の仕組みは、enebular という Node-RED が動くサービスを利用して Node-RED のサーバーを立てて、オンラインの表示の仕組みやデバイス制御しています。
+
+すべて Node-RED で動いているので、ぜひポテンシャルを感じてください。
+
+ちなみに、この enebular という仕組みは、次の 3 期で学べます！お楽しみに！
 
 ## HTTP との違い
 
-主に MQTT 受信に関しての HTTP との違い・メリットを把握。
+主に MQTT 受信に関しての HTTP との違い・メリットを把握します。
 
 - 教材
   - サブテキスト
+
+![image](https://i.gyazo.com/61a4eb793076c0e2ca0a2f48d175a039.png)
 
 HTTP は以前ざっくり学びましたが、IoT でももちろん使われているものです。HTTP リクエストとレスポンスでできていて仕様は シンプルで、長く使われているので Web の世界の仕組みを応用しやすいところは良いポイントです。
 
@@ -320,3 +421,23 @@ IoT における MQTT の重要性や使いどころを把握します。
   - https://www.1ft-seabass.jp/memo/2017/10/10/nefrybt-mqtt-tape-led/
 - E-textile Electric fabric “nüno” のデータをM5StackからMQTTでつないでNode-REDにつなげるメモ – 1ft-seabass.jp.MEMO
   - https://www.1ft-seabass.jp/memo/2019/07/27/etextile-nuno-meets-mqtt-and-nodered/
+
+## 次回への伝達事項
+
+### Arduino バージョン
+
+![image](https://i.gyazo.com/249398704d5d737e76ed55b6c5d0950d.png)
+
+お使いの Arduino バージョンを教えてください（次回使います）
+
+### Raspberry Pi で使った電子工作部品を使います
+
+![image](https://i.gyazo.com/5eac04cc76655085a67aeb8cb39096d8.jpg)
+
+LED や光センサーを使います。次回使うので忘れないようにしましょう。
+
+### みなさん LINE アカウントもご用意を
+
+![image](https://i.gyazo.com/fa35ba7fb83a6f6ffe3a380126043feb.jpg)
+
+これは次々回で使うので、使ってない人は、アカウントを作っておきましょう。

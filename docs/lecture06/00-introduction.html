@@ -330,7 +330,7 @@
 </ul>
 </li>
 </ul>
-<p>MQTTは、モノのインターネット（IoT）用に作られたメッセージングプロトコルです。非常に軽量にデータがやり取りできるよう仕様側で設計されており、稼働時に占有・消費するが小さく運用できます。IoT では送受信するデータが少ないことが多く、とても向いています。</p>
+<p>MQTT（Message Queuing Telemetry Transport）は、モノのインターネット（IoT）用に作られたメッセージングプロトコルです。非常に軽量にデータがやり取りできるよう仕様側で設計されており、稼働時に占有・消費が小さく運用できます。IoT では送受信するデータが少ないことが多く、とても向いています。</p>
 <p>また、ネットワーク帯域幅が最小（ネットワークが細く・遅い）状況でも、リモートでセンサーやデバイスを接続するのに最適です。</p>
 <p><img src="https://i.gyazo.com/56b2b9e564db928ebe70566f85d8e817.png" alt="image"></p>
 <p>MQTT のくわしい使い方は、MQTT の仕様を伝える有名な Web サイト MQTT.org <a href="https://mqtt.org/" target="_blank">https://mqtt.org/</a> をみていきましょう。</p>
@@ -355,9 +355,10 @@
 <p>このあたりがポイントです。</p>
 <ul>
 <li>大量にデバイスをつなぎセンサーデータを集めたいとき</li>
-<li>ロボットアームのような遠隔で何かしらを動かしたいとき</li>
-<li></li>
+<li>ロボットアームのようなデバイス遠隔で何かしらを動かしたいとき</li>
+<li>さまざまな場所からデータが集められ分析したいもの</li>
 </ul>
+<p>などが向いています。</p>
 <p><img src="https://i.gyazo.com/3f18f61e5c1b8b93e1c61d2901aca1e2.jpg" alt="image"></p>
 <p>時間があれば MQTT.org のユースケース <a href="https://mqtt.org/use-cases/" target="_blank">https://mqtt.org/use-cases/</a> も見ていきましょう。 </p>
 <h2 id="mqtt-ノード概要"><a name="mqtt-ノード概要" class="plugin-anchor" href="#mqtt-ノード概要"><i class="fa fa-link" aria-hidden="true"></i></a>MQTT ノード概要</h2>
@@ -483,8 +484,10 @@
 <h3 id="受信を待つ"><a name="受信を待つ" class="plugin-anchor" href="#受信を待つ"><i class="fa fa-link" aria-hidden="true"></i></a>受信を待つ</h3>
 <p><img src="https://i.gyazo.com/6163626b6ca2c315c7a884217f913c4a.png" alt="image"></p>
 <p>デバッグタブを表示します。</p>
+<p><img src="https://i.gyazo.com/9fc44988721a674da27869afd6e8e96e.png" alt="image"></p>
 <p>いまから、講師の方からデータを送るので、受信を待ちましょう。</p>
 <h2 id="mqtt-送信フロー更新"><a name="mqtt-送信フロー更新" class="plugin-anchor" href="#mqtt-送信フロー更新"><i class="fa fa-link" aria-hidden="true"></i></a>MQTT 送信フロー更新</h2>
+<p><img src="https://i.gyazo.com/275951a6f374034b6f953630f6e6b8fb.png" alt="image"></p>
 <p>つづいて、データを送信するフローに更新します。</p>
 <ul>
 <li>教材<ul>
@@ -536,8 +539,11 @@
 <p>さらに、みなさんで自分のフローの inject ノードの送るデータを、文字列にして、自分の名前を含んだ自由メッセージに変更すると、より実感できるでしょう。</p>
 <p><img src="https://i.gyazo.com/11954132a185cf8c6bc7c430310f9c1c.png" alt="image"></p>
 <p>たぶんカオス。</p>
+<p><img src="https://i.gyazo.com/b029a2e04732d57ca12dd12be5c7d9ce.png" alt="image"></p>
+<p>これはセンサーデータと見立てれば、実際にたくさんの飛び交っている状態を体感できますが、実際には自分だけの仕組みでやり取りしたいときもありますよね。</p>
 <p>ということで、次の章で、自分の MQTT ブローカーを取得し、自分だけのデータをやりとりできるよう設定していきましょう。</p>
 <h2 id="mqtt-ブローカー"><a name="mqtt-ブローカー" class="plugin-anchor" href="#mqtt-ブローカー"><i class="fa fa-link" aria-hidden="true"></i></a>MQTT ブローカー</h2>
+<p><img src="https://i.gyazo.com/2adecc55a89867a2b64cfdf493239b9f.png" alt="image"></p>
 <p>今回利用している MQTT ブローカの紹介とアカウント取得を行います。</p>
 <ul>
 <li>教材<ul>
@@ -627,6 +633,8 @@
 <p>inject ノードのボタンをクリックします。</p>
 <p><img src="https://i.gyazo.com/6f5d8545b5a2682811a8735d8d40a135.png" alt="image"></p>
 <p>今回は自分の送ったデータが来ることが確認できるはずです。</p>
+<p><img src="https://i.gyazo.com/524ba275de6884ad2fe8da8275ed0394.png" alt="image"></p>
+<p>これで、今後、仕組みを作るときに自分だけのデータのやり取りが可能になります。</p>
 
                                 
                                 </section>
@@ -670,7 +678,7 @@
     <script>
         var gitbook = gitbook || [];
         gitbook.push(function() {
-            gitbook.page.hasChanged({"page":{"title":"第6回 MQTT プロトコル","level":"1.6","depth":1,"next":{"title":"第7回 MQTT データ連携演習","level":"1.7","depth":1,"path":"lecture07/00-introduction.md","ref":"lecture07/00-introduction.md","articles":[]},"previous":{"title":"第5回 HTTP フロー作成の演習","level":"1.5","depth":1,"path":"lecture05/00-introduction.md","ref":"lecture05/00-introduction.md","articles":[]},"dir":"ltr"},"config":{"plugins":["anchors","hide-published-with","copy-code-button","intopic-toc","back-to-top-button"],"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"pluginsConfig":{"intopic-toc":{"selector":".markdown-section h1, .markdown-section h2, .markdown-section h3, .markdown-section h4, .markdown-section h5, .markdown-section h6","mode":"nested","maxDepth":6,"isCollapsed":true,"isScrollspyActive":true,"visible":true,"label":"In this article"},"search":{},"lunr":{"maxIndexSize":1000000,"ignoreSpecialCharacters":false},"hide-published-with":{},"fontsettings":{"theme":"white","family":"sans","size":2},"highlight":{},"back-to-top-button":{},"copy-code-button":{},"theme-default":{"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"showLevel":false},"anchors":{}},"theme":"default","pdf":{"pageNumbers":true,"fontSize":12,"fontFamily":"Arial","paperSize":"a4","chapterMark":"pagebreak","pageBreaksBefore":"/","margin":{"right":62,"left":62,"top":56,"bottom":56},"embedFonts":false},"structure":{"langs":"LANGS.md","readme":"README.md","glossary":"GLOSSARY.md","summary":"SUMMARY.md"},"variables":{},"title":"タイトル","language":"ja","gitbook":"*","description":"詳細説明"},"file":{"path":"lecture06/00-introduction.md","mtime":"2022-06-11T13:25:24.706Z","type":"markdown"},"gitbook":{"version":"3.7.1","time":"2022-06-11T13:25:41.454Z"},"basePath":"..","book":{"language":""}});
+            gitbook.page.hasChanged({"page":{"title":"第6回 MQTT プロトコル","level":"1.6","depth":1,"next":{"title":"第7回 MQTT データ連携演習","level":"1.7","depth":1,"path":"lecture07/00-introduction.md","ref":"lecture07/00-introduction.md","articles":[]},"previous":{"title":"第5回 HTTP フロー作成の演習","level":"1.5","depth":1,"path":"lecture05/00-introduction.md","ref":"lecture05/00-introduction.md","articles":[]},"dir":"ltr"},"config":{"plugins":["anchors","hide-published-with","copy-code-button","intopic-toc","back-to-top-button"],"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"pluginsConfig":{"intopic-toc":{"selector":".markdown-section h1, .markdown-section h2, .markdown-section h3, .markdown-section h4, .markdown-section h5, .markdown-section h6","mode":"nested","maxDepth":6,"isCollapsed":true,"isScrollspyActive":true,"visible":true,"label":"In this article"},"search":{},"lunr":{"maxIndexSize":1000000,"ignoreSpecialCharacters":false},"hide-published-with":{},"fontsettings":{"theme":"white","family":"sans","size":2},"highlight":{},"back-to-top-button":{},"copy-code-button":{},"theme-default":{"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"showLevel":false},"anchors":{}},"theme":"default","pdf":{"pageNumbers":true,"fontSize":12,"fontFamily":"Arial","paperSize":"a4","chapterMark":"pagebreak","pageBreaksBefore":"/","margin":{"right":62,"left":62,"top":56,"bottom":56},"embedFonts":false},"structure":{"langs":"LANGS.md","readme":"README.md","glossary":"GLOSSARY.md","summary":"SUMMARY.md"},"variables":{},"title":"タイトル","language":"ja","gitbook":"*","description":"詳細説明"},"file":{"path":"lecture06/00-introduction.md","mtime":"2022-06-13T13:21:21.554Z","type":"markdown"},"gitbook":{"version":"3.7.1","time":"2022-06-13T13:38:36.422Z"},"basePath":"..","book":{"language":""}});
         });
     </script>
 </div>
