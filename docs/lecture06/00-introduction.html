@@ -372,7 +372,7 @@
 <p><img src="https://i.gyazo.com/89a0ad3dcc8b67042cc9c85352aae382.png" alt="image"></p>
 <p>パレットには MQTT 関連のノードとして MQTT の購読（Subscriber）として機能する mqtt in ノードと、MQTT の発行（Publisher）として機能する mqtt out ノードがあります。</p>
 <p>技術的なくわしい用語や仕組みは次回説明するので、今回はまず動かすことで体験していきましょう。</p>
-<h2 id="mqtt-ブローカー"><a name="mqtt-ブローカー" class="plugin-anchor" href="#mqtt-ブローカー"><i class="fa fa-link" aria-hidden="true"></i></a>MQTT ブローカー</h2>
+<h2 id="mqtt-ブローカー作成"><a name="mqtt-ブローカー作成" class="plugin-anchor" href="#mqtt-ブローカー作成"><i class="fa fa-link" aria-hidden="true"></i></a>MQTT ブローカー作成</h2>
 <p>教材の MQTT ブローカーを把握します。</p>
 <ul>
 <li>教材<ul>
@@ -469,7 +469,7 @@
 </ul>
 </li>
 </ul>
-<h2 id="mqtt-接続確認"><a name="mqtt-接続確認" class="plugin-anchor" href="#mqtt-接続確認"><i class="fa fa-link" aria-hidden="true"></i></a>MQTT 接続確認</h2>
+<h2 id="mqtt-接続確認および受信"><a name="mqtt-接続確認および受信" class="plugin-anchor" href="#mqtt-接続確認および受信"><i class="fa fa-link" aria-hidden="true"></i></a>MQTT 接続確認および受信</h2>
 <p>接続状況をノードのインジケータで動作確認します。</p>
 <ul>
 <li>教材<ul>
@@ -678,7 +678,7 @@
     <script>
         var gitbook = gitbook || [];
         gitbook.push(function() {
-            gitbook.page.hasChanged({"page":{"title":"第6回 MQTT プロトコル","level":"1.6","depth":1,"next":{"title":"第7回 MQTT データ連携演習","level":"1.7","depth":1,"path":"lecture07/00-introduction.md","ref":"lecture07/00-introduction.md","articles":[]},"previous":{"title":"第5回 HTTP フロー作成の演習","level":"1.5","depth":1,"path":"lecture05/00-introduction.md","ref":"lecture05/00-introduction.md","articles":[]},"dir":"ltr"},"config":{"plugins":["anchors","hide-published-with","copy-code-button","intopic-toc","back-to-top-button"],"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"pluginsConfig":{"intopic-toc":{"selector":".markdown-section h1, .markdown-section h2, .markdown-section h3, .markdown-section h4, .markdown-section h5, .markdown-section h6","mode":"nested","maxDepth":6,"isCollapsed":true,"isScrollspyActive":true,"visible":true,"label":"In this article"},"search":{},"lunr":{"maxIndexSize":1000000,"ignoreSpecialCharacters":false},"hide-published-with":{},"fontsettings":{"theme":"white","family":"sans","size":2},"highlight":{},"back-to-top-button":{},"copy-code-button":{},"theme-default":{"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"showLevel":false},"anchors":{}},"theme":"default","pdf":{"pageNumbers":true,"fontSize":12,"fontFamily":"Arial","paperSize":"a4","chapterMark":"pagebreak","pageBreaksBefore":"/","margin":{"right":62,"left":62,"top":56,"bottom":56},"embedFonts":false},"structure":{"langs":"LANGS.md","readme":"README.md","glossary":"GLOSSARY.md","summary":"SUMMARY.md"},"variables":{},"title":"タイトル","language":"ja","gitbook":"*","description":"詳細説明"},"file":{"path":"lecture06/00-introduction.md","mtime":"2022-06-13T13:21:21.554Z","type":"markdown"},"gitbook":{"version":"3.7.1","time":"2022-06-13T13:38:36.422Z"},"basePath":"..","book":{"language":""}});
+            gitbook.page.hasChanged({"page":{"title":"第6回 MQTT プロトコル","level":"1.6","depth":1,"next":{"title":"第7回 MQTT データ連携演習","level":"1.7","depth":1,"path":"lecture07/00-introduction.md","ref":"lecture07/00-introduction.md","articles":[]},"previous":{"title":"第5回 HTTP フロー作成の演習","level":"1.5","depth":1,"path":"lecture05/00-introduction.md","ref":"lecture05/00-introduction.md","articles":[]},"dir":"ltr"},"config":{"plugins":["anchors","hide-published-with","copy-code-button","intopic-toc","back-to-top-button"],"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"pluginsConfig":{"intopic-toc":{"selector":".markdown-section h1, .markdown-section h2, .markdown-section h3, .markdown-section h4, .markdown-section h5, .markdown-section h6","mode":"nested","maxDepth":6,"isCollapsed":true,"isScrollspyActive":true,"visible":true,"label":"In this article"},"search":{},"lunr":{"maxIndexSize":1000000,"ignoreSpecialCharacters":false},"hide-published-with":{},"fontsettings":{"theme":"white","family":"sans","size":2},"highlight":{},"back-to-top-button":{},"copy-code-button":{},"theme-default":{"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"showLevel":false},"anchors":{}},"theme":"default","pdf":{"pageNumbers":true,"fontSize":12,"fontFamily":"Arial","paperSize":"a4","chapterMark":"pagebreak","pageBreaksBefore":"/","margin":{"right":62,"left":62,"top":56,"bottom":56},"embedFonts":false},"structure":{"langs":"LANGS.md","readme":"README.md","glossary":"GLOSSARY.md","summary":"SUMMARY.md"},"variables":{},"title":"タイトル","language":"ja","gitbook":"*","description":"詳細説明"},"file":{"path":"lecture06/00-introduction.md","mtime":"2022-06-13T22:17:39.225Z","type":"markdown"},"gitbook":{"version":"3.7.1","time":"2022-06-13T22:20:38.418Z"},"basePath":"..","book":{"language":""}});
         });
     </script>
 </div>

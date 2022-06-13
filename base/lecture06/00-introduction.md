@@ -57,7 +57,7 @@ Node-RED の MQTT ノードについて把握します。
 
 技術的なくわしい用語や仕組みは次回説明するので、今回はまず動かすことで体験していきましょう。
 
-## MQTT ブローカー
+## MQTT ブローカー作成
 
 教材の MQTT ブローカーを把握します。
 
@@ -161,7 +161,7 @@ mqtt-broker 設定のプロパティです。
   - Beebotte の MQTT ブローカーと Node-RED の MQTT ノードでやり取りをするメモ – 1ft-seabass.jp.MEMO
     - https://www.1ft-seabass.jp/memo/2022/02/28/connecting-beebotte-using-nodered/
 
-## MQTT 接続確認
+## MQTT 接続確認および受信
 
 接続状況をノードのインジケータで動作確認します。
 
