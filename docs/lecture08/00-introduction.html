@@ -727,6 +727,7 @@ StaticJsonDocument&lt;<span class="hljs-number">2048</span>&gt; jsonData;
 <li>9600 bps</li>
 </ul>
 <p>とデータ転送レートを合わせておきましょう。</p>
+<p>なお、シリアルコンソールに送信する場合には Serial.print 関数を使います。たとえば、プログラム中に <code>Serial.print(&quot;WiFi Connected&quot;);</code> という記述がある場合 <code>WiFi Connected</code> と表示されます。</p>
 <h3 id="プログラムを書き込んでみる"><a name="プログラムを書き込んでみる" class="plugin-anchor" href="#プログラムを書き込んでみる"><i class="fa fa-link" aria-hidden="true"></i></a>プログラムを書き込んでみる</h3>
 <p><img src="https://i.gyazo.com/ca02fff1c8001e2bfe484ad5a294f917.png" alt="image"></p>
 <p>ということで、書き込みボタンをクリックして書き込みます。</p>
@@ -769,7 +770,7 @@ StaticJsonDocument&lt;<span class="hljs-number">2048</span>&gt; jsonData;
 <li>doc に message という値を設定し <code>Connected</code> というデータを入れる</li>
 <li>serializeJson で doc を解析することで <code>{&quot;message&quot;:&quot;Connected&quot;}</code> というデータとなる</li>
 <li>serializeJson の第 2 引数で、事前に pubJson と宣言した JSON 送信時に使う buffer 型に <code>{&quot;message&quot;:&quot;Connected&quot;}</code> を渡す</li>
-<li><code>mqttClient.publish(pubTopic, pubJson);</code> で pubTopic 変数で指定されたトピック ttc2022/res に向けて <code>{&quot;message&quot;:&quot;Connected&quot;}</code> のデータを送る</li>
+<li><code>mqttClient.publish(pubTopic, pubJson);</code> で第 1 引数で pubTopic 変数で指定されたトピック ttc2022/res を指定していて、トピックに向けて <code>{&quot;message&quot;:&quot;Connected&quot;}</code> のデータを送っています</li>
 </ul>
 <p>ということを行っています。</p>
 <h3 id="デバイスを再起動して接続を待つ"><a name="デバイスを再起動して接続を待つ" class="plugin-anchor" href="#デバイスを再起動して接続を待つ"><i class="fa fa-link" aria-hidden="true"></i></a>デバイスを再起動して接続を待つ</h3>
@@ -777,8 +778,6 @@ StaticJsonDocument&lt;<span class="hljs-number">2048</span>&gt; jsonData;
 <p>では、再度 USB を抜き差ししてデバイスを再起動してみましょう。</p>
 <p><img src="https://i.gyazo.com/f3fbae9365e18d67b1ef57fb67a5fa66.png" alt="image"></p>
 <p>ここまでの設定がうまくいっていれば、Node-RED 側で接続時にデータが受信されています。</p>
-<h3 id="エクストラ：講師側からみなさんに一斉にデータを送る"><a name="エクストラ：講師側からみなさんに一斉にデータを送る" class="plugin-anchor" href="#エクストラ：講師側からみなさんに一斉にデータを送る"><i class="fa fa-link" aria-hidden="true"></i></a>エクストラ：講師側からみなさんに一斉にデータを送る</h3>
-<p>時間があればやってみます！</p>
 
                                 
                                 </section>
@@ -822,7 +821,7 @@ StaticJsonDocument&lt;<span class="hljs-number">2048</span>&gt; jsonData;
     <script>
         var gitbook = gitbook || [];
         gitbook.push(function() {
-            gitbook.page.hasChanged({"page":{"title":"第8回 デバイス MQTT 接続","level":"1.8","depth":1,"next":{"title":"第9回 デバイスセンサーデータ送信","level":"1.9","depth":1,"path":"lecture09/00-introduction.md","ref":"lecture09/00-introduction.md","articles":[]},"previous":{"title":"第7回 MQTT データ連携演習","level":"1.7","depth":1,"path":"lecture07/00-introduction.md","ref":"lecture07/00-introduction.md","articles":[]},"dir":"ltr"},"config":{"plugins":["anchors","hide-published-with","copy-code-button","intopic-toc","back-to-top-button"],"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"pluginsConfig":{"intopic-toc":{"selector":".markdown-section h1, .markdown-section h2, .markdown-section h3, .markdown-section h4, .markdown-section h5, .markdown-section h6","mode":"nested","maxDepth":6,"isCollapsed":true,"isScrollspyActive":true,"visible":true,"label":"In this article"},"search":{},"lunr":{"maxIndexSize":1000000,"ignoreSpecialCharacters":false},"hide-published-with":{},"fontsettings":{"theme":"white","family":"sans","size":2},"highlight":{},"back-to-top-button":{},"copy-code-button":{},"theme-default":{"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"showLevel":false},"anchors":{}},"theme":"default","pdf":{"pageNumbers":true,"fontSize":12,"fontFamily":"Arial","paperSize":"a4","chapterMark":"pagebreak","pageBreaksBefore":"/","margin":{"right":62,"left":62,"top":56,"bottom":56},"embedFonts":false},"structure":{"langs":"LANGS.md","readme":"README.md","glossary":"GLOSSARY.md","summary":"SUMMARY.md"},"variables":{},"title":"タイトル","language":"ja","gitbook":"*","description":"詳細説明"},"file":{"path":"lecture08/00-introduction.md","mtime":"2022-06-18T14:10:50.653Z","type":"markdown"},"gitbook":{"version":"3.7.1","time":"2022-06-18T14:10:57.783Z"},"basePath":"..","book":{"language":""}});
+            gitbook.page.hasChanged({"page":{"title":"第8回 デバイス MQTT 接続","level":"1.8","depth":1,"next":{"title":"第9回 デバイスセンサーデータ送信","level":"1.9","depth":1,"path":"lecture09/00-introduction.md","ref":"lecture09/00-introduction.md","articles":[]},"previous":{"title":"第7回 MQTT データ連携演習","level":"1.7","depth":1,"path":"lecture07/00-introduction.md","ref":"lecture07/00-introduction.md","articles":[]},"dir":"ltr"},"config":{"plugins":["anchors","hide-published-with","copy-code-button","intopic-toc","back-to-top-button"],"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"pluginsConfig":{"intopic-toc":{"selector":".markdown-section h1, .markdown-section h2, .markdown-section h3, .markdown-section h4, .markdown-section h5, .markdown-section h6","mode":"nested","maxDepth":6,"isCollapsed":true,"isScrollspyActive":true,"visible":true,"label":"In this article"},"search":{},"lunr":{"maxIndexSize":1000000,"ignoreSpecialCharacters":false},"hide-published-with":{},"fontsettings":{"theme":"white","family":"sans","size":2},"highlight":{},"back-to-top-button":{},"copy-code-button":{},"theme-default":{"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"showLevel":false},"anchors":{}},"theme":"default","pdf":{"pageNumbers":true,"fontSize":12,"fontFamily":"Arial","paperSize":"a4","chapterMark":"pagebreak","pageBreaksBefore":"/","margin":{"right":62,"left":62,"top":56,"bottom":56},"embedFonts":false},"structure":{"langs":"LANGS.md","readme":"README.md","glossary":"GLOSSARY.md","summary":"SUMMARY.md"},"variables":{},"title":"タイトル","language":"ja","gitbook":"*","description":"詳細説明"},"file":{"path":"lecture08/00-introduction.md","mtime":"2022-06-18T14:42:49.944Z","type":"markdown"},"gitbook":{"version":"3.7.1","time":"2022-06-18T14:43:55.471Z"},"basePath":"..","book":{"language":""}});
         });
     </script>
 </div>

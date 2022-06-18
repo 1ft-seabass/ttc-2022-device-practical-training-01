@@ -498,6 +498,8 @@ Arduino UNO WiFi Rev2 へ書き込む前にシリアルモニタを起動して�
 
 とデータ転送レートを合わせておきましょう。
 
+なお、シリアルコンソールに送信する場合には Serial.print 関数を使います。たとえば、プログラム中に `Serial.print("WiFi Connected");` という記述がある場合 `WiFi Connected` と表示されます。
+
 ### プログラムを書き込んでみる
 
 ![image](https://i.gyazo.com/ca02fff1c8001e2bfe484ad5a294f917.png)
@@ -557,7 +559,7 @@ Arduino プログラム側で mqttConnect という関数の部分で MQTT の�
 - doc に message という値を設定し `Connected` というデータを入れる
 - serializeJson で doc を解析することで `{"message":"Connected"}` というデータとなる
 - serializeJson の第 2 引数で、事前に pubJson と宣言した JSON 送信時に使う buffer 型に `{"message":"Connected"}` を渡す
-- `mqttClient.publish(pubTopic, pubJson);` で pubTopic 変数で指定されたトピック ttc2022/res に向けて `{"message":"Connected"}` のデータを送る
+- `mqttClient.publish(pubTopic, pubJson);` で第 1 引数で pubTopic 変数で指定されたトピック ttc2022/res を指定していて、トピックに向けて `{"message":"Connected"}` のデータを送っています
 
 ということを行っています。
 
@@ -570,8 +572,4 @@ Arduino プログラム側で mqttConnect という関数の部分で MQTT の�
 ![image](https://i.gyazo.com/f3fbae9365e18d67b1ef57fb67a5fa66.png)
 
 ここまでの設定がうまくいっていれば、Node-RED 側で接続時にデータが受信されています。
-
-### エクストラ：講師側からみなさんに一斉にデータを送る
-
-時間があればやってみます！
 
