@@ -323,8 +323,29 @@
 <h2 id="デバイスの動作理解"><a name="デバイスの動作理解" class="plugin-anchor" href="#デバイスの動作理解"><i class="fa fa-link" aria-hidden="true"></i></a>デバイスの動作理解</h2>
 <p>今回のデバイス動作の大まかな流れを把握します。</p>
 <p><img src="https://i.gyazo.com/7a1a641d071ac50041f9e649ffd693c3.jpg" alt="image"></p>
-<p>Raspberry Pi の授業で使った CDS セルを使って光の明るさを取得する照度センサーを使ってデバイスと Node-RED を MQTT でやり取りする IoT の仕組みをつくります。</p>
-<p>TODO: 仕組みの図を加える</p>
+<p>Raspberry Pi の授業で使った CDS セルを使って光の明るさを取得する明るさセンサーを使ってデバイスと Node-RED を MQTT でやり取りする IoT の仕組みをつくります。</p>
+<p><img src="https://i.gyazo.com/6cd4418770feca26bb7f02648a2ed0b1.png" alt="image"></p>
+<p>流れを説明していきましょう。</p>
+<p><img src="https://i.gyazo.com/1fd1cde56f782ffca869ebf28a0c9152.png" alt="image"></p>
+<p>CDS セルを使って光の明るさを取得する明るさセンサーが周辺の明るさを取得します。</p>
+<p><img src="https://i.gyazo.com/3ea8931c9f20653b167af6146779b306.png" alt="image"></p>
+<p>明るさセンサーは CDS セルを含めた回路によって明るさを電流の量で検出します。デバイスは、この電流の量をアナログ入力で受け取ります。</p>
+<p><img src="https://i.gyazo.com/07d7947ae1bfeb20841e4acf717af326.png" alt="image"></p>
+<p>デバイスは、アナログ入力による値を Wi-Fi と通じて自分の MQTT ブローカーにパブリッシュします</p>
+<ul>
+<li>WiFiNINA で Wi-Fi に接続し、PubSubClient で MQTT ブローカーに接続します</li>
+<li>トピックは ttc2022/res です</li>
+</ul>
+<p><img src="https://i.gyazo.com/85591278164da323a69b8356c2b7a401.png" alt="image"></p>
+<p>パブリッシュする際、Node-RED でデータを扱いやすくするために、今回のデータを <code>{&quot;light&quot;:288}</code> というJSON データを作成して送ります。</p>
+<ul>
+<li>JSON データは ArduinoJSON で作成します</li>
+</ul>
+<p><img src="https://i.gyazo.com/c09038cc4978b636590793026b6d001b.png" alt="image"></p>
+<p>みなさんの Node-RED ではトピック ttc2022/res をサブスクライブしてデータ受信を待ちます</p>
+<ul>
+<li>無事、データがやりとりできると Node-RED は明るさの値が受信できます</li>
+</ul>
 <h2 id="回路説明"><a name="回路説明" class="plugin-anchor" href="#回路説明"><i class="fa fa-link" aria-hidden="true"></i></a>回路説明</h2>
 <p>デバイスにつなげる回路や動作の説明をします。</p>
 <h3 id="光に反応する-cds-セル"><a name="光に反応する-cds-セル" class="plugin-anchor" href="#光に反応する-cds-セル"><i class="fa fa-link" aria-hidden="true"></i></a>光に反応する CDS セル</h3>
@@ -357,7 +378,12 @@
 <p>ブレッドボードも準備しましょう。</p>
 <h2 id="回路取り付け"><a name="回路取り付け" class="plugin-anchor" href="#回路取り付け"><i class="fa fa-link" aria-hidden="true"></i></a>回路取り付け</h2>
 <p>デバイスにつなげる回路を取り付けます。</p>
+<p><img src="https://i.gyazo.com/8ea51c32f2f926e87d1162febbdee461.png" alt="image"></p>
+<p>今回 IoT の仕組みを作る前に、このエリア、つまりアナログ入力の回路と動作だけで確認し成功させます。</p>
+<p>これから IoT が加わり複雑な仕組みになるので、まず、電子工作としての回路とセンサー値取得に絞って動作確認をした意図があります。小さく進めて試していくのはプロトタイピングとしても大切なので、体験していきますしょう。</p>
+<p><img src="https://i.gyazo.com/80b82460e3c83dacc7dad74aadd2d0a6.jpg" alt="image"></p>
 <p>Arduino の電源はまだ OFF にしておきましょう。</p>
+<h3 id="今回の回路図"><a name="今回の回路図" class="plugin-anchor" href="#今回の回路図"><i class="fa fa-link" aria-hidden="true"></i></a>今回の回路図</h3>
 <p><img src="https://i.gyazo.com/723e444f9a184cb6bf5a6a28a1828a8b.png" alt="image"></p>
 <p>このような回路で取り付けます。ブレッドボードの番号をよく見ながら取り付けてみましょう。</p>
 <h3 id="アナログ入力だけのチェック"><a name="アナログ入力だけのチェック" class="plugin-anchor" href="#アナログ入力だけのチェック"><i class="fa fa-link" aria-hidden="true"></i></a>アナログ入力だけのチェック</h3>
@@ -365,6 +391,7 @@
 <p>メニュー &gt; ファイル &gt; 新規ファイル をクリックします。</p>
 <p><img src="https://i.gyazo.com/feb362e740c05cdd469a96111abd9382.png" alt="image"></p>
 <p>新規ファイルを準備します。</p>
+<p>以下のプログラムを新規ファイルにコピーアンドペーストしましょう。</p>
 <pre><code class="lang-c"><span class="hljs-keyword">int</span> sensorPin = A0;
 <span class="hljs-keyword">int</span> sensorValue = <span class="hljs-number">0</span>;
 
@@ -380,22 +407,49 @@
   delay(<span class="hljs-number">1000</span>);
 }
 </code></pre>
-<p>こちらをコピーアンドペーストできたら <code>TTC-Demo-2022-AnalogInput-Light-Simple.ino</code> というファイル名で保存しましょう。</p>
+<p>こちらをコピーアンドペーストできたら <code>TTC-Demo-2022-AnalogInput-Light-Simple</code> というファイル名で保存しましょう。</p>
 <p><img src="https://i.gyazo.com/fa7747862927454bf64c9866d5cc1fa7.jpg" alt="image"></p>
 <p>回路をつないだ Arduino UNO WiFi Rev2 を PC とつなぎます。</p>
 <p><img src="https://i.gyazo.com/7af357caade502812ae210732cec208a.png" alt="image"></p>
 <p>Arduino UNO WiFi Rev2 へ書き込む前にシリアルモニタを起動しておきましょう。今回は設定値は 9600 bps です。</p>
 <p><img src="https://i.gyazo.com/ca02fff1c8001e2bfe484ad5a294f917.png" alt="image"></p>
 <p>ボード設定を行い、書き込みボタンをクリックして書き込みます。</p>
+<p><img src="https://i.gyazo.com/9e39635ab0972f0739d0ea18dd550036.png" alt="image"></p>
 <p>シリアルコンソールで動作するか確認しましょう。</p>
 <p><img src="https://i.gyazo.com/219c1d17523fa694dbbe75e98d0fe429.jpg" alt="image"></p>
 <p>手をかぶせて暗くして変化をみてみましょう。</p>
-<p>TODO: シリアルコンソールの画像</p>
+<p><img src="https://i.gyazo.com/9daa3fd074a9de0ba7d37ae4d824b8ce.png" alt="image"></p>
+<p>このように変化します。</p>
+<h3 id="アナログ値取得プログラムの簡単な説明"><a name="アナログ値取得プログラムの簡単な説明" class="plugin-anchor" href="#アナログ値取得プログラムの簡単な説明"><i class="fa fa-link" aria-hidden="true"></i></a>アナログ値取得プログラムの簡単な説明</h3>
+<pre><code class="lang-c"><span class="hljs-keyword">int</span> sensorPin = A0;
+<span class="hljs-keyword">int</span> sensorValue = <span class="hljs-number">0</span>;
+</code></pre>
+<p>まず、値の初期値を決めています。sensorPin はアナログ入力を受け取るためのピンの値です。sensorValue はセンサー値を格納するものです。</p>
+<pre><code class="lang-c"><span class="hljs-function"><span class="hljs-keyword">void</span> <span class="hljs-title">setup</span><span class="hljs-params">()</span> </span>{
+  Serial.begin(<span class="hljs-number">9600</span>);
+  Serial.println(<span class="hljs-string">&quot;Analog Read&quot;</span>);
+}
+</code></pre>
+<p>起動時に動作する setup 関数では、<code>Serial.begin(9600);</code> をつかってシリアル接続時のデータ転送速度を 9600 bps に設定しています。これは Arduino IDE のシリアルコンソールで同じデータ転送速度に合わせると文字列が受信できます。</p>
+<p><code>Serial.println(&quot;Analog Read&quot;);</code> で、シリアルコンソールに <code>Analog Read</code> と起動時にチャックしやすいように文字列を送信しています。</p>
+<pre><code class="lang-c"><span class="hljs-function"><span class="hljs-keyword">void</span> <span class="hljs-title">loop</span><span class="hljs-params">()</span> </span>{
+  sensorValue = analogRead(sensorPin);
+  Serial.print(<span class="hljs-string">&quot;light = &quot;</span>);
+  Serial.println(sensorValue);
+  delay(<span class="hljs-number">1000</span>);
+}
+</code></pre>
+<p>起動後、動作し続ける loop 関数では、<code>analogRead(sensorPin)</code> によってアナログ入力値を受け取っています。<code>Serial.print(&quot;light = &quot;);</code> と <code>Serial.println(sensorValue);</code> でシリアルコンソールに <code>light = 288</code> と値を送っています。</p>
+<p><code>delay(1000);</code> で、1秒ごとにこの処理を繰り返すように遅延させています。</p>
 <h2 id="プログラムの説明"><a name="プログラムの説明" class="plugin-anchor" href="#プログラムの説明"><i class="fa fa-link" aria-hidden="true"></i></a>プログラムの説明</h2>
+<p><img src="https://i.gyazo.com/e7556ca5b37f0d27fdd087289ce46e45.png" alt="image"></p>
 <p>いよいよ、デバイスと Node-RED を MQTT でやり取りする IoT の仕組みです。今回のプログラムの動きを把握します。</p>
-<p>TODO: プログラムの説明図</p>
 <h2 id="プログラムの準備"><a name="プログラムの準備" class="plugin-anchor" href="#プログラムの準備"><i class="fa fa-link" aria-hidden="true"></i></a>プログラムの準備</h2>
 <p>今回のプログラムを準備します。</p>
+<p>メニュー &gt; ファイル &gt; 新規ファイル をクリックします。</p>
+<p><img src="https://i.gyazo.com/feb362e740c05cdd469a96111abd9382.png" alt="image"></p>
+<p>新規ファイルを準備します。</p>
+<p>以下のプログラムを新規ファイルにコピーアンドペーストしましょう。</p>
 <pre><code class="lang-c"><span class="hljs-comment">// WiFiNINA ライブラリ</span>
 <span class="hljs-meta">#<span class="hljs-meta-keyword">include</span> <span class="hljs-meta-string">&lt;SPI.h&gt;</span></span>
 <span class="hljs-meta">#<span class="hljs-meta-keyword">include</span> <span class="hljs-meta-string">&lt;WiFiNINA.h&gt;</span></span>
@@ -616,7 +670,9 @@ StaticJsonDocument&lt;<span class="hljs-number">2048</span>&gt; jsonData;
   Serial.println();
 }
 </code></pre>
-<p>こちらをコピーアンドペーストできたら <code>TTC-Demo-2022-Light-MQTT.ino</code> というファイル名で保存しましょう。</p>
+<p>こちらをコピーアンドペーストできたら <code>TTC-Demo-2022-Light-MQTT</code> というファイル名で保存しましょう。</p>
+<h3 id="メインプログラムの簡単な説明"><a name="メインプログラムの簡単な説明" class="plugin-anchor" href="#メインプログラムの簡単な説明"><i class="fa fa-link" aria-hidden="true"></i></a>メインプログラムの簡単な説明</h3>
+<p>TODO : メインプログラムの簡単な説明</p>
 <h2 id="プログラムの設定"><a name="プログラムの設定" class="plugin-anchor" href="#プログラムの設定"><i class="fa fa-link" aria-hidden="true"></i></a>プログラムの設定</h2>
 <p>今回のプログラム内の設定をします。</p>
 <pre><code class="lang-c"><span class="hljs-comment">// Wi-FiのSSID</span>
@@ -643,7 +699,12 @@ StaticJsonDocument&lt;<span class="hljs-number">2048</span>&gt; jsonData;
 <p>ボード設定を行い、書き込みボタンをクリックして書き込みます。</p>
 <h2 id="プログラムの動作確認1"><a name="プログラムの動作確認1" class="plugin-anchor" href="#プログラムの動作確認1"><i class="fa fa-link" aria-hidden="true"></i></a>プログラムの動作確認1</h2>
 <p>プログラムと回路の動作を Arduino IDE で確認します。</p>
-<p>TODO: Arduino IDE の動作確認</p>
+<p><img src="https://i.gyazo.com/3ef6f3661c136eba28f0fb2d2bd6fc57.png" alt="image"></p>
+<p>まず、Wi-Fi がつながり MQTT ブローカーに接続されていることが確認できます。</p>
+<p><img src="https://i.gyazo.com/45ed5690487091dafad784637f5808b9.png" alt="image"></p>
+<p>つづいて、5秒ごとにセンサーデータが取得されていることを確認しましょう。</p>
+<p><img src="https://i.gyazo.com/af52bcb8cc80352585fe5e392400f726.png" alt="image"></p>
+<p>手で影を作って値の変化も見てみましょう。（回路が間違っていると値が変化しない場合があります。）</p>
 <h2 id="プログラムの動作確認2"><a name="プログラムの動作確認2" class="plugin-anchor" href="#プログラムの動作確認2"><i class="fa fa-link" aria-hidden="true"></i></a>プログラムの動作確認2</h2>
 <p>プログラムと回路の動作を Node-RED で確認します。</p>
 <p><img src="https://i.gyazo.com/f1c0153bf6e75e3a0d10bb24833d42fd.png" alt="image"></p>
@@ -656,7 +717,18 @@ StaticJsonDocument&lt;<span class="hljs-number">2048</span>&gt; jsonData;
 <p>センサーの値の変化を Node-RED で確認します。</p>
 <p><img src="https://i.gyazo.com/5abe3be18a230eaecd2b07bfaf142ab9.png" alt="image"></p>
 <p>手をかぶせて光センサーの値が変化するか試してみましょう。</p>
-<p>TODO: 余裕があれば、しきい値での対応を入れる</p>
+<p>TODO:しきい値での対応を入れる</p>
+<h2 id="techfeed-の話"><a name="techfeed-の話" class="plugin-anchor" href="#techfeed-の話"><i class="fa fa-link" aria-hidden="true"></i></a>TechFeed の話</h2>
+<p><img src="https://i.gyazo.com/0dde1513639b3133e8d8165b0382b732.jpg" alt="image"></p>
+<p>今回 IoT の良い情報源として <a href="https://techfeed.io/" target="_blank">TechFeed</a> をお伝えします。</p>
+<blockquote>
+<p>エンジニアに最高の情報を、最高の形で届ける。</p>
+<p>海外情報は自動翻訳してお届け。ハイレベルな情報はエキスパートがご紹介。そしてあなたも発信できる。</p>
+</blockquote>
+<p>とのことで、国内だけでなく海外の情報にも触れやすいです。</p>
+<p><img src="https://i.gyazo.com/a62fdf82aaa5a5cb74980b1cdef05572.jpg" alt="image"></p>
+<p>もちろん <a href="https://techfeed.io/channels/IoT" target="_blank">IoT チャンネル</a> もあります。私もエキスパートとして、なるべく1日1記事はピックアップしようとしています。</p>
+<p>これを機会にぜひ登録して IoT に関する情報を追いかけましょう！</p>
 
                                 
                                 </section>
@@ -696,7 +768,7 @@ StaticJsonDocument&lt;<span class="hljs-number">2048</span>&gt; jsonData;
     <script>
         var gitbook = gitbook || [];
         gitbook.push(function() {
-            gitbook.page.hasChanged({"page":{"title":"第9回 デバイスセンサーデータ送信","level":"1.9","depth":1,"next":{"title":"第10回 デバイス遠隔操作","level":"1.10","depth":1,"ref":"","articles":[]},"previous":{"title":"第8回 デバイス MQTT 接続","level":"1.8","depth":1,"path":"lecture08/00-introduction.md","ref":"lecture08/00-introduction.md","articles":[]},"dir":"ltr"},"config":{"plugins":["anchors","hide-published-with","copy-code-button","intopic-toc","back-to-top-button"],"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"pluginsConfig":{"intopic-toc":{"selector":".markdown-section h1, .markdown-section h2, .markdown-section h3, .markdown-section h4, .markdown-section h5, .markdown-section h6","mode":"nested","maxDepth":6,"isCollapsed":true,"isScrollspyActive":true,"visible":true,"label":"In this article"},"search":{},"lunr":{"maxIndexSize":1000000,"ignoreSpecialCharacters":false},"hide-published-with":{},"fontsettings":{"theme":"white","family":"sans","size":2},"highlight":{},"back-to-top-button":{},"copy-code-button":{},"theme-default":{"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"showLevel":false},"anchors":{}},"theme":"default","pdf":{"pageNumbers":true,"fontSize":12,"fontFamily":"Arial","paperSize":"a4","chapterMark":"pagebreak","pageBreaksBefore":"/","margin":{"right":62,"left":62,"top":56,"bottom":56},"embedFonts":false},"structure":{"langs":"LANGS.md","readme":"README.md","glossary":"GLOSSARY.md","summary":"SUMMARY.md"},"variables":{},"title":"タイトル","language":"ja","gitbook":"*","description":"詳細説明"},"file":{"path":"lecture09/00-introduction.md","mtime":"2022-06-19T14:40:58.730Z","type":"markdown"},"gitbook":{"version":"3.7.1","time":"2022-06-19T14:41:10.145Z"},"basePath":"..","book":{"language":""}});
+            gitbook.page.hasChanged({"page":{"title":"第9回 デバイスセンサーデータ送信","level":"1.9","depth":1,"next":{"title":"第10回 デバイス遠隔操作","level":"1.10","depth":1,"ref":"","articles":[]},"previous":{"title":"第8回 デバイス MQTT 接続","level":"1.8","depth":1,"path":"lecture08/00-introduction.md","ref":"lecture08/00-introduction.md","articles":[]},"dir":"ltr"},"config":{"plugins":["anchors","hide-published-with","copy-code-button","intopic-toc","back-to-top-button"],"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"pluginsConfig":{"intopic-toc":{"selector":".markdown-section h1, .markdown-section h2, .markdown-section h3, .markdown-section h4, .markdown-section h5, .markdown-section h6","mode":"nested","maxDepth":6,"isCollapsed":true,"isScrollspyActive":true,"visible":true,"label":"In this article"},"search":{},"lunr":{"maxIndexSize":1000000,"ignoreSpecialCharacters":false},"hide-published-with":{},"fontsettings":{"theme":"white","family":"sans","size":2},"highlight":{},"back-to-top-button":{},"copy-code-button":{},"theme-default":{"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"showLevel":false},"anchors":{}},"theme":"default","pdf":{"pageNumbers":true,"fontSize":12,"fontFamily":"Arial","paperSize":"a4","chapterMark":"pagebreak","pageBreaksBefore":"/","margin":{"right":62,"left":62,"top":56,"bottom":56},"embedFonts":false},"structure":{"langs":"LANGS.md","readme":"README.md","glossary":"GLOSSARY.md","summary":"SUMMARY.md"},"variables":{},"title":"タイトル","language":"ja","gitbook":"*","description":"詳細説明"},"file":{"path":"lecture09/00-introduction.md","mtime":"2022-06-20T01:50:22.642Z","type":"markdown"},"gitbook":{"version":"3.7.1","time":"2022-06-20T01:50:27.530Z"},"basePath":"..","book":{"language":""}});
         });
     </script>
 </div>

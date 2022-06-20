@@ -404,7 +404,7 @@ void printMacAddress(byte mac[]) {
 }
 ```
 
-こちらをコピーアンドペーストできたら `TTC-Demo-2022-MQTT-Onefile-src.ino` というファイル名で保存しましょう。
+こちらをコピーアンドペーストできたら `TTC-Demo-2022-MQTT-Onefile-src` というファイル名で保存しましょう。
 
 ### ライブラリが反映されているかを確認
 

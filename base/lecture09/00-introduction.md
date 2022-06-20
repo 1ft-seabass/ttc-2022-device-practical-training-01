@@ -6,9 +6,35 @@
 
 ![image](https://i.gyazo.com/7a1a641d071ac50041f9e649ffd693c3.jpg)
 
-Raspberry Pi の授業で使った CDS セルを使って光の明るさを取得する照度センサーを使ってデバイスと Node-RED を MQTT でやり取りする IoT の仕組みをつくります。
+Raspberry Pi の授業で使った CDS セルを使って光の明るさを取得する明るさセンサーを使ってデバイスと Node-RED を MQTT でやり取りする IoT の仕組みをつくります。
 
-TODO: 仕組みの図を加える
+![image](https://i.gyazo.com/6cd4418770feca26bb7f02648a2ed0b1.png)
+
+流れを説明していきましょう。
+
+![image](https://i.gyazo.com/1fd1cde56f782ffca869ebf28a0c9152.png)
+
+CDS セルを使って光の明るさを取得する明るさセンサーが周辺の明るさを取得します。
+
+![image](https://i.gyazo.com/3ea8931c9f20653b167af6146779b306.png)
+
+明るさセンサーは CDS セルを含めた回路によって明るさを電流の量で検出します。デバイスは、この電流の量をアナログ入力で受け取ります。
+
+![image](https://i.gyazo.com/07d7947ae1bfeb20841e4acf717af326.png)
+
+デバイスは、アナログ入力による値を Wi-Fi と通じて自分の MQTT ブローカーにパブリッシュします
+- WiFiNINA で Wi-Fi に接続し、PubSubClient で MQTT ブローカーに接続します
+- トピックは ttc2022/res です
+
+![image](https://i.gyazo.com/85591278164da323a69b8356c2b7a401.png)
+
+パブリッシュする際、Node-RED でデータを扱いやすくするために、今回のデータを `{"light":288}` というJSON データを作成して送ります。
+  - JSON データは ArduinoJSON で作成します
+
+![image](https://i.gyazo.com/c09038cc4978b636590793026b6d001b.png)
+
+みなさんの Node-RED ではトピック ttc2022/res をサブスクライブしてデータ受信を待ちます
+- 無事、データがやりとりできると Node-RED は明るさの値が受信できます
 
 ## 回路説明
 
@@ -53,7 +79,17 @@ Arduino 側では電流の流れを検知するアナログ入力の A0 を
 
 デバイスにつなげる回路を取り付けます。
 
+![image](https://i.gyazo.com/8ea51c32f2f926e87d1162febbdee461.png)
+
+今回 IoT の仕組みを作る前に、このエリア、つまりアナログ入力の回路と動作だけで確認し成功させます。
+
+これから IoT が加わり複雑な仕組みになるので、まず、電子工作としての回路とセンサー値取得に絞って動作確認をした意図があります。小さく進めて試していくのはプロトタイピングとしても大切なので、体験していきますしょう。
+
+![image](https://i.gyazo.com/80b82460e3c83dacc7dad74aadd2d0a6.jpg)
+
 Arduino の電源はまだ OFF にしておきましょう。
+
+### 今回の回路図
 
 ![image](https://i.gyazo.com/723e444f9a184cb6bf5a6a28a1828a8b.png)
 
@@ -68,6 +104,8 @@ Arduino にプログラムを書き込んでアナログ入力だけのチェッ
 ![image](https://i.gyazo.com/feb362e740c05cdd469a96111abd9382.png)
 
 新規ファイルを準備します。
+
+以下のプログラムを新規ファイルにコピーアンドペーストしましょう。
 
 ```c
 int sensorPin = A0;
@@ -86,7 +124,7 @@ void loop() {
 }
 ```
 
-こちらをコピーアンドペーストできたら `TTC-Demo-2022-AnalogInput-Light-Simple.ino` というファイル名で保存しましょう。
+こちらをコピーアンドペーストできたら `TTC-Demo-2022-AnalogInput-Light-Simple` というファイル名で保存しましょう。
 
 ![image](https://i.gyazo.com/fa7747862927454bf64c9866d5cc1fa7.jpg)
 
@@ -100,23 +138,68 @@ Arduino UNO WiFi Rev2 へ書き込む前にシリアルモニタを起動して�
 
 ボード設定を行い、書き込みボタンをクリックして書き込みます。
 
+![image](https://i.gyazo.com/9e39635ab0972f0739d0ea18dd550036.png)
+
 シリアルコンソールで動作するか確認しましょう。
 
 ![image](https://i.gyazo.com/219c1d17523fa694dbbe75e98d0fe429.jpg)
 
 手をかぶせて暗くして変化をみてみましょう。
 
-TODO: シリアルコンソールの画像
+![image](https://i.gyazo.com/9daa3fd074a9de0ba7d37ae4d824b8ce.png)
+
+このように変化します。
+
+### アナログ値取得プログラムの簡単な説明
+
+```c
+int sensorPin = A0;
+int sensorValue = 0;
+```
+
+まず、値の初期値を決めています。sensorPin はアナログ入力を受け取るためのピンの値です。sensorValue はセンサー値を格納するものです。
+
+```c
+void setup() {
+  Serial.begin(9600);
+  Serial.println("Analog Read");
+}
+```
+
+起動時に動作する setup 関数では、`Serial.begin(9600);` をつかってシリアル接続時のデータ転送速度を 9600 bps に設定しています。これは Arduino IDE のシリアルコンソールで同じデータ転送速度に合わせると文字列が受信できます。
+
+`Serial.println("Analog Read");` で、シリアルコンソールに `Analog Read` と起動時にチャックしやすいように文字列を送信しています。
+
+```c
+void loop() {
+  sensorValue = analogRead(sensorPin);
+  Serial.print("light = ");
+  Serial.println(sensorValue);
+  delay(1000);
+}
+```
+
+起動後、動作し続ける loop 関数では、`analogRead(sensorPin)` によってアナログ入力値を受け取っています。`Serial.print("light = ");` と `Serial.println(sensorValue);` でシリアルコンソールに `light = 288` と値を送っています。
+
+` delay(1000);` で、1秒ごとにこの処理を繰り返すように遅延させています。
 
 ## プログラムの説明
 
-いよいよ、デバイスと Node-RED を MQTT でやり取りする IoT の仕組みです。今回のプログラムの動きを把握します。
+![image](https://i.gyazo.com/e7556ca5b37f0d27fdd087289ce46e45.png)
 
-TODO: プログラムの説明図
+いよいよ、デバイスと Node-RED を MQTT でやり取りする IoT の仕組みです。今回のプログラムの動きを把握します。
 
 ## プログラムの準備
 
 今回のプログラムを準備します。
+
+メニュー > ファイル > 新規ファイル をクリックします。
+
+![image](https://i.gyazo.com/feb362e740c05cdd469a96111abd9382.png)
+
+新規ファイルを準備します。
+
+以下のプログラムを新規ファイルにコピーアンドペーストしましょう。
 
 ```c
 // WiFiNINA ライブラリ
@@ -341,7 +424,11 @@ void printMacAddress(byte mac[]) {
 
 ```
 
-こちらをコピーアンドペーストできたら `TTC-Demo-2022-Light-MQTT.ino` というファイル名で保存しましょう。
+こちらをコピーアンドペーストできたら `TTC-Demo-2022-Light-MQTT` というファイル名で保存しましょう。
+
+### メインプログラムの簡単な説明
+
+TODO : メインプログラムの簡単な説明
 
 ## プログラムの設定
 
@@ -385,7 +472,18 @@ Arduino UNO WiFi Rev2 へ書き込む前にシリアルモニタを起動して�
 
 プログラムと回路の動作を Arduino IDE で確認します。
 
-TODO: Arduino IDE の動作確認
+![image](https://i.gyazo.com/3ef6f3661c136eba28f0fb2d2bd6fc57.png)
+
+まず、Wi-Fi がつながり MQTT ブローカーに接続されていることが確認できます。
+
+![image](https://i.gyazo.com/45ed5690487091dafad784637f5808b9.png)
+
+つづいて、5秒ごとにセンサーデータが取得されていることを確認しましょう。
+
+![image](https://i.gyazo.com/af52bcb8cc80352585fe5e392400f726.png)
+
+手で影を作って値の変化も見てみましょう。（回路が間違っていると値が変化しない場合があります。）
+
 
 ## プログラムの動作確認2
 
@@ -411,4 +509,22 @@ Arudino を動作させてデータが受信されるか見てみましょう。
 
 手をかぶせて光センサーの値が変化するか試してみましょう。
 
-TODO: 余裕があれば、しきい値での対応を入れる
+TODO:しきい値での対応を入れる
+
+## TechFeed の話
+
+![image](https://i.gyazo.com/0dde1513639b3133e8d8165b0382b732.jpg)
+
+今回 IoT の良い情報源として [TechFeed](https://techfeed.io/) をお伝えします。
+
+> エンジニアに最高の情報を、最高の形で届ける。
+> 
+> 海外情報は自動翻訳してお届け。ハイレベルな情報はエキスパートがご紹介。そしてあなたも発信できる。
+
+とのことで、国内だけでなく海外の情報にも触れやすいです。
+
+![image](https://i.gyazo.com/a62fdf82aaa5a5cb74980b1cdef05572.jpg)
+
+もちろん [IoT チャンネル](https://techfeed.io/channels/IoT) もあります。私もエキスパートとして、なるべく1日1記事はピックアップしようとしています。
+
+これを機会にぜひ登録して IoT に関する情報を追いかけましょう！
