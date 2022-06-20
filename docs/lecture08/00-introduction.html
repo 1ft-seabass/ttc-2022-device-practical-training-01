@@ -75,7 +75,7 @@
     <link rel="shortcut icon" href="../gitbook/images/favicon.ico" type="image/x-icon">
 
     
-    <link rel="next" href="../lecture09/00-introduction.html" />
+    <link rel="next" href="01-explanation-main-program.html" />
     
     
     <link rel="prev" href="../lecture07/00-introduction.html" />
@@ -208,6 +208,25 @@
                 </a>
             
 
+            
+            <ul class="articles">
+                
+    
+        <li class="chapter " data-level="1.8.1" data-path="01-explanation-main-program.html">
+            
+                <a href="01-explanation-main-program.html">
+            
+                    
+                    第8回 メインプログラム解説
+            
+                </a>
+            
+
+            
+        </li>
+    
+
+            </ul>
             
         </li>
     
@@ -672,12 +691,18 @@ StaticJsonDocument&lt;<span class="hljs-number">2048</span>&gt; jsonData;
   Serial.println();
 }
 </code></pre>
-<p>こちらをコピーアンドペーストできたら <code>TTC-Demo-2022-MQTT-Onefile-src</code> というファイル名で保存しましょう。</p>
+<p>こちらをコピーアンドペーストできたら <code>TTC-Demo-2022-MQTT-Onefile</code> というファイル名で保存しましょう。</p>
 <h3 id="ライブラリが反映されているかを確認"><a name="ライブラリが反映されているかを確認" class="plugin-anchor" href="#ライブラリが反映されているかを確認"><i class="fa fa-link" aria-hidden="true"></i></a>ライブラリが反映されているかを確認</h3>
 <p><img src="https://i.gyazo.com/5f517b717591981ef10af6796f772c87.png" alt="image"></p>
 <p>この段階で、SPI、WifiNINA、PubSubClient に色がついていればインストいーるされています。（ ArduinoJSON は色がつきませんが一旦気にしなくてOKです）</p>
-<h3 id="必要な動作はすでにできあがっているので、まずは設定していきましょう。"><a name="必要な動作はすでにできあがっているので、まずは設定していきましょう。" class="plugin-anchor" href="#必要な動作はすでにできあがっているので、まずは設定していきましょう。"><i class="fa fa-link" aria-hidden="true"></i></a>必要な動作はすでにできあがっているので、まずは設定していきましょう。</h3>
-<p>今回のプログラムは</p>
+<p>必要な動作はすでにできあがっているので、まずは設定していきましょう。</p>
+<h3 id="メインプログラムの簡単な説明"><a name="メインプログラムの簡単な説明" class="plugin-anchor" href="#メインプログラムの簡単な説明"><i class="fa fa-link" aria-hidden="true"></i></a>メインプログラムの簡単な説明</h3>
+<ul>
+<li>こちらをみてみましょう<ul>
+<li><a href="01-explanation-main-program.html">第8回 メインプログラム解説</a></li>
+</ul>
+</li>
+</ul>
 <h2 id="mqtt-接続設定"><a name="mqtt-接続設定" class="plugin-anchor" href="#mqtt-接続設定"><i class="fa fa-link" aria-hidden="true"></i></a>MQTT 接続設定</h2>
 <p>プログラムの中の MQTT 接続の設定を行います。</p>
 <h3 id="まず-wi-fi-の設定"><a name="まず-wi-fi-の設定" class="plugin-anchor" href="#まず-wi-fi-の設定"><i class="fa fa-link" aria-hidden="true"></i></a>まず Wi-Fi の設定</h3>
@@ -710,7 +735,7 @@ StaticJsonDocument&lt;<span class="hljs-number">2048</span>&gt; jsonData;
 <p>ボードを Arduino megaAVR Boards &gt; Arduino UNO WiFi Rev2 と設定しましょう。</p>
 <p><img src="https://i.gyazo.com/24744e8a898bbbf060132d1dfe01c45f.png" alt="image"></p>
 <p>シリアルポートを、Arduino UNO WiFi Rev2 と書いてあるポートを選択します。このあたりが、Arudino 公式ボードだとちゃんと名前が出るので便利ですね。</p>
-<h2 id="プログラムの動作確認1"><a name="プログラムの動作確認1" class="plugin-anchor" href="#プログラムの動作確認1"><i class="fa fa-link" aria-hidden="true"></i></a>プログラムの動作確認1</h2>
+<h2 id="プログラムの動作確認-arduino-ide"><a name="プログラムの動作確認-arduino-ide" class="plugin-anchor" href="#プログラムの動作確認-arduino-ide"><i class="fa fa-link" aria-hidden="true"></i></a>プログラムの動作確認 Arduino IDE</h2>
 <p>デバイスが動いているかどうかを Arduino IDE で確認します。</p>
 <h3 id="シリアルモニタ起動"><a name="シリアルモニタ起動" class="plugin-anchor" href="#シリアルモニタ起動"><i class="fa fa-link" aria-hidden="true"></i></a>シリアルモニタ起動</h3>
 <p>動作確認はシリアルモニタで行います。</p>
@@ -727,13 +752,13 @@ StaticJsonDocument&lt;<span class="hljs-number">2048</span>&gt; jsonData;
 <li>9600 bps</li>
 </ul>
 <p>とデータ転送レートを合わせておきましょう。</p>
-<p>なお、シリアルコンソールに送信する場合には Serial.print 関数を使います。たとえば、プログラム中に <code>Serial.print(&quot;WiFi Connected&quot;);</code> という記述がある場合 <code>WiFi Connected</code> と表示されます。</p>
+<p>なお、シリアルモニタに送信する場合には Serial.print 関数を使います。たとえば、プログラム中に <code>Serial.print(&quot;WiFi Connected&quot;);</code> という記述がある場合 <code>WiFi Connected</code> と表示されます。</p>
 <h3 id="プログラムを書き込んでみる"><a name="プログラムを書き込んでみる" class="plugin-anchor" href="#プログラムを書き込んでみる"><i class="fa fa-link" aria-hidden="true"></i></a>プログラムを書き込んでみる</h3>
 <p><img src="https://i.gyazo.com/ca02fff1c8001e2bfe484ad5a294f917.png" alt="image"></p>
 <p>ということで、書き込みボタンをクリックして書き込みます。</p>
 <p><img src="https://i.gyazo.com/38ebbeda8eb9318c201258513b56f4dd.png" alt="image"></p>
 <p>書き込みが済むと、Wi-Fi 設定が合っていれば、接続され、このようにログが出れば成功です。</p>
-<h2 id="プログラムの動作確認2"><a name="プログラムの動作確認2" class="plugin-anchor" href="#プログラムの動作確認2"><i class="fa fa-link" aria-hidden="true"></i></a>プログラムの動作確認2</h2>
+<h2 id="プログラムの動作確認-デバイス＋node-red"><a name="プログラムの動作確認-デバイス＋node-red" class="plugin-anchor" href="#プログラムの動作確認-デバイス＋node-red"><i class="fa fa-link" aria-hidden="true"></i></a>プログラムの動作確認 デバイス＋Node-RED</h2>
 <p>デバイスのデータが届いているか Node-RED で確認します。</p>
 <p><img src="https://i.gyazo.com/f1c0153bf6e75e3a0d10bb24833d42fd.png" alt="image"></p>
 <p>前回使った ttc2022/res を受信する mqtt in ノードに debug ノードをつないだフローで確認します。</p>
@@ -810,7 +835,7 @@ StaticJsonDocument&lt;<span class="hljs-number">2048</span>&gt; jsonData;
                 </a>
                 
                 
-                <a href="../lecture09/00-introduction.html" class="navigation navigation-next " aria-label="Next page: 第9回 デバイスセンサーデータ送信">
+                <a href="01-explanation-main-program.html" class="navigation navigation-next " aria-label="Next page: 第8回 メインプログラム解説">
                     <i class="fa fa-angle-right"></i>
                 </a>
                 
@@ -821,7 +846,7 @@ StaticJsonDocument&lt;<span class="hljs-number">2048</span>&gt; jsonData;
     <script>
         var gitbook = gitbook || [];
         gitbook.push(function() {
-            gitbook.page.hasChanged({"page":{"title":"第8回 デバイス MQTT 接続","level":"1.8","depth":1,"next":{"title":"第9回 デバイスセンサーデータ送信","level":"1.9","depth":1,"path":"lecture09/00-introduction.md","ref":"lecture09/00-introduction.md","articles":[]},"previous":{"title":"第7回 MQTT データ連携演習","level":"1.7","depth":1,"path":"lecture07/00-introduction.md","ref":"lecture07/00-introduction.md","articles":[]},"dir":"ltr"},"config":{"plugins":["anchors","hide-published-with","copy-code-button","intopic-toc","back-to-top-button"],"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"pluginsConfig":{"intopic-toc":{"selector":".markdown-section h1, .markdown-section h2, .markdown-section h3, .markdown-section h4, .markdown-section h5, .markdown-section h6","mode":"nested","maxDepth":6,"isCollapsed":true,"isScrollspyActive":true,"visible":true,"label":"In this article"},"search":{},"lunr":{"maxIndexSize":1000000,"ignoreSpecialCharacters":false},"hide-published-with":{},"fontsettings":{"theme":"white","family":"sans","size":2},"highlight":{},"back-to-top-button":{},"copy-code-button":{},"theme-default":{"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"showLevel":false},"anchors":{}},"theme":"default","pdf":{"pageNumbers":true,"fontSize":12,"fontFamily":"Arial","paperSize":"a4","chapterMark":"pagebreak","pageBreaksBefore":"/","margin":{"right":62,"left":62,"top":56,"bottom":56},"embedFonts":false},"structure":{"langs":"LANGS.md","readme":"README.md","glossary":"GLOSSARY.md","summary":"SUMMARY.md"},"variables":{},"title":"タイトル","language":"ja","gitbook":"*","description":"詳細説明"},"file":{"path":"lecture08/00-introduction.md","mtime":"2022-06-20T00:07:56.066Z","type":"markdown"},"gitbook":{"version":"3.7.1","time":"2022-06-20T01:50:27.530Z"},"basePath":"..","book":{"language":""}});
+            gitbook.page.hasChanged({"page":{"title":"第8回 デバイス MQTT 接続","level":"1.8","depth":1,"next":{"title":"第8回 メインプログラム解説","level":"1.8.1","depth":2,"path":"lecture08/01-explanation-main-program.md","ref":"lecture08/01-explanation-main-program.md","articles":[]},"previous":{"title":"第7回 MQTT データ連携演習","level":"1.7","depth":1,"path":"lecture07/00-introduction.md","ref":"lecture07/00-introduction.md","articles":[]},"articles":[{"title":"第8回 メインプログラム解説","level":"1.8.1","depth":2,"path":"lecture08/01-explanation-main-program.md","ref":"lecture08/01-explanation-main-program.md","articles":[]}],"dir":"ltr"},"config":{"plugins":["anchors","hide-published-with","copy-code-button","intopic-toc","back-to-top-button"],"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"pluginsConfig":{"intopic-toc":{"selector":".markdown-section h1, .markdown-section h2, .markdown-section h3, .markdown-section h4, .markdown-section h5, .markdown-section h6","mode":"nested","maxDepth":6,"isCollapsed":true,"isScrollspyActive":true,"visible":true,"label":"In this article"},"search":{},"lunr":{"maxIndexSize":1000000,"ignoreSpecialCharacters":false},"hide-published-with":{},"fontsettings":{"theme":"white","family":"sans","size":2},"highlight":{},"back-to-top-button":{},"copy-code-button":{},"theme-default":{"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"showLevel":false},"anchors":{}},"theme":"default","pdf":{"pageNumbers":true,"fontSize":12,"fontFamily":"Arial","paperSize":"a4","chapterMark":"pagebreak","pageBreaksBefore":"/","margin":{"right":62,"left":62,"top":56,"bottom":56},"embedFonts":false},"structure":{"langs":"LANGS.md","readme":"README.md","glossary":"GLOSSARY.md","summary":"SUMMARY.md"},"variables":{},"title":"タイトル","language":"ja","gitbook":"*","description":"詳細説明"},"file":{"path":"lecture08/00-introduction.md","mtime":"2022-06-20T07:35:59.859Z","type":"markdown"},"gitbook":{"version":"3.7.1","time":"2022-06-20T07:50:11.513Z"},"basePath":"..","book":{"language":""}});
         });
     </script>
 </div>

@@ -166,9 +166,9 @@ void setup() {
 }
 ```
 
-起動時に動作する setup 関数では、`Serial.begin(9600);` をつかってシリアル接続時のデータ転送速度を 9600 bps に設定しています。これは Arduino IDE のシリアルコンソールで同じデータ転送速度に合わせると文字列が受信できます。
+起動時に動作する setup 関数では、`Serial.begin(9600);` をつかってシリアル接続時のデータ転送速度を 9600 bps に設定しています。これは Arduino IDE のシリアルモニタで同じデータ転送速度に合わせると文字列が受信できます。
 
-`Serial.println("Analog Read");` で、シリアルコンソールに `Analog Read` と起動時にチャックしやすいように文字列を送信しています。
+`Serial.println("Analog Read");` で、シリアルモニタに `Analog Read` と起動時にチャックしやすいように文字列を送信しています。
 
 ```c
 void loop() {
@@ -179,7 +179,7 @@ void loop() {
 }
 ```
 
-起動後、動作し続ける loop 関数では、`analogRead(sensorPin)` によってアナログ入力値を受け取っています。`Serial.print("light = ");` と `Serial.println(sensorValue);` でシリアルコンソールに `light = 288` と値を送っています。
+起動後、動作し続ける loop 関数では、`analogRead(sensorPin)` によってアナログ入力値を受け取っています。`Serial.print("light = ");` と `Serial.println(sensorValue);` でシリアルモニタに `light = 288` と値を送っています。
 
 ` delay(1000);` で、1秒ごとにこの処理を繰り返すように遅延させています。
 
@@ -426,10 +426,6 @@ void printMacAddress(byte mac[]) {
 
 こちらをコピーアンドペーストできたら `TTC-Demo-2022-Light-MQTT` というファイル名で保存しましょう。
 
-### メインプログラムの簡単な説明
-
-TODO : メインプログラムの簡単な説明
-
 ## プログラムの設定
 
 今回のプログラム内の設定をします。
@@ -456,6 +452,95 @@ const char *mqttPassword = "";
 
 Beebotte については、今回は自分の MQTT ブローカーを使って行いましょう。
 
+### メインプログラムの簡単な説明
+
+今回のプログラムは、実は前回の授業で使った MQTT ブローカーに接続したプログラムからあの変更点はそれほど多くありません。
+
+- 前回の授業で使ったプログラムの解説はこちらです。
+  - [第8回 メインプログラム解説](lecture08/01-explanation-main-program.md)
+
+前回の授業で使ったプログラムで、ある程度、準備できてしまっているとも言えます。
+
+今回追加したポイントを解説していきます。
+
+```c
+// 光センサー関連の変数
+int sensorPin = A0;
+int sensorValue = 0;
+long messageSentAtSendMQTT = 0;
+
+// 光センサー送信間隔
+int wait_time = 5000;
+```
+
+まず、こちらが光センサー関連の変数です。
+
+- sensorPin
+  - 今回のアナログ入力を受け付けるピン
+    - A0
+- sensorValue
+  - センター値を格納しておく変数
+- messageSentAtSendMQTT
+  - MQTTに定期的に送るために時間を記憶しておく変数
+- wait_time
+  - 光センサー送信間隔をミリ秒で決める変数
+
+を用意しています。
+
+```c
+void loop() {
+  // 常にチェックして切断されたら復帰できるようにする対応
+  mqttLoop();
+
+  // センサーを wait_time ミリ秒で指定された間隔で送信
+  long spanTimeSendMQTT = millis() - messageSentAtSendMQTT;
+  if (spanTimeSendMQTT > wait_time) {
+    messageSentAtSendMQTT = millis();
+    // センサー値取得
+    sensorValue = analogRead(sensorPin);
+    Serial.print("light = ");
+    Serial.println(sensorValue);
+    // センサー値 publish 
+    DynamicJsonDocument doc(1024);
+    doc["light"] = sensorValue;
+    serializeJson(doc, pubJson);
+    mqttClient.publish(pubTopic, pubJson);
+  }
+}
+```
+
+起動後、動作し続ける loop 関数では `センサーを wait_time ミリ秒で指定された間隔で送信` 以降が、加わった部分です。
+
+```c
+  // センサーを wait_time ミリ秒で指定された間隔で送信
+  long spanTimeSendMQTT = millis() - messageSentAtSendMQTT;
+  if (spanTimeSendMQTT > wait_time) {s
+```
+- センサーを wait_time ミリ秒で指定された間隔で送信しています
+- ちょっと難しい箇所ですが mqttLoop によって PubSubClient のために回り続けているので単純な delay で動作しにくい場所なので `millis()` という Arduino 上で起動時からカウントするミリ秒を元に時間を記録し間隔を待っています
+
+```c
+    // センサー値取得
+    sensorValue = analogRead(sensorPin);
+    Serial.print("light = ");
+    Serial.println(sensorValue);
+```
+
+アナログ入力だけ検証したプログラムを同じものです。なるべく同じプログラムを移植して安全に動くようにしています。
+
+```c
+    // センサー値 publish 
+    DynamicJsonDocument doc(1024);
+    doc["light"] = sensorValue;
+    serializeJson(doc, pubJson);
+    mqttClient.publish(pubTopic, pubJson);
+```
+
+- ArduinoJSON が提供する JSON に変換するために便利な DynamicJsonDocument という型を doc という変数でまず準備
+- `doc["light"]` で doc に light という子の変数定義で int 型（整数）を入れる
+- serializeJson という DynamicJsonDocument から文字列に変換するシリアライズと言われる対応で pubJson という変数に `{"light":123}` に変換した文字列を格納
+- `mqttClient.publish(pubTopic, pubJson);` で、pubTopic に格納されたトピック `ttc2022/res` に pubJson に格納した文字列 `{"light":123}` が送信されます
+
 ## プログラムの書き込み
 
 Arduino IDE にプログラムを書き込みます。
@@ -468,7 +553,7 @@ Arduino UNO WiFi Rev2 へ書き込む前にシリアルモニタを起動して�
 
 ボード設定を行い、書き込みボタンをクリックして書き込みます。
 
-## プログラムの動作確認1
+## プログラムの動作確認 Arduino IDE
 
 プログラムと回路の動作を Arduino IDE で確認します。
 
@@ -485,7 +570,7 @@ Arduino UNO WiFi Rev2 へ書き込む前にシリアルモニタを起動して�
 手で影を作って値の変化も見てみましょう。（回路が間違っていると値が変化しない場合があります。）
 
 
-## プログラムの動作確認2
+## プログラムの動作確認 デバイス＋ Node-RED
 
 プログラムと回路の動作を Node-RED で確認します。
 

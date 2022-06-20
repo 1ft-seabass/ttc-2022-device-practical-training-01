@@ -76,7 +76,7 @@
 
     
     
-    <link rel="prev" href="../lecture08/00-introduction.html" />
+    <link rel="prev" href="../lecture08/01-explanation-main-program.html" />
     
 
     </head>
@@ -206,6 +206,25 @@
                 </a>
             
 
+            
+            <ul class="articles">
+                
+    
+        <li class="chapter " data-level="1.8.1" data-path="../lecture08/01-explanation-main-program.html">
+            
+                <a href="../lecture08/01-explanation-main-program.html">
+            
+                    
+                    第8回 メインプログラム解説
+            
+                </a>
+            
+
+            
+        </li>
+    
+
+            </ul>
             
         </li>
     
@@ -430,8 +449,8 @@
   Serial.println(<span class="hljs-string">&quot;Analog Read&quot;</span>);
 }
 </code></pre>
-<p>起動時に動作する setup 関数では、<code>Serial.begin(9600);</code> をつかってシリアル接続時のデータ転送速度を 9600 bps に設定しています。これは Arduino IDE のシリアルコンソールで同じデータ転送速度に合わせると文字列が受信できます。</p>
-<p><code>Serial.println(&quot;Analog Read&quot;);</code> で、シリアルコンソールに <code>Analog Read</code> と起動時にチャックしやすいように文字列を送信しています。</p>
+<p>起動時に動作する setup 関数では、<code>Serial.begin(9600);</code> をつかってシリアル接続時のデータ転送速度を 9600 bps に設定しています。これは Arduino IDE のシリアルモニタで同じデータ転送速度に合わせると文字列が受信できます。</p>
+<p><code>Serial.println(&quot;Analog Read&quot;);</code> で、シリアルモニタに <code>Analog Read</code> と起動時にチャックしやすいように文字列を送信しています。</p>
 <pre><code class="lang-c"><span class="hljs-function"><span class="hljs-keyword">void</span> <span class="hljs-title">loop</span><span class="hljs-params">()</span> </span>{
   sensorValue = analogRead(sensorPin);
   Serial.print(<span class="hljs-string">&quot;light = &quot;</span>);
@@ -439,7 +458,7 @@
   delay(<span class="hljs-number">1000</span>);
 }
 </code></pre>
-<p>起動後、動作し続ける loop 関数では、<code>analogRead(sensorPin)</code> によってアナログ入力値を受け取っています。<code>Serial.print(&quot;light = &quot;);</code> と <code>Serial.println(sensorValue);</code> でシリアルコンソールに <code>light = 288</code> と値を送っています。</p>
+<p>起動後、動作し続ける loop 関数では、<code>analogRead(sensorPin)</code> によってアナログ入力値を受け取っています。<code>Serial.print(&quot;light = &quot;);</code> と <code>Serial.println(sensorValue);</code> でシリアルモニタに <code>light = 288</code> と値を送っています。</p>
 <p><code>delay(1000);</code> で、1秒ごとにこの処理を繰り返すように遅延させています。</p>
 <h2 id="プログラムの説明"><a name="プログラムの説明" class="plugin-anchor" href="#プログラムの説明"><i class="fa fa-link" aria-hidden="true"></i></a>プログラムの説明</h2>
 <p><img src="https://i.gyazo.com/e7556ca5b37f0d27fdd087289ce46e45.png" alt="image"></p>
@@ -671,8 +690,6 @@ StaticJsonDocument&lt;<span class="hljs-number">2048</span>&gt; jsonData;
 }
 </code></pre>
 <p>こちらをコピーアンドペーストできたら <code>TTC-Demo-2022-Light-MQTT</code> というファイル名で保存しましょう。</p>
-<h3 id="メインプログラムの簡単な説明"><a name="メインプログラムの簡単な説明" class="plugin-anchor" href="#メインプログラムの簡単な説明"><i class="fa fa-link" aria-hidden="true"></i></a>メインプログラムの簡単な説明</h3>
-<p>TODO : メインプログラムの簡単な説明</p>
 <h2 id="プログラムの設定"><a name="プログラムの設定" class="plugin-anchor" href="#プログラムの設定"><i class="fa fa-link" aria-hidden="true"></i></a>プログラムの設定</h2>
 <p>今回のプログラム内の設定をします。</p>
 <pre><code class="lang-c"><span class="hljs-comment">// Wi-FiのSSID</span>
@@ -691,13 +708,101 @@ StaticJsonDocument&lt;<span class="hljs-number">2048</span>&gt; jsonData;
 <span class="hljs-keyword">const</span> <span class="hljs-keyword">char</span> *mqttPassword = <span class="hljs-string">&quot;&quot;</span>;
 </code></pre>
 <p>Beebotte については、今回は自分の MQTT ブローカーを使って行いましょう。</p>
+<h3 id="メインプログラムの簡単な説明"><a name="メインプログラムの簡単な説明" class="plugin-anchor" href="#メインプログラムの簡単な説明"><i class="fa fa-link" aria-hidden="true"></i></a>メインプログラムの簡単な説明</h3>
+<p>今回のプログラムは、実は前回の授業で使った MQTT ブローカーに接続したプログラムからあの変更点はそれほど多くありません。</p>
+<ul>
+<li>前回の授業で使ったプログラムの解説はこちらです。<ul>
+<li><a href="lecture08/01-explanation-main-program.md">第8回 メインプログラム解説</a></li>
+</ul>
+</li>
+</ul>
+<p>前回の授業で使ったプログラムで、ある程度、準備できてしまっているとも言えます。</p>
+<p>今回追加したポイントを解説していきます。</p>
+<pre><code class="lang-c"><span class="hljs-comment">// 光センサー関連の変数</span>
+<span class="hljs-keyword">int</span> sensorPin = A0;
+<span class="hljs-keyword">int</span> sensorValue = <span class="hljs-number">0</span>;
+<span class="hljs-keyword">long</span> messageSentAtSendMQTT = <span class="hljs-number">0</span>;
+
+<span class="hljs-comment">// 光センサー送信間隔</span>
+<span class="hljs-keyword">int</span> wait_time = <span class="hljs-number">5000</span>;
+</code></pre>
+<p>まず、こちらが光センサー関連の変数です。</p>
+<ul>
+<li>sensorPin<ul>
+<li>今回のアナログ入力を受け付けるピン<ul>
+<li>A0</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>sensorValue<ul>
+<li>センター値を格納しておく変数</li>
+</ul>
+</li>
+<li>messageSentAtSendMQTT<ul>
+<li>MQTTに定期的に送るために時間を記憶しておく変数</li>
+</ul>
+</li>
+<li>wait_time<ul>
+<li>光センサー送信間隔をミリ秒で決める変数</li>
+</ul>
+</li>
+</ul>
+<p>を用意しています。</p>
+<pre><code class="lang-c"><span class="hljs-function"><span class="hljs-keyword">void</span> <span class="hljs-title">loop</span><span class="hljs-params">()</span> </span>{
+  <span class="hljs-comment">// 常にチェックして切断されたら復帰できるようにする対応</span>
+  mqttLoop();
+
+  <span class="hljs-comment">// センサーを wait_time ミリ秒で指定された間隔で送信</span>
+  <span class="hljs-keyword">long</span> spanTimeSendMQTT = millis() - messageSentAtSendMQTT;
+  <span class="hljs-keyword">if</span> (spanTimeSendMQTT &gt; wait_time) {
+    messageSentAtSendMQTT = millis();
+    <span class="hljs-comment">// センサー値取得</span>
+    sensorValue = analogRead(sensorPin);
+    Serial.print(<span class="hljs-string">&quot;light = &quot;</span>);
+    Serial.println(sensorValue);
+    <span class="hljs-comment">// センサー値 publish </span>
+    <span class="hljs-function">DynamicJsonDocument <span class="hljs-title">doc</span><span class="hljs-params">(<span class="hljs-number">1024</span>)</span></span>;
+    doc[<span class="hljs-string">&quot;light&quot;</span>] = sensorValue;
+    serializeJson(doc, pubJson);
+    mqttClient.publish(pubTopic, pubJson);
+  }
+}
+</code></pre>
+<p>起動後、動作し続ける loop 関数では <code>センサーを wait_time ミリ秒で指定された間隔で送信</code> 以降が、加わった部分です。</p>
+<pre><code class="lang-c">  <span class="hljs-comment">// センサーを wait_time ミリ秒で指定された間隔で送信</span>
+  <span class="hljs-keyword">long</span> spanTimeSendMQTT = millis() - messageSentAtSendMQTT;
+  <span class="hljs-keyword">if</span> (spanTimeSendMQTT &gt; wait_time) {s
+</code></pre>
+<ul>
+<li>センサーを wait_time ミリ秒で指定された間隔で送信しています</li>
+<li>ちょっと難しい箇所ですが mqttLoop によって PubSubClient のために回り続けているので単純な delay で動作しにくい場所なので <code>millis()</code> という Arduino 上で起動時からカウントするミリ秒を元に時間を記録し間隔を待っています</li>
+</ul>
+<pre><code class="lang-c">    <span class="hljs-comment">// センサー値取得</span>
+    sensorValue = analogRead(sensorPin);
+    Serial.print(<span class="hljs-string">&quot;light = &quot;</span>);
+    Serial.println(sensorValue);
+</code></pre>
+<p>アナログ入力だけ検証したプログラムを同じものです。なるべく同じプログラムを移植して安全に動くようにしています。</p>
+<pre><code class="lang-c">    <span class="hljs-comment">// センサー値 publish </span>
+    <span class="hljs-function">DynamicJsonDocument <span class="hljs-title">doc</span><span class="hljs-params">(<span class="hljs-number">1024</span>)</span></span>;
+    doc[<span class="hljs-string">&quot;light&quot;</span>] = sensorValue;
+    serializeJson(doc, pubJson);
+    mqttClient.publish(pubTopic, pubJson);
+</code></pre>
+<ul>
+<li>ArduinoJSON が提供する JSON に変換するために便利な DynamicJsonDocument という型を doc という変数でまず準備</li>
+<li><code>doc[&quot;light&quot;]</code> で doc に light という子の変数定義で int 型（整数）を入れる</li>
+<li>serializeJson という DynamicJsonDocument から文字列に変換するシリアライズと言われる対応で pubJson という変数に <code>{&quot;light&quot;:123}</code> に変換した文字列を格納</li>
+<li><code>mqttClient.publish(pubTopic, pubJson);</code> で、pubTopic に格納されたトピック <code>ttc2022/res</code> に pubJson に格納した文字列 <code>{&quot;light&quot;:123}</code> が送信されます</li>
+</ul>
 <h2 id="プログラムの書き込み"><a name="プログラムの書き込み" class="plugin-anchor" href="#プログラムの書き込み"><i class="fa fa-link" aria-hidden="true"></i></a>プログラムの書き込み</h2>
 <p>Arduino IDE にプログラムを書き込みます。</p>
 <p><img src="https://i.gyazo.com/7af357caade502812ae210732cec208a.png" alt="image"></p>
 <p>Arduino UNO WiFi Rev2 へ書き込む前にシリアルモニタを起動しておきましょう。今回は設定値は 9600 bps です。</p>
 <p><img src="https://i.gyazo.com/ca02fff1c8001e2bfe484ad5a294f917.png" alt="image"></p>
 <p>ボード設定を行い、書き込みボタンをクリックして書き込みます。</p>
-<h2 id="プログラムの動作確認1"><a name="プログラムの動作確認1" class="plugin-anchor" href="#プログラムの動作確認1"><i class="fa fa-link" aria-hidden="true"></i></a>プログラムの動作確認1</h2>
+<h2 id="プログラムの動作確認-arduino-ide"><a name="プログラムの動作確認-arduino-ide" class="plugin-anchor" href="#プログラムの動作確認-arduino-ide"><i class="fa fa-link" aria-hidden="true"></i></a>プログラムの動作確認 Arduino IDE</h2>
 <p>プログラムと回路の動作を Arduino IDE で確認します。</p>
 <p><img src="https://i.gyazo.com/3ef6f3661c136eba28f0fb2d2bd6fc57.png" alt="image"></p>
 <p>まず、Wi-Fi がつながり MQTT ブローカーに接続されていることが確認できます。</p>
@@ -705,7 +810,7 @@ StaticJsonDocument&lt;<span class="hljs-number">2048</span>&gt; jsonData;
 <p>つづいて、5秒ごとにセンサーデータが取得されていることを確認しましょう。</p>
 <p><img src="https://i.gyazo.com/af52bcb8cc80352585fe5e392400f726.png" alt="image"></p>
 <p>手で影を作って値の変化も見てみましょう。（回路が間違っていると値が変化しない場合があります。）</p>
-<h2 id="プログラムの動作確認2"><a name="プログラムの動作確認2" class="plugin-anchor" href="#プログラムの動作確認2"><i class="fa fa-link" aria-hidden="true"></i></a>プログラムの動作確認2</h2>
+<h2 id="プログラムの動作確認-デバイス＋-node-red"><a name="プログラムの動作確認-デバイス＋-node-red" class="plugin-anchor" href="#プログラムの動作確認-デバイス＋-node-red"><i class="fa fa-link" aria-hidden="true"></i></a>プログラムの動作確認 デバイス＋ Node-RED</h2>
 <p>プログラムと回路の動作を Node-RED で確認します。</p>
 <p><img src="https://i.gyazo.com/f1c0153bf6e75e3a0d10bb24833d42fd.png" alt="image"></p>
 <p>前回使った ttc2022/res を受信する mqtt in ノードに debug ノードをつないだフローで確認します。</p>
@@ -756,7 +861,7 @@ StaticJsonDocument&lt;<span class="hljs-number">2048</span>&gt; jsonData;
 
             
                 
-                <a href="../lecture08/00-introduction.html" class="navigation navigation-prev navigation-unique" aria-label="Previous page: 第8回 デバイス MQTT 接続">
+                <a href="../lecture08/01-explanation-main-program.html" class="navigation navigation-prev navigation-unique" aria-label="Previous page: 第8回 メインプログラム解説">
                     <i class="fa fa-angle-left"></i>
                 </a>
                 
@@ -768,7 +873,7 @@ StaticJsonDocument&lt;<span class="hljs-number">2048</span>&gt; jsonData;
     <script>
         var gitbook = gitbook || [];
         gitbook.push(function() {
-            gitbook.page.hasChanged({"page":{"title":"第9回 デバイスセンサーデータ送信","level":"1.9","depth":1,"next":{"title":"第10回 デバイス遠隔操作","level":"1.10","depth":1,"ref":"","articles":[]},"previous":{"title":"第8回 デバイス MQTT 接続","level":"1.8","depth":1,"path":"lecture08/00-introduction.md","ref":"lecture08/00-introduction.md","articles":[]},"dir":"ltr"},"config":{"plugins":["anchors","hide-published-with","copy-code-button","intopic-toc","back-to-top-button"],"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"pluginsConfig":{"intopic-toc":{"selector":".markdown-section h1, .markdown-section h2, .markdown-section h3, .markdown-section h4, .markdown-section h5, .markdown-section h6","mode":"nested","maxDepth":6,"isCollapsed":true,"isScrollspyActive":true,"visible":true,"label":"In this article"},"search":{},"lunr":{"maxIndexSize":1000000,"ignoreSpecialCharacters":false},"hide-published-with":{},"fontsettings":{"theme":"white","family":"sans","size":2},"highlight":{},"back-to-top-button":{},"copy-code-button":{},"theme-default":{"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"showLevel":false},"anchors":{}},"theme":"default","pdf":{"pageNumbers":true,"fontSize":12,"fontFamily":"Arial","paperSize":"a4","chapterMark":"pagebreak","pageBreaksBefore":"/","margin":{"right":62,"left":62,"top":56,"bottom":56},"embedFonts":false},"structure":{"langs":"LANGS.md","readme":"README.md","glossary":"GLOSSARY.md","summary":"SUMMARY.md"},"variables":{},"title":"タイトル","language":"ja","gitbook":"*","description":"詳細説明"},"file":{"path":"lecture09/00-introduction.md","mtime":"2022-06-20T01:50:22.642Z","type":"markdown"},"gitbook":{"version":"3.7.1","time":"2022-06-20T01:50:27.530Z"},"basePath":"..","book":{"language":""}});
+            gitbook.page.hasChanged({"page":{"title":"第9回 デバイスセンサーデータ送信","level":"1.9","depth":1,"next":{"title":"第10回 デバイス遠隔操作","level":"1.10","depth":1,"ref":"","articles":[]},"previous":{"title":"第8回 メインプログラム解説","level":"1.8.1","depth":2,"path":"lecture08/01-explanation-main-program.md","ref":"lecture08/01-explanation-main-program.md","articles":[]},"dir":"ltr"},"config":{"plugins":["anchors","hide-published-with","copy-code-button","intopic-toc","back-to-top-button"],"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"pluginsConfig":{"intopic-toc":{"selector":".markdown-section h1, .markdown-section h2, .markdown-section h3, .markdown-section h4, .markdown-section h5, .markdown-section h6","mode":"nested","maxDepth":6,"isCollapsed":true,"isScrollspyActive":true,"visible":true,"label":"In this article"},"search":{},"lunr":{"maxIndexSize":1000000,"ignoreSpecialCharacters":false},"hide-published-with":{},"fontsettings":{"theme":"white","family":"sans","size":2},"highlight":{},"back-to-top-button":{},"copy-code-button":{},"theme-default":{"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"showLevel":false},"anchors":{}},"theme":"default","pdf":{"pageNumbers":true,"fontSize":12,"fontFamily":"Arial","paperSize":"a4","chapterMark":"pagebreak","pageBreaksBefore":"/","margin":{"right":62,"left":62,"top":56,"bottom":56},"embedFonts":false},"structure":{"langs":"LANGS.md","readme":"README.md","glossary":"GLOSSARY.md","summary":"SUMMARY.md"},"variables":{},"title":"タイトル","language":"ja","gitbook":"*","description":"詳細説明"},"file":{"path":"lecture09/00-introduction.md","mtime":"2022-06-20T07:50:04.221Z","type":"markdown"},"gitbook":{"version":"3.7.1","time":"2022-06-20T07:50:11.513Z"},"basePath":"..","book":{"language":""}});
         });
     </script>
 </div>

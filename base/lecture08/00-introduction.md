@@ -404,7 +404,7 @@ void printMacAddress(byte mac[]) {
 }
 ```
 
-こちらをコピーアンドペーストできたら `TTC-Demo-2022-MQTT-Onefile-src` というファイル名で保存しましょう。
+こちらをコピーアンドペーストできたら `TTC-Demo-2022-MQTT-Onefile` というファイル名で保存しましょう。
 
 ### ライブラリが反映されているかを確認
 
@@ -412,9 +412,12 @@ void printMacAddress(byte mac[]) {
 
 この段階で、SPI、WifiNINA、PubSubClient に色がついていればインストいーるされています。（ ArduinoJSON は色がつきませんが一旦気にしなくてOKです）
 
-### 必要な動作はすでにできあがっているので、まずは設定していきましょう。
+必要な動作はすでにできあがっているので、まずは設定していきましょう。
 
-今回のプログラムは
+### メインプログラムの簡単な説明
+
+- こちらをみてみましょう
+  - [第8回 メインプログラム解説](01-explanation-main-program.md)
 
 ## MQTT 接続設定
 
@@ -470,7 +473,7 @@ Arduino UNO WiFi Rev2 を PC とつなぎます。
 
 シリアルポートを、Arduino UNO WiFi Rev2 と書いてあるポートを選択します。このあたりが、Arudino 公式ボードだとちゃんと名前が出るので便利ですね。
 
-## プログラムの動作確認1
+## プログラムの動作確認 Arduino IDE
 
 デバイスが動いているかどうかを Arduino IDE で確認します。
 
@@ -498,7 +501,7 @@ Arduino UNO WiFi Rev2 へ書き込む前にシリアルモニタを起動して�
 
 とデータ転送レートを合わせておきましょう。
 
-なお、シリアルコンソールに送信する場合には Serial.print 関数を使います。たとえば、プログラム中に `Serial.print("WiFi Connected");` という記述がある場合 `WiFi Connected` と表示されます。
+なお、シリアルモニタに送信する場合には Serial.print 関数を使います。たとえば、プログラム中に `Serial.print("WiFi Connected");` という記述がある場合 `WiFi Connected` と表示されます。
 
 ### プログラムを書き込んでみる
 
@@ -510,7 +513,7 @@ Arduino UNO WiFi Rev2 へ書き込む前にシリアルモニタを起動して�
 
 書き込みが済むと、Wi-Fi 設定が合っていれば、接続され、このようにログが出れば成功です。
 
-## プログラムの動作確認2
+## プログラムの動作確認 デバイス＋Node-RED
 
 デバイスのデータが届いているか Node-RED で確認します。
 
