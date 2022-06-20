@@ -37,6 +37,9 @@ Wi-Fi を動かす部分は、この WiFiNINA モジュールというのが担�
 - WiFiNINA - Arduino Reference
   - https://www.arduino.cc/reference/en/libraries/wifinina/
 
+
+![image](https://i.gyazo.com/e4c36931970e7c341d24b24ea00dbf42.png)
+
 この授業では、
 
 - Arduino IDE で Arduino UNO Wi-Fi Rev.2 を書き込む設定を行う
@@ -416,6 +419,8 @@ void printMacAddress(byte mac[]) {
 
 ### メインプログラムの簡単な説明
 
+![image](https://i.gyazo.com/e4c36931970e7c341d24b24ea00dbf42.png)
+
 - こちらをみてみましょう
   - [第8回 メインプログラム解説](01-explanation-main-program.md)
 
@@ -515,6 +520,8 @@ Arduino UNO WiFi Rev2 へ書き込む前にシリアルモニタを起動して�
 
 ## プログラムの動作確認 デバイス＋Node-RED
 
+![image](https://i.gyazo.com/e4c36931970e7c341d24b24ea00dbf42.png)
+
 デバイスのデータが届いているか Node-RED で確認します。
 
 ![image](https://i.gyazo.com/f1c0153bf6e75e3a0d10bb24833d42fd.png)
@@ -575,4 +582,10 @@ Arduino プログラム側で mqttConnect という関数の部分で MQTT の�
 ![image](https://i.gyazo.com/f3fbae9365e18d67b1ef57fb67a5fa66.png)
 
 ここまでの設定がうまくいっていれば、Node-RED 側で接続時にデータが受信されています。
+
+### エクストラ：講師から一斉送信
+
+時間があれば、講師からみなさんへ何かしらのデータ送信を行ってみます！
+
+![image](https://i.gyazo.com/fb1d4317f550ddaecd64f19ac2e743f9.png)
 
