@@ -10,7 +10,7 @@
 - [第8回 デバイス MQTT 接続](lecture08/00-introduction.md)
   - [第8回 メインプログラム解説](lecture08/01-explanation-main-program.md)
 - [第9回 デバイスセンサーデータ送信](lecture09/00-introduction.md)
-- 第10回 デバイス遠隔操作
-- 第11回 LINE Notify API 基礎
+- [第10回 デバイス遠隔操作](lecture10/00-introduction.md)
+- [第11回 LINE Notify API 基礎](lecture11/00-introduction.md)
 - 第12回 LINE Notify API 演習
 - 第13回 センサー通知演習
