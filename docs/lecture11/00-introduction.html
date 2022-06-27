@@ -353,6 +353,37 @@
 <p>LINE Notify サイトにログインしアカウント確認をします。</p>
 <h2 id="line-notify-設定の取得"><a name="line-notify-設定の取得" class="plugin-anchor" href="#line-notify-設定の取得"><i class="fa fa-link" aria-hidden="true"></i></a>LINE Notify 設定の取得</h2>
 <p>LINE Notify 設定しトークンの取得を行います。</p>
+<p><img src="https://i.gyazo.com/c45ee309aa6793bc12f67c24f3a905ce.png" alt="image"></p>
+<p><a href="https://notify-bot.line.me/ja/" target="_blank">https://notify-bot.line.me/ja/</a> からログインします。</p>
+<p><img src="https://i.gyazo.com/bf26cdcf093a783aee4ff510ec9ddb68.png" alt="image"></p>
+<p>ログインすると、右上にアカウント名が出るのでクリックします。</p>
+<p><img src="https://i.gyazo.com/7cdb07c7e588bac278a5fb0b2dbc9d83.png" alt="image"></p>
+<p>マイページをクリック。</p>
+<p><img src="https://i.gyazo.com/0c48f49af1be4e5e7c789366c0b838cf.png" alt="image"></p>
+<p>マイページの下の方に「アクセストークンの発行(開発者向け)」というエリアがあるのでスクロールします。</p>
+<p><img src="https://i.gyazo.com/bbba9909e0437e487718479953b198ff.png" alt="image"></p>
+<p>トークンを発行するボタンをクリックします。</p>
+<p><img src="https://i.gyazo.com/05b98371bcae556f578cdb96505ecb7c.jpg" alt="image"></p>
+<p>トークンを発行するウィンドウが表示されるので、以下のように対応します。</p>
+<ul>
+<li>トークン名を記入してください (通知の際に表示されます)<ul>
+<li><code>M5Stack Notify</code> と入力</li>
+</ul>
+</li>
+<li>通知を送信するトークルームを選択してください<ul>
+<li><code>1:1でLINE Notifyから通知を受け取る</code> を選択</li>
+</ul>
+</li>
+</ul>
+<p>こちらを対応すると、発行するボタンが押せるようになるのでクリックします。</p>
+<p><img src="https://i.gyazo.com/abee7f38d2db6897c61cdb42fc29a83c.png" alt="image"></p>
+<p>このようにトークンが表示されるのでメモしましょう。</p>
+<p><strong>このページから移動すると、新しく発行されたトークンは二度と表示されないので気をつけましょう</strong></p>
+<p>メモしたらウィンドウを閉じるボタンをクリックして閉じます。</p>
+<p><img src="https://i.gyazo.com/2fcf2f7f0d039737510759301a619485.png" alt="image"></p>
+<p>リストに追加されたことを確認しておきます。</p>
+<p><img src="https://i.gyazo.com/07a33eec5562fc6fd67e52aeaa5c2bc9.png" alt="image"></p>
+<p>今回選択した LINE Notify 先のアカウントにこのようなメッセージが来ていることも確認します。</p>
 <h2 id="line-notify-設定の確認"><a name="line-notify-設定の確認" class="plugin-anchor" href="#line-notify-設定の確認"><i class="fa fa-link" aria-hidden="true"></i></a>LINE Notify 設定の確認</h2>
 <p>LINE で LINE Notify 設定されたかメッセージ確認を行います。</p>
 <h2 id="line-notify-の技術仕様"><a name="line-notify-の技術仕様" class="plugin-anchor" href="#line-notify-の技術仕様"><i class="fa fa-link" aria-hidden="true"></i></a>LINE Notify の技術仕様</h2>
@@ -398,7 +429,7 @@
     <script>
         var gitbook = gitbook || [];
         gitbook.push(function() {
-            gitbook.page.hasChanged({"page":{"title":"第11回 LINE Notify API 基礎","level":"1.11","depth":1,"next":{"title":"第12回 LINE Notify API 演習","level":"1.12","depth":1,"ref":"","articles":[]},"previous":{"title":"第10回 デバイス遠隔操作","level":"1.10","depth":1,"path":"lecture10/00-introduction.md","ref":"lecture10/00-introduction.md","articles":[]},"dir":"ltr"},"config":{"plugins":["anchors","hide-published-with","copy-code-button","intopic-toc","back-to-top-button"],"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"pluginsConfig":{"intopic-toc":{"selector":".markdown-section h1, .markdown-section h2, .markdown-section h3, .markdown-section h4, .markdown-section h5, .markdown-section h6","mode":"nested","maxDepth":6,"isCollapsed":true,"isScrollspyActive":true,"visible":true,"label":"In this article"},"search":{},"lunr":{"maxIndexSize":1000000,"ignoreSpecialCharacters":false},"hide-published-with":{},"fontsettings":{"theme":"white","family":"sans","size":2},"highlight":{},"back-to-top-button":{},"copy-code-button":{},"theme-default":{"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"showLevel":false},"anchors":{}},"theme":"default","pdf":{"pageNumbers":true,"fontSize":12,"fontFamily":"Arial","paperSize":"a4","chapterMark":"pagebreak","pageBreaksBefore":"/","margin":{"right":62,"left":62,"top":56,"bottom":56},"embedFonts":false},"structure":{"langs":"LANGS.md","readme":"README.md","glossary":"GLOSSARY.md","summary":"SUMMARY.md"},"variables":{},"title":"タイトル","language":"ja","gitbook":"*","description":"詳細説明"},"file":{"path":"lecture11/00-introduction.md","mtime":"2022-06-25T13:39:16.586Z","type":"markdown"},"gitbook":{"version":"3.7.1","time":"2022-06-25T13:41:31.665Z"},"basePath":"..","book":{"language":""}});
+            gitbook.page.hasChanged({"page":{"title":"第11回 LINE Notify API 基礎","level":"1.11","depth":1,"next":{"title":"第12回 LINE Notify API 演習","level":"1.12","depth":1,"ref":"","articles":[]},"previous":{"title":"第10回 デバイス遠隔操作","level":"1.10","depth":1,"path":"lecture10/00-introduction.md","ref":"lecture10/00-introduction.md","articles":[]},"dir":"ltr"},"config":{"plugins":["anchors","hide-published-with","copy-code-button","intopic-toc","back-to-top-button"],"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"pluginsConfig":{"intopic-toc":{"selector":".markdown-section h1, .markdown-section h2, .markdown-section h3, .markdown-section h4, .markdown-section h5, .markdown-section h6","mode":"nested","maxDepth":6,"isCollapsed":true,"isScrollspyActive":true,"visible":true,"label":"In this article"},"search":{},"lunr":{"maxIndexSize":1000000,"ignoreSpecialCharacters":false},"hide-published-with":{},"fontsettings":{"theme":"white","family":"sans","size":2},"highlight":{},"back-to-top-button":{},"copy-code-button":{},"theme-default":{"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"showLevel":false},"anchors":{}},"theme":"default","pdf":{"pageNumbers":true,"fontSize":12,"fontFamily":"Arial","paperSize":"a4","chapterMark":"pagebreak","pageBreaksBefore":"/","margin":{"right":62,"left":62,"top":56,"bottom":56},"embedFonts":false},"structure":{"langs":"LANGS.md","readme":"README.md","glossary":"GLOSSARY.md","summary":"SUMMARY.md"},"variables":{},"title":"タイトル","language":"ja","gitbook":"*","description":"詳細説明"},"file":{"path":"lecture11/00-introduction.md","mtime":"2022-06-25T22:48:56.793Z","type":"markdown"},"gitbook":{"version":"3.7.1","time":"2022-06-27T03:44:08.291Z"},"basePath":"..","book":{"language":""}});
         });
     </script>
 </div>

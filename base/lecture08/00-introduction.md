@@ -1,6 +1,6 @@
 # 第8回 デバイス MQTT 接続
 
-## デバイス準備
+## 8-1 デバイス準備
 
 今回動かすデバイスを準備し仕様を把握します。
 
@@ -24,7 +24,7 @@
 
 早速使っていきましょう。
 
-## デバイスの動作理解
+## 8-2 デバイスの動作理解
 
 今回動かすデバイスの動作を大まかに把握します。
 
@@ -62,7 +62,7 @@ Wi-Fi を動かす部分は、この WiFiNINA モジュールというのが担�
 
 から進めていきます。
 
-## 参考：Arduino IDE で Arduino UNO Wi-Fi Rev.2 を書き込む設定
+## 8-3 参考：Arduino IDE で Arduino UNO Wi-Fi Rev.2 を書き込む設定
 
 すでに設定済みの前提で進めますが、おさらいしたい方は、以下を参考にしてみてください。
 
@@ -71,7 +71,7 @@ Wi-Fi を動かす部分は、この WiFiNINA モジュールというのが担�
 - Arduino UNO WiFi Rev.2 でセットアップして Blink サンプルを動かすメモ – 1ft-seabass.jp.MEMO
   - https://www.1ft-seabass.jp/memo/2022/03/01/arduino-uno-wifi-rev2-setup-and-blink/
 
-## 参考：Wi-Fi ライブラリをインストールし Wi-Fi に接続する
+## 8-4 参考：Wi-Fi ライブラリをインストールし Wi-Fi に接続する
 
 すでに設定済みの前提で進めますが、おさらいしたい方は、以下を参考にしてみてください。
 
@@ -80,7 +80,7 @@ Wi-Fi を動かす部分は、この WiFiNINA モジュールというのが担�
 - Arduino UNO WiFi Rev.2 で Wi-Fi をつないでみるメモ – 1ft-seabass.jp.MEMO
   - https://www.1ft-seabass.jp/memo/2022/03/02/arduino-uno-wifi-rev2-wifi/
 
-## Arduino IDE 準備
+## 8-5 Arduino IDE 準備
 
 Arduino IDE を デバイスと接続して書き込める準備をします。
 
@@ -96,17 +96,17 @@ Arduino を起動しましょう。
 
 新規ファイルを準備します。
 
-### Arduino バージョン
+### 8-5-1 Arduino バージョン
 
 ![image](https://i.gyazo.com/c7ff9e72a15bb029deeb10cc121c01c3.png)
 
 Arduino バージョンは 1.8.13 ですが、1.8 台であれば大丈夫です。
 
-## JSON ライブラリ準備
+## 8-6 JSON ライブラリ準備
 
 Arduino IDE に JSON データを扱うライブラリを準備します。
 
-### Arduino IDE におけるライブラリ管理
+### 8-6-1 Arduino IDE におけるライブラリ管理
 
 ![image](https://i.gyazo.com/f1204d9c7e8fa7cac7ae93590ced3e5b.png)
 
@@ -118,7 +118,7 @@ Arduino IDE ではライブラリ（汎用性の高い複数のプログラム�
 
 ツール > ライブラリを管理 でライブラリマネージャを起動します。
 
-### JSON を扱いやすくする ArduinoJson をインストール
+### 8-6-2 JSON を扱いやすくする ArduinoJson をインストール
 
 この作業はインストールなので、一度だけ対応すれば OK です。
 
@@ -136,7 +136,7 @@ Arduino IDE ではライブラリ（汎用性の高い複数のプログラム�
 
 インストールできたら、ひょっとすると、リストが一番上に戻ってしまうかもしれませんが、根気よく `ArduinoJson` に移動して INSTALLED になっていたら成功です。
 
-### ArduinoJson の情報は充実
+### 8-6-3 ArduinoJson の情報は充実
 
 ![image](https://i.gyazo.com/ce0d85128ef8b9dd91734f1176607439.png)
 
@@ -146,11 +146,11 @@ https://arduinojson.org/ というウェブサイトを持っていて情報が�
 
 ソースコードのサンプルもあり、すぐに使いやすくなっています。
 
-## MQTT ライブラリ準備
+## 8-7 MQTT ライブラリ準備
 
 Arduino IDE に MQTT データを扱うライブラリを準備します。
 
-### MQTT のやり取りできるライブラリ PubSubClient をインストールする
+### 8-7-1 MQTT のやり取りできるライブラリ PubSubClient をインストールする
 
 この作業はインストールなので、一度だけ対応すれば OK です。
 
@@ -172,7 +172,7 @@ Arduino のライブラリ管理から検索してインストールできます
 
 インストールできたら、ひょっとすると、リストが一番上に戻ってしまうかもしれませんが、根気よく `PubSubClient` に移動して INSTALLED になっていたら成功です。
 
-### めちゃめちゃ余談ですが
+### 8-7-2 めちゃめちゃ余談ですが
 
 PubSubClient の作者は Node-RED のメイン開発者でもある　Nick O'Leary さんです。
 
@@ -184,7 +184,7 @@ PubSubClient の作者は Node-RED のメイン開発者でもある　Nick O'Le
 - IBM HursleyでのNode-RED開発チームとのミーティングにてNode-RED UG Japanの一員として活動報告＆デモを担当しました – 1ft-seabass.jp.MEMO
   - https://www.1ft-seabass.jp/memo/2018/11/07/node-red-ug-jp-ibm-hursley-mtg-resume/
 
-## プログラムの準備
+## 8-8 プログラムの準備
 
 Arduino IDE でプログラムを準備します。さきほどから新規作成したままのファイルに以下をコピーアンドペーストしましょう。
 
@@ -409,7 +409,7 @@ void printMacAddress(byte mac[]) {
 
 こちらをコピーアンドペーストできたら `TTC-Demo-2022-MQTT-Onefile` というファイル名で保存しましょう。
 
-### ライブラリが反映されているかを確認
+### 8-8-1 ライブラリが反映されているかを確認
 
 ![image](https://i.gyazo.com/5f517b717591981ef10af6796f772c87.png)
 
@@ -417,18 +417,18 @@ void printMacAddress(byte mac[]) {
 
 必要な動作はすでにできあがっているので、まずは設定していきましょう。
 
-### メインプログラムの簡単な説明
+### 8-8-2 メインプログラムの簡単な説明
 
 ![image](https://i.gyazo.com/e4c36931970e7c341d24b24ea00dbf42.png)
 
 - こちらをみてみましょう
   - [第8回 メインプログラム解説](01-explanation-main-program.md)
 
-## MQTT 接続設定
+## 8-9 MQTT 接続設定
 
 プログラムの中の MQTT 接続の設定を行います。
 
-### まず Wi-Fi の設定
+### 8-9-1 まず Wi-Fi の設定
 
 ```c
 // Wi-FiのSSID
@@ -443,7 +443,7 @@ char *password = "<Wi-Fiのパスワード>";
 
 変更ができたら忘れず保存しましょう。
 
-### 講師 MQTT ブローカへ MQTT 接続設定
+### 8-9-2 講師 MQTT ブローカへ MQTT 接続設定
 
 ```c
 // 今回使いたい Beebotte のブローカーのアドレス
@@ -462,7 +462,7 @@ const char *mqttPassword = "";
 
 `<今回使いたい Beebotte のユーザー名>` を置き換える場合、`<` から `>` まで含めて選択して上書きしましょう。
 
-## プログラムの書き込み
+## 8-10 プログラムの書き込み
 
 Arduino IDE からデバイスにプログラムを書き込みます。
 
@@ -478,11 +478,11 @@ Arduino UNO WiFi Rev2 を PC とつなぎます。
 
 シリアルポートを、Arduino UNO WiFi Rev2 と書いてあるポートを選択します。このあたりが、Arudino 公式ボードだとちゃんと名前が出るので便利ですね。
 
-## プログラムの動作確認 Arduino IDE
+## 8-11 プログラムの動作確認 Arduino IDE
 
 デバイスが動いているかどうかを Arduino IDE で確認します。
 
-### シリアルモニタ起動
+### 8-11-1 シリアルモニタ起動
 
 動作確認はシリアルモニタで行います。
 
@@ -508,7 +508,7 @@ Arduino UNO WiFi Rev2 へ書き込む前にシリアルモニタを起動して�
 
 なお、シリアルモニタに送信する場合には Serial.print 関数を使います。たとえば、プログラム中に `Serial.print("WiFi Connected");` という記述がある場合 `WiFi Connected` と表示されます。
 
-### プログラムを書き込んでみる
+### 8-11-2 プログラムを書き込んでみる
 
 ![image](https://i.gyazo.com/ca02fff1c8001e2bfe484ad5a294f917.png)
 
@@ -518,7 +518,7 @@ Arduino UNO WiFi Rev2 へ書き込む前にシリアルモニタを起動して�
 
 書き込みが済むと、Wi-Fi 設定が合っていれば、接続され、このようにログが出れば成功です。
 
-## プログラムの動作確認 デバイス＋Node-RED
+## 8-12 プログラムの動作確認 デバイス＋Node-RED
 
 ![image](https://i.gyazo.com/e4c36931970e7c341d24b24ea00dbf42.png)
 
@@ -532,7 +532,7 @@ Arduino UNO WiFi Rev2 へ書き込む前にシリアルモニタを起動して�
 
 サーバの指定を Teacher MQTT Broker に設定できているか確認しましょう。問題なければデバックタブを表示してデータの受信を待ちます。
 
-### Arduino プログラム側では接続時にデータを送信している
+### 8-12-1 Arduino プログラム側では接続時にデータを送信している
 
 Arduino プログラム側で mqttConnect という関数の部分で MQTT の接続を行っています。
 
@@ -573,7 +573,7 @@ Arduino プログラム側で mqttConnect という関数の部分で MQTT の�
 
 ということを行っています。
 
-### デバイスを再起動して接続を待つ
+### 8-12-2 デバイスを再起動して接続を待つ
 
 ![image](https://i.gyazo.com/1bf31bee68324ecbd6812944ea5c7bb8.jpg)
 
@@ -583,7 +583,7 @@ Arduino プログラム側で mqttConnect という関数の部分で MQTT の�
 
 ここまでの設定がうまくいっていれば、Node-RED 側で接続時にデータが受信されています。
 
-### エクストラ：講師から一斉送信
+### 8-12-3 エクストラ：講師から一斉送信
 
 時間があれば、講師からみなさんへ何かしらのデータ送信を行ってみます！
 

@@ -341,7 +341,7 @@
                                 <section class="normal markdown-section">
                                 
                                 <h1 id="第8回-デバイス-mqtt-接続"><a name="第8回-デバイス-mqtt-接続" class="plugin-anchor" href="#第8回-デバイス-mqtt-接続"><i class="fa fa-link" aria-hidden="true"></i></a>第8回 デバイス MQTT 接続</h1>
-<h2 id="デバイス準備"><a name="デバイス準備" class="plugin-anchor" href="#デバイス準備"><i class="fa fa-link" aria-hidden="true"></i></a>デバイス準備</h2>
+<h2 id="8-1-デバイス準備"><a name="8-1-デバイス準備" class="plugin-anchor" href="#8-1-デバイス準備"><i class="fa fa-link" aria-hidden="true"></i></a>8-1 デバイス準備</h2>
 <p>今回動かすデバイスを準備し仕様を把握します。</p>
 <p><img src="https://i.gyazo.com/1bf31bee68324ecbd6812944ea5c7bb8.jpg" alt="image"></p>
 <p>今回使うデバイスは <a href="https://www.marutsu.co.jp/pc/i/33411858/" target="_blank">Arduino UNO Wi-Fi Rev.2</a> というデバイスを使います。</p>
@@ -362,7 +362,7 @@
 </li>
 </ul>
 <p>早速使っていきましょう。</p>
-<h2 id="デバイスの動作理解"><a name="デバイスの動作理解" class="plugin-anchor" href="#デバイスの動作理解"><i class="fa fa-link" aria-hidden="true"></i></a>デバイスの動作理解</h2>
+<h2 id="8-2-デバイスの動作理解"><a name="8-2-デバイスの動作理解" class="plugin-anchor" href="#8-2-デバイスの動作理解"><i class="fa fa-link" aria-hidden="true"></i></a>8-2 デバイスの動作理解</h2>
 <p>今回動かすデバイスの動作を大まかに把握します。</p>
 <p>Arduino UNO とほぼ同じ大きさ、かつ、ほぼ同じピン配置ですので、そのあたりの仕組みは別の授業でも勉強しているので割愛します。</p>
 <p><img src="https://i.gyazo.com/c4819a34c438df5b7bcd062ca8e3f8a8.jpg" alt="image"></p>
@@ -394,7 +394,7 @@
 <li>MQTT に接続するライブラリ、JSON データを扱いやすくするライブラリをインストールする</li>
 </ul>
 <p>から進めていきます。</p>
-<h2 id="参考：arduino-ide-で-arduino-uno-wi-fi-rev2-を書き込む設定"><a name="参考：arduino-ide-で-arduino-uno-wi-fi-rev2-を書き込む設定" class="plugin-anchor" href="#参考：arduino-ide-で-arduino-uno-wi-fi-rev2-を書き込む設定"><i class="fa fa-link" aria-hidden="true"></i></a>参考：Arduino IDE で Arduino UNO Wi-Fi Rev.2 を書き込む設定</h2>
+<h2 id="8-3-参考：arduino-ide-で-arduino-uno-wi-fi-rev2-を書き込む設定"><a name="8-3-参考：arduino-ide-で-arduino-uno-wi-fi-rev2-を書き込む設定" class="plugin-anchor" href="#8-3-参考：arduino-ide-で-arduino-uno-wi-fi-rev2-を書き込む設定"><i class="fa fa-link" aria-hidden="true"></i></a>8-3 参考：Arduino IDE で Arduino UNO Wi-Fi Rev.2 を書き込む設定</h2>
 <p>すでに設定済みの前提で進めますが、おさらいしたい方は、以下を参考にしてみてください。</p>
 <p><img src="https://www.1ft-seabass.jp/memo/uploads/2022/02/arduino-uno-wifi-rev2-setup-and-blink_01-800x450.jpg" alt="image"></p>
 <ul>
@@ -403,7 +403,7 @@
 </ul>
 </li>
 </ul>
-<h2 id="参考：wi-fi-ライブラリをインストールし-wi-fi-に接続する"><a name="参考：wi-fi-ライブラリをインストールし-wi-fi-に接続する" class="plugin-anchor" href="#参考：wi-fi-ライブラリをインストールし-wi-fi-に接続する"><i class="fa fa-link" aria-hidden="true"></i></a>参考：Wi-Fi ライブラリをインストールし Wi-Fi に接続する</h2>
+<h2 id="8-4-参考：wi-fi-ライブラリをインストールし-wi-fi-に接続する"><a name="8-4-参考：wi-fi-ライブラリをインストールし-wi-fi-に接続する" class="plugin-anchor" href="#8-4-参考：wi-fi-ライブラリをインストールし-wi-fi-に接続する"><i class="fa fa-link" aria-hidden="true"></i></a>8-4 参考：Wi-Fi ライブラリをインストールし Wi-Fi に接続する</h2>
 <p>すでに設定済みの前提で進めますが、おさらいしたい方は、以下を参考にしてみてください。</p>
 <p><img src="https://www.1ft-seabass.jp/memo/uploads/2022/02/arduino-uno-wifi-rev2-wifi_01-800x420.jpg" alt="image"></p>
 <ul>
@@ -412,7 +412,7 @@
 </ul>
 </li>
 </ul>
-<h2 id="arduino-ide-準備"><a name="arduino-ide-準備" class="plugin-anchor" href="#arduino-ide-準備"><i class="fa fa-link" aria-hidden="true"></i></a>Arduino IDE 準備</h2>
+<h2 id="8-5-arduino-ide-準備"><a name="8-5-arduino-ide-準備" class="plugin-anchor" href="#8-5-arduino-ide-準備"><i class="fa fa-link" aria-hidden="true"></i></a>8-5 Arduino IDE 準備</h2>
 <p>Arduino IDE を デバイスと接続して書き込める準備をします。</p>
 <p><img src="https://i.gyazo.com/cc05d2e4dfc4e8489c78f30c8d460673.png" alt="image"></p>
 <p>Arduino を起動しましょう。</p>
@@ -420,18 +420,18 @@
 <p>メニュー &gt; ファイル &gt; 新規ファイル をクリックします。</p>
 <p><img src="https://i.gyazo.com/feb362e740c05cdd469a96111abd9382.png" alt="image"></p>
 <p>新規ファイルを準備します。</p>
-<h3 id="arduino-バージョン"><a name="arduino-バージョン" class="plugin-anchor" href="#arduino-バージョン"><i class="fa fa-link" aria-hidden="true"></i></a>Arduino バージョン</h3>
+<h3 id="8-5-1-arduino-バージョン"><a name="8-5-1-arduino-バージョン" class="plugin-anchor" href="#8-5-1-arduino-バージョン"><i class="fa fa-link" aria-hidden="true"></i></a>8-5-1 Arduino バージョン</h3>
 <p><img src="https://i.gyazo.com/c7ff9e72a15bb029deeb10cc121c01c3.png" alt="image"></p>
 <p>Arduino バージョンは 1.8.13 ですが、1.8 台であれば大丈夫です。</p>
-<h2 id="json-ライブラリ準備"><a name="json-ライブラリ準備" class="plugin-anchor" href="#json-ライブラリ準備"><i class="fa fa-link" aria-hidden="true"></i></a>JSON ライブラリ準備</h2>
+<h2 id="8-6-json-ライブラリ準備"><a name="8-6-json-ライブラリ準備" class="plugin-anchor" href="#8-6-json-ライブラリ準備"><i class="fa fa-link" aria-hidden="true"></i></a>8-6 JSON ライブラリ準備</h2>
 <p>Arduino IDE に JSON データを扱うライブラリを準備します。</p>
-<h3 id="arduino-ide-におけるライブラリ管理"><a name="arduino-ide-におけるライブラリ管理" class="plugin-anchor" href="#arduino-ide-におけるライブラリ管理"><i class="fa fa-link" aria-hidden="true"></i></a>Arduino IDE におけるライブラリ管理</h3>
+<h3 id="8-6-1-arduino-ide-におけるライブラリ管理"><a name="8-6-1-arduino-ide-におけるライブラリ管理" class="plugin-anchor" href="#8-6-1-arduino-ide-におけるライブラリ管理"><i class="fa fa-link" aria-hidden="true"></i></a>8-6-1 Arduino IDE におけるライブラリ管理</h3>
 <p><img src="https://i.gyazo.com/f1204d9c7e8fa7cac7ae93590ced3e5b.png" alt="image"></p>
 <p>Arduino IDE ではライブラリ（汎用性の高い複数のプログラムを再利用可能な形でひとまとまりにしたもの）をライブラリマネージャで管理できます。ライブラリインストールや削除、すでにインストールされているものの確認など GUI で手軽に行うことができます。</p>
 <p>以前は、Arduino のライブラリフォルダに直接 zip ファイルを展開するなど、かなりデリケートな作業の必要がありましたが、ライブラリマネージャでしたら GUI だけで操作が完結します。</p>
 <p><img src="https://i.gyazo.com/fc94a1bcbe97ad41c89e297b2802e201.png" alt="image"></p>
 <p>ツール &gt; ライブラリを管理 でライブラリマネージャを起動します。</p>
-<h3 id="json-を扱いやすくする-arduinojson-をインストール"><a name="json-を扱いやすくする-arduinojson-をインストール" class="plugin-anchor" href="#json-を扱いやすくする-arduinojson-をインストール"><i class="fa fa-link" aria-hidden="true"></i></a>JSON を扱いやすくする ArduinoJson をインストール</h3>
+<h3 id="8-6-2-json-を扱いやすくする-arduinojson-をインストール"><a name="8-6-2-json-を扱いやすくする-arduinojson-をインストール" class="plugin-anchor" href="#8-6-2-json-を扱いやすくする-arduinojson-をインストール"><i class="fa fa-link" aria-hidden="true"></i></a>8-6-2 JSON を扱いやすくする ArduinoJson をインストール</h3>
 <p>この作業はインストールなので、一度だけ対応すれば OK です。</p>
 <p><img src="https://i.gyazo.com/0926b156ff8ee87a9a8b626d80bbeb92.png" alt="image"></p>
 <p>ツール &gt; ライブラリを管理 でライブラリマネージャを起動します。</p>
@@ -440,14 +440,14 @@
 <p>マウスを乗せると、バージョンとインストールのボタンが右下に出るので <code>6.18.5</code> のバージョンを指定してインストールボタンをクリックします。</p>
 <p><img src="https://i.gyazo.com/ec1d0688667c161c941eced03a1bade9.png" alt="image"></p>
 <p>インストールできたら、ひょっとすると、リストが一番上に戻ってしまうかもしれませんが、根気よく <code>ArduinoJson</code> に移動して INSTALLED になっていたら成功です。</p>
-<h3 id="arduinojson-の情報は充実"><a name="arduinojson-の情報は充実" class="plugin-anchor" href="#arduinojson-の情報は充実"><i class="fa fa-link" aria-hidden="true"></i></a>ArduinoJson の情報は充実</h3>
+<h3 id="8-6-3-arduinojson-の情報は充実"><a name="8-6-3-arduinojson-の情報は充実" class="plugin-anchor" href="#8-6-3-arduinojson-の情報は充実"><i class="fa fa-link" aria-hidden="true"></i></a>8-6-3 ArduinoJson の情報は充実</h3>
 <p><img src="https://i.gyazo.com/ce0d85128ef8b9dd91734f1176607439.png" alt="image"></p>
 <p><a href="https://arduinojson.org/" target="_blank">https://arduinojson.org/</a> というウェブサイトを持っていて情報が充実しています。</p>
 <p><img src="https://i.gyazo.com/35ae79ee668a291a65845fb495bb1f32.png" alt="image"></p>
 <p>ソースコードのサンプルもあり、すぐに使いやすくなっています。</p>
-<h2 id="mqtt-ライブラリ準備"><a name="mqtt-ライブラリ準備" class="plugin-anchor" href="#mqtt-ライブラリ準備"><i class="fa fa-link" aria-hidden="true"></i></a>MQTT ライブラリ準備</h2>
+<h2 id="8-7-mqtt-ライブラリ準備"><a name="8-7-mqtt-ライブラリ準備" class="plugin-anchor" href="#8-7-mqtt-ライブラリ準備"><i class="fa fa-link" aria-hidden="true"></i></a>8-7 MQTT ライブラリ準備</h2>
 <p>Arduino IDE に MQTT データを扱うライブラリを準備します。</p>
-<h3 id="mqtt-のやり取りできるライブラリ-pubsubclient-をインストールする"><a name="mqtt-のやり取りできるライブラリ-pubsubclient-をインストールする" class="plugin-anchor" href="#mqtt-のやり取りできるライブラリ-pubsubclient-をインストールする"><i class="fa fa-link" aria-hidden="true"></i></a>MQTT のやり取りできるライブラリ PubSubClient をインストールする</h3>
+<h3 id="8-7-1-mqtt-のやり取りできるライブラリ-pubsubclient-をインストールする"><a name="8-7-1-mqtt-のやり取りできるライブラリ-pubsubclient-をインストールする" class="plugin-anchor" href="#8-7-1-mqtt-のやり取りできるライブラリ-pubsubclient-をインストールする"><i class="fa fa-link" aria-hidden="true"></i></a>8-7-1 MQTT のやり取りできるライブラリ PubSubClient をインストールする</h3>
 <p>この作業はインストールなので、一度だけ対応すれば OK です。</p>
 <p>Arduino のライブラリ管理から検索してインストールできます。</p>
 <p><img src="https://i.gyazo.com/0926b156ff8ee87a9a8b626d80bbeb92.png" alt="image"></p>
@@ -458,7 +458,7 @@
 <p>マウスを乗せると、バージョンとインストールのボタンが右下に出るので <code>2.8</code> のバージョンを指定してインストールボタンをクリックします。</p>
 <p><img src="https://i.gyazo.com/5d4ab17b5a0bf7dc323f20ff5efedf3b.png" alt="image"></p>
 <p>インストールできたら、ひょっとすると、リストが一番上に戻ってしまうかもしれませんが、根気よく <code>PubSubClient</code> に移動して INSTALLED になっていたら成功です。</p>
-<h3 id="めちゃめちゃ余談ですが"><a name="めちゃめちゃ余談ですが" class="plugin-anchor" href="#めちゃめちゃ余談ですが"><i class="fa fa-link" aria-hidden="true"></i></a>めちゃめちゃ余談ですが</h3>
+<h3 id="8-7-2-めちゃめちゃ余談ですが"><a name="8-7-2-めちゃめちゃ余談ですが" class="plugin-anchor" href="#8-7-2-めちゃめちゃ余談ですが"><i class="fa fa-link" aria-hidden="true"></i></a>8-7-2 めちゃめちゃ余談ですが</h3>
 <p>PubSubClient の作者は Node-RED のメイン開発者でもある　Nick O&apos;Leary さんです。</p>
 <ul>
 <li>knolleary/pubsubclient: A client library for the Arduino Ethernet Shield that provides support for MQTT.<ul>
@@ -473,7 +473,7 @@
 </ul>
 </li>
 </ul>
-<h2 id="プログラムの準備"><a name="プログラムの準備" class="plugin-anchor" href="#プログラムの準備"><i class="fa fa-link" aria-hidden="true"></i></a>プログラムの準備</h2>
+<h2 id="8-8-プログラムの準備"><a name="8-8-プログラムの準備" class="plugin-anchor" href="#8-8-プログラムの準備"><i class="fa fa-link" aria-hidden="true"></i></a>8-8 プログラムの準備</h2>
 <p>Arduino IDE でプログラムを準備します。さきほどから新規作成したままのファイルに以下をコピーアンドペーストしましょう。</p>
 <pre><code class="lang-c"><span class="hljs-comment">// WiFiNINA ライブラリ</span>
 <span class="hljs-meta">#<span class="hljs-meta-keyword">include</span> <span class="hljs-meta-string">&lt;SPI.h&gt;</span></span>
@@ -693,11 +693,11 @@ StaticJsonDocument&lt;<span class="hljs-number">2048</span>&gt; jsonData;
 }
 </code></pre>
 <p>こちらをコピーアンドペーストできたら <code>TTC-Demo-2022-MQTT-Onefile</code> というファイル名で保存しましょう。</p>
-<h3 id="ライブラリが反映されているかを確認"><a name="ライブラリが反映されているかを確認" class="plugin-anchor" href="#ライブラリが反映されているかを確認"><i class="fa fa-link" aria-hidden="true"></i></a>ライブラリが反映されているかを確認</h3>
+<h3 id="8-8-1-ライブラリが反映されているかを確認"><a name="8-8-1-ライブラリが反映されているかを確認" class="plugin-anchor" href="#8-8-1-ライブラリが反映されているかを確認"><i class="fa fa-link" aria-hidden="true"></i></a>8-8-1 ライブラリが反映されているかを確認</h3>
 <p><img src="https://i.gyazo.com/5f517b717591981ef10af6796f772c87.png" alt="image"></p>
 <p>この段階で、SPI、WifiNINA、PubSubClient に色がついていればインストいーるされています。（ ArduinoJSON は色がつきませんが一旦気にしなくてOKです）</p>
 <p>必要な動作はすでにできあがっているので、まずは設定していきましょう。</p>
-<h3 id="メインプログラムの簡単な説明"><a name="メインプログラムの簡単な説明" class="plugin-anchor" href="#メインプログラムの簡単な説明"><i class="fa fa-link" aria-hidden="true"></i></a>メインプログラムの簡単な説明</h3>
+<h3 id="8-8-2-メインプログラムの簡単な説明"><a name="8-8-2-メインプログラムの簡単な説明" class="plugin-anchor" href="#8-8-2-メインプログラムの簡単な説明"><i class="fa fa-link" aria-hidden="true"></i></a>8-8-2 メインプログラムの簡単な説明</h3>
 <p><img src="https://i.gyazo.com/e4c36931970e7c341d24b24ea00dbf42.png" alt="image"></p>
 <ul>
 <li>こちらをみてみましょう<ul>
@@ -705,9 +705,9 @@ StaticJsonDocument&lt;<span class="hljs-number">2048</span>&gt; jsonData;
 </ul>
 </li>
 </ul>
-<h2 id="mqtt-接続設定"><a name="mqtt-接続設定" class="plugin-anchor" href="#mqtt-接続設定"><i class="fa fa-link" aria-hidden="true"></i></a>MQTT 接続設定</h2>
+<h2 id="8-9-mqtt-接続設定"><a name="8-9-mqtt-接続設定" class="plugin-anchor" href="#8-9-mqtt-接続設定"><i class="fa fa-link" aria-hidden="true"></i></a>8-9 MQTT 接続設定</h2>
 <p>プログラムの中の MQTT 接続の設定を行います。</p>
-<h3 id="まず-wi-fi-の設定"><a name="まず-wi-fi-の設定" class="plugin-anchor" href="#まず-wi-fi-の設定"><i class="fa fa-link" aria-hidden="true"></i></a>まず Wi-Fi の設定</h3>
+<h3 id="8-9-1-まず-wi-fi-の設定"><a name="8-9-1-まず-wi-fi-の設定" class="plugin-anchor" href="#8-9-1-まず-wi-fi-の設定"><i class="fa fa-link" aria-hidden="true"></i></a>8-9-1 まず Wi-Fi の設定</h3>
 <pre><code class="lang-c"><span class="hljs-comment">// Wi-FiのSSID</span>
 <span class="hljs-keyword">char</span> *ssid = <span class="hljs-string">&quot;&lt;Wi-FiのSSID&gt;&quot;</span>;
 <span class="hljs-comment">// Wi-Fiのパスワード</span>
@@ -716,7 +716,7 @@ StaticJsonDocument&lt;<span class="hljs-number">2048</span>&gt; jsonData;
 <p>こちらに、今回の授業で使う Wi-Fi 設定に置き換えましょう。（ここは口頭で伝えます）</p>
 <p><code>&lt;Wi-FiのSSID&gt;</code> を置き換える場合、<code>&lt;</code> から <code>&gt;</code> まで含めて選択して上書きしましょう。<code>&lt;Wi-Fiのパスワード&gt;</code> 部分も同様です。</p>
 <p>変更ができたら忘れず保存しましょう。</p>
-<h3 id="講師-mqtt-ブローカへ-mqtt-接続設定"><a name="講師-mqtt-ブローカへ-mqtt-接続設定" class="plugin-anchor" href="#講師-mqtt-ブローカへ-mqtt-接続設定"><i class="fa fa-link" aria-hidden="true"></i></a>講師 MQTT ブローカへ MQTT 接続設定</h3>
+<h3 id="8-9-2-講師-mqtt-ブローカへ-mqtt-接続設定"><a name="8-9-2-講師-mqtt-ブローカへ-mqtt-接続設定" class="plugin-anchor" href="#8-9-2-講師-mqtt-ブローカへ-mqtt-接続設定"><i class="fa fa-link" aria-hidden="true"></i></a>8-9-2 講師 MQTT ブローカへ MQTT 接続設定</h3>
 <pre><code class="lang-c"><span class="hljs-comment">// 今回使いたい Beebotte のブローカーのアドレス</span>
 <span class="hljs-keyword">const</span> <span class="hljs-keyword">char</span> *mqttEndpoint = <span class="hljs-string">&quot;mqtt.beebotte.com&quot;</span>;
 <span class="hljs-comment">// 今回使いたい Beebotte のポート</span>
@@ -729,7 +729,7 @@ StaticJsonDocument&lt;<span class="hljs-number">2048</span>&gt; jsonData;
 <p>この部分に注目します。ブローカーのアドレス、ポート、パスワードはすでに設定が済んでいます。</p>
 <p><code>&lt;今回使いたい Beebotte のユーザー名&gt;</code> を講師の MQTT ブローカに上書きします。</p>
 <p><code>&lt;今回使いたい Beebotte のユーザー名&gt;</code> を置き換える場合、<code>&lt;</code> から <code>&gt;</code> まで含めて選択して上書きしましょう。</p>
-<h2 id="プログラムの書き込み"><a name="プログラムの書き込み" class="plugin-anchor" href="#プログラムの書き込み"><i class="fa fa-link" aria-hidden="true"></i></a>プログラムの書き込み</h2>
+<h2 id="8-10-プログラムの書き込み"><a name="8-10-プログラムの書き込み" class="plugin-anchor" href="#8-10-プログラムの書き込み"><i class="fa fa-link" aria-hidden="true"></i></a>8-10 プログラムの書き込み</h2>
 <p>Arduino IDE からデバイスにプログラムを書き込みます。</p>
 <p><img src="https://i.gyazo.com/1bf31bee68324ecbd6812944ea5c7bb8.jpg" alt="image"></p>
 <p>Arduino UNO WiFi Rev2 を PC とつなぎます。</p>
@@ -737,9 +737,9 @@ StaticJsonDocument&lt;<span class="hljs-number">2048</span>&gt; jsonData;
 <p>ボードを Arduino megaAVR Boards &gt; Arduino UNO WiFi Rev2 と設定しましょう。</p>
 <p><img src="https://i.gyazo.com/24744e8a898bbbf060132d1dfe01c45f.png" alt="image"></p>
 <p>シリアルポートを、Arduino UNO WiFi Rev2 と書いてあるポートを選択します。このあたりが、Arudino 公式ボードだとちゃんと名前が出るので便利ですね。</p>
-<h2 id="プログラムの動作確認-arduino-ide"><a name="プログラムの動作確認-arduino-ide" class="plugin-anchor" href="#プログラムの動作確認-arduino-ide"><i class="fa fa-link" aria-hidden="true"></i></a>プログラムの動作確認 Arduino IDE</h2>
+<h2 id="8-11-プログラムの動作確認-arduino-ide"><a name="8-11-プログラムの動作確認-arduino-ide" class="plugin-anchor" href="#8-11-プログラムの動作確認-arduino-ide"><i class="fa fa-link" aria-hidden="true"></i></a>8-11 プログラムの動作確認 Arduino IDE</h2>
 <p>デバイスが動いているかどうかを Arduino IDE で確認します。</p>
-<h3 id="シリアルモニタ起動"><a name="シリアルモニタ起動" class="plugin-anchor" href="#シリアルモニタ起動"><i class="fa fa-link" aria-hidden="true"></i></a>シリアルモニタ起動</h3>
+<h3 id="8-11-1-シリアルモニタ起動"><a name="8-11-1-シリアルモニタ起動" class="plugin-anchor" href="#8-11-1-シリアルモニタ起動"><i class="fa fa-link" aria-hidden="true"></i></a>8-11-1 シリアルモニタ起動</h3>
 <p>動作確認はシリアルモニタで行います。</p>
 <p>シリアルモニタは、Arduino 上で Serial 関数の Serial.begin によってボーレート（1秒間にどれくらい送れるかというデータ転送レートのbps値）に合わせておくとデータが受信できます。</p>
 <pre><code class="lang-c"><span class="hljs-function"><span class="hljs-keyword">void</span> <span class="hljs-title">setup</span><span class="hljs-params">()</span> </span>{
@@ -755,19 +755,19 @@ StaticJsonDocument&lt;<span class="hljs-number">2048</span>&gt; jsonData;
 </ul>
 <p>とデータ転送レートを合わせておきましょう。</p>
 <p>なお、シリアルモニタに送信する場合には Serial.print 関数を使います。たとえば、プログラム中に <code>Serial.print(&quot;WiFi Connected&quot;);</code> という記述がある場合 <code>WiFi Connected</code> と表示されます。</p>
-<h3 id="プログラムを書き込んでみる"><a name="プログラムを書き込んでみる" class="plugin-anchor" href="#プログラムを書き込んでみる"><i class="fa fa-link" aria-hidden="true"></i></a>プログラムを書き込んでみる</h3>
+<h3 id="8-11-2-プログラムを書き込んでみる"><a name="8-11-2-プログラムを書き込んでみる" class="plugin-anchor" href="#8-11-2-プログラムを書き込んでみる"><i class="fa fa-link" aria-hidden="true"></i></a>8-11-2 プログラムを書き込んでみる</h3>
 <p><img src="https://i.gyazo.com/ca02fff1c8001e2bfe484ad5a294f917.png" alt="image"></p>
 <p>ということで、書き込みボタンをクリックして書き込みます。</p>
 <p><img src="https://i.gyazo.com/38ebbeda8eb9318c201258513b56f4dd.png" alt="image"></p>
 <p>書き込みが済むと、Wi-Fi 設定が合っていれば、接続され、このようにログが出れば成功です。</p>
-<h2 id="プログラムの動作確認-デバイス＋node-red"><a name="プログラムの動作確認-デバイス＋node-red" class="plugin-anchor" href="#プログラムの動作確認-デバイス＋node-red"><i class="fa fa-link" aria-hidden="true"></i></a>プログラムの動作確認 デバイス＋Node-RED</h2>
+<h2 id="8-12-プログラムの動作確認-デバイス＋node-red"><a name="8-12-プログラムの動作確認-デバイス＋node-red" class="plugin-anchor" href="#8-12-プログラムの動作確認-デバイス＋node-red"><i class="fa fa-link" aria-hidden="true"></i></a>8-12 プログラムの動作確認 デバイス＋Node-RED</h2>
 <p><img src="https://i.gyazo.com/e4c36931970e7c341d24b24ea00dbf42.png" alt="image"></p>
 <p>デバイスのデータが届いているか Node-RED で確認します。</p>
 <p><img src="https://i.gyazo.com/f1c0153bf6e75e3a0d10bb24833d42fd.png" alt="image"></p>
 <p>前回使った ttc2022/res を受信する mqtt in ノードに debug ノードをつないだフローで確認します。</p>
 <p><img src="https://i.gyazo.com/ee0ccf76f1ae63366ba4ccc96baa8026.png" alt="image"></p>
 <p>サーバの指定を Teacher MQTT Broker に設定できているか確認しましょう。問題なければデバックタブを表示してデータの受信を待ちます。</p>
-<h3 id="arduino-プログラム側では接続時にデータを送信している"><a name="arduino-プログラム側では接続時にデータを送信している" class="plugin-anchor" href="#arduino-プログラム側では接続時にデータを送信している"><i class="fa fa-link" aria-hidden="true"></i></a>Arduino プログラム側では接続時にデータを送信している</h3>
+<h3 id="8-12-1-arduino-プログラム側では接続時にデータを送信している"><a name="8-12-1-arduino-プログラム側では接続時にデータを送信している" class="plugin-anchor" href="#8-12-1-arduino-プログラム側では接続時にデータを送信している"><i class="fa fa-link" aria-hidden="true"></i></a>8-12-1 Arduino プログラム側では接続時にデータを送信している</h3>
 <p>Arduino プログラム側で mqttConnect という関数の部分で MQTT の接続を行っています。</p>
 <p>接続成立後に、すぐ MQTT ブローカに一度 <code>{&quot;message&quot;:&quot;Connected&quot;}</code> という JSON データを送っています。</p>
 <p>このあたりです。</p>
@@ -801,12 +801,12 @@ StaticJsonDocument&lt;<span class="hljs-number">2048</span>&gt; jsonData;
 <li><code>mqttClient.publish(pubTopic, pubJson);</code> で第 1 引数で pubTopic 変数で指定されたトピック ttc2022/res を指定していて、トピックに向けて <code>{&quot;message&quot;:&quot;Connected&quot;}</code> のデータを送っています</li>
 </ul>
 <p>ということを行っています。</p>
-<h3 id="デバイスを再起動して接続を待つ"><a name="デバイスを再起動して接続を待つ" class="plugin-anchor" href="#デバイスを再起動して接続を待つ"><i class="fa fa-link" aria-hidden="true"></i></a>デバイスを再起動して接続を待つ</h3>
+<h3 id="8-12-2-デバイスを再起動して接続を待つ"><a name="8-12-2-デバイスを再起動して接続を待つ" class="plugin-anchor" href="#8-12-2-デバイスを再起動して接続を待つ"><i class="fa fa-link" aria-hidden="true"></i></a>8-12-2 デバイスを再起動して接続を待つ</h3>
 <p><img src="https://i.gyazo.com/1bf31bee68324ecbd6812944ea5c7bb8.jpg" alt="image"></p>
 <p>では、再度 USB を抜き差ししてデバイスを再起動してみましょう。</p>
 <p><img src="https://i.gyazo.com/f3fbae9365e18d67b1ef57fb67a5fa66.png" alt="image"></p>
 <p>ここまでの設定がうまくいっていれば、Node-RED 側で接続時にデータが受信されています。</p>
-<h3 id="エクストラ：講師から一斉送信"><a name="エクストラ：講師から一斉送信" class="plugin-anchor" href="#エクストラ：講師から一斉送信"><i class="fa fa-link" aria-hidden="true"></i></a>エクストラ：講師から一斉送信</h3>
+<h3 id="8-12-3-エクストラ：講師から一斉送信"><a name="8-12-3-エクストラ：講師から一斉送信" class="plugin-anchor" href="#8-12-3-エクストラ：講師から一斉送信"><i class="fa fa-link" aria-hidden="true"></i></a>8-12-3 エクストラ：講師から一斉送信</h3>
 <p>時間があれば、講師からみなさんへ何かしらのデータ送信を行ってみます！</p>
 <p><img src="https://i.gyazo.com/fb1d4317f550ddaecd64f19ac2e743f9.png" alt="image"></p>
 
@@ -852,7 +852,7 @@ StaticJsonDocument&lt;<span class="hljs-number">2048</span>&gt; jsonData;
     <script>
         var gitbook = gitbook || [];
         gitbook.push(function() {
-            gitbook.page.hasChanged({"page":{"title":"第8回 デバイス MQTT 接続","level":"1.8","depth":1,"next":{"title":"第8回 メインプログラム解説","level":"1.8.1","depth":2,"path":"lecture08/01-explanation-main-program.md","ref":"lecture08/01-explanation-main-program.md","articles":[]},"previous":{"title":"第7回 MQTT データ連携演習","level":"1.7","depth":1,"path":"lecture07/00-introduction.md","ref":"lecture07/00-introduction.md","articles":[]},"articles":[{"title":"第8回 メインプログラム解説","level":"1.8.1","depth":2,"path":"lecture08/01-explanation-main-program.md","ref":"lecture08/01-explanation-main-program.md","articles":[]}],"dir":"ltr"},"config":{"plugins":["anchors","hide-published-with","copy-code-button","intopic-toc","back-to-top-button"],"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"pluginsConfig":{"intopic-toc":{"selector":".markdown-section h1, .markdown-section h2, .markdown-section h3, .markdown-section h4, .markdown-section h5, .markdown-section h6","mode":"nested","maxDepth":6,"isCollapsed":true,"isScrollspyActive":true,"visible":true,"label":"In this article"},"search":{},"lunr":{"maxIndexSize":1000000,"ignoreSpecialCharacters":false},"hide-published-with":{},"fontsettings":{"theme":"white","family":"sans","size":2},"highlight":{},"back-to-top-button":{},"copy-code-button":{},"theme-default":{"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"showLevel":false},"anchors":{}},"theme":"default","pdf":{"pageNumbers":true,"fontSize":12,"fontFamily":"Arial","paperSize":"a4","chapterMark":"pagebreak","pageBreaksBefore":"/","margin":{"right":62,"left":62,"top":56,"bottom":56},"embedFonts":false},"structure":{"langs":"LANGS.md","readme":"README.md","glossary":"GLOSSARY.md","summary":"SUMMARY.md"},"variables":{},"title":"タイトル","language":"ja","gitbook":"*","description":"詳細説明"},"file":{"path":"lecture08/00-introduction.md","mtime":"2022-06-20T12:50:45.478Z","type":"markdown"},"gitbook":{"version":"3.7.1","time":"2022-06-25T13:41:31.665Z"},"basePath":"..","book":{"language":""}});
+            gitbook.page.hasChanged({"page":{"title":"第8回 デバイス MQTT 接続","level":"1.8","depth":1,"next":{"title":"第8回 メインプログラム解説","level":"1.8.1","depth":2,"path":"lecture08/01-explanation-main-program.md","ref":"lecture08/01-explanation-main-program.md","articles":[]},"previous":{"title":"第7回 MQTT データ連携演習","level":"1.7","depth":1,"path":"lecture07/00-introduction.md","ref":"lecture07/00-introduction.md","articles":[]},"articles":[{"title":"第8回 メインプログラム解説","level":"1.8.1","depth":2,"path":"lecture08/01-explanation-main-program.md","ref":"lecture08/01-explanation-main-program.md","articles":[]}],"dir":"ltr"},"config":{"plugins":["anchors","hide-published-with","copy-code-button","intopic-toc","back-to-top-button"],"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"pluginsConfig":{"intopic-toc":{"selector":".markdown-section h1, .markdown-section h2, .markdown-section h3, .markdown-section h4, .markdown-section h5, .markdown-section h6","mode":"nested","maxDepth":6,"isCollapsed":true,"isScrollspyActive":true,"visible":true,"label":"In this article"},"search":{},"lunr":{"maxIndexSize":1000000,"ignoreSpecialCharacters":false},"hide-published-with":{},"fontsettings":{"theme":"white","family":"sans","size":2},"highlight":{},"back-to-top-button":{},"copy-code-button":{},"theme-default":{"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"showLevel":false},"anchors":{}},"theme":"default","pdf":{"pageNumbers":true,"fontSize":12,"fontFamily":"Arial","paperSize":"a4","chapterMark":"pagebreak","pageBreaksBefore":"/","margin":{"right":62,"left":62,"top":56,"bottom":56},"embedFonts":false},"structure":{"langs":"LANGS.md","readme":"README.md","glossary":"GLOSSARY.md","summary":"SUMMARY.md"},"variables":{},"title":"タイトル","language":"ja","gitbook":"*","description":"詳細説明"},"file":{"path":"lecture08/00-introduction.md","mtime":"2022-06-27T02:47:04.544Z","type":"markdown"},"gitbook":{"version":"3.7.1","time":"2022-06-27T03:44:08.291Z"},"basePath":"..","book":{"language":""}});
         });
     </script>
 </div>
