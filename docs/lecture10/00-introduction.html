@@ -414,7 +414,23 @@
 <p><img src="https://i.gyazo.com/ca02fff1c8001e2bfe484ad5a294f917.png" alt="image"></p>
 <p>ボード設定を行い、書き込みボタンをクリックして書き込みます。実際に点滅するか確認しましょう。</p>
 <h3 id="10-3-4-デジタル出力だけのプログラムの簡単な説明"><a name="10-3-4-デジタル出力だけのプログラムの簡単な説明" class="plugin-anchor" href="#10-3-4-デジタル出力だけのプログラムの簡単な説明"><i class="fa fa-link" aria-hidden="true"></i></a>10-3-4 デジタル出力だけのプログラムの簡単な説明</h3>
-<p>TODO : デジタル出力だけのプログラムの簡単な説明</p>
+<p>今回のプログラムの簡単な説明です。</p>
+<pre><code class="lang-c"><span class="hljs-keyword">int</span> LED_PIN = <span class="hljs-number">2</span>;
+</code></pre>
+<p>まず、LED_PIN という変数で今回 D2 として動かすピンを 2 として指定します。</p>
+<pre><code class="lang-c"><span class="hljs-function"><span class="hljs-keyword">void</span> <span class="hljs-title">setup</span><span class="hljs-params">()</span> </span>{
+  pinMode(LED_PIN, OUTPUT);
+}
+</code></pre>
+<p>起動時に動作する setup 関数では、<code>pinMode(LED_PIN, OUTPUT);</code> でLED を操作するピンにデジタル出力する指定をしています。</p>
+<pre><code class="lang-c"><span class="hljs-function"><span class="hljs-keyword">void</span> <span class="hljs-title">loop</span><span class="hljs-params">()</span> </span>{
+  digitalWrite(LED_PIN, HIGH);
+  delay(<span class="hljs-number">1000</span>);
+  digitalWrite(LED_PIN, LOW);
+  delay(<span class="hljs-number">1000</span>);
+}
+</code></pre>
+<p>起動後、動作し続ける loop 関数では、<code>digitalWrite(LED_PIN, HIGH);</code> で LED に電流が流れ点灯、<code>digitalWrite(LED_PIN, LOW);</code> で LED に電流が流れなくなり消灯します。これを <code>delay(1000);</code> によって 1000 ミリ秒つまり 1 秒ごとに切り替わっています。 </p>
 <h2 id="10-4-プログラムの準備"><a name="10-4-プログラムの準備" class="plugin-anchor" href="#10-4-プログラムの準備"><i class="fa fa-link" aria-hidden="true"></i></a>10-4 プログラムの準備</h2>
 <p>いよいよ、Node-RED から遠隔操作でデバイスの LED を点灯する IoT の仕組みです。</p>
 <p>今回のプログラムを準備します。</p>
@@ -684,7 +700,100 @@ StaticJsonDocument&lt;<span class="hljs-number">2048</span>&gt; jsonData;
 <p>仮に <code>token_1234567890</code> の場合は <code>const char *mqttUsername = &quot;今回使いたい Beebotte のユーザー名&quot;;</code> の部分を <code>const char *mqttUsername = &quot;token_1234567890&quot;;</code> と変更します。</p>
 <h2 id="10-6-メインプログラムの簡単な説明"><a name="10-6-メインプログラムの簡単な説明" class="plugin-anchor" href="#10-6-メインプログラムの簡単な説明"><i class="fa fa-link" aria-hidden="true"></i></a>10-6 メインプログラムの簡単な説明</h2>
 <p>今回のメインプログラムの簡単な説明です。</p>
-<p>TODO : メインプログラムの簡単な説明</p>
+<p>今回のプログラムは、実は前回の授業で使った MQTT ブローカーに接続したプログラムからあの変更点はそれほど多くありません。</p>
+<ul>
+<li>前回の授業で使ったプログラムの解説はこちらです。<ul>
+<li><a href="../lecture08/01-explanation-main-program.html">第8回 メインプログラム解説</a></li>
+</ul>
+</li>
+</ul>
+<p>前回の授業で使ったプログラムで、ある程度、準備できてしまっているとも言えます。</p>
+<p>今回追加したポイントを解説していきます。</p>
+<h2 id="10-6-1-setup-関数前"><a name="10-6-1-setup-関数前" class="plugin-anchor" href="#10-6-1-setup-関数前"><i class="fa fa-link" aria-hidden="true"></i></a>10-6-1 setup 関数前</h2>
+<pre><code class="lang-c"><span class="hljs-comment">// LED のピン番号</span>
+<span class="hljs-keyword">int</span> LED_PIN = <span class="hljs-number">2</span>;
+
+<span class="hljs-function"><span class="hljs-keyword">void</span> <span class="hljs-title">setup</span><span class="hljs-params">()</span> </span>{
+  Serial.begin(<span class="hljs-number">9600</span>);
+</code></pre>
+<p>まず、LED_PIN という変数で今回 D2 として動かすピンを 2 として指定します。</p>
+<h2 id="10-6-2-mqtt-データ受信時の処理-mqttcallback"><a name="10-6-2-mqtt-データ受信時の処理-mqttcallback" class="plugin-anchor" href="#10-6-2-mqtt-データ受信時の処理-mqttcallback"><i class="fa fa-link" aria-hidden="true"></i></a>10-6-2 MQTT データ受信時の処理 mqttCallback</h2>
+<p>mqttCallback で MQTT データ受信時の処理を行っています。MQTT データ受信時のみ、実行されるものです。</p>
+<pre><code class="lang-c"><span class="hljs-comment">// JSON を格納する StaticJsonDocument を準備</span>
+StaticJsonDocument&lt;<span class="hljs-number">2048</span>&gt; jsonData;
+</code></pre>
+<p>ArduinoJSON の持つ StaticJsonDocument という型で JSON を格納する変数を準備します。</p>
+<pre><code class="lang-c"><span class="hljs-comment">// MQTT のデータを受け取った時（購読時）の動作を設定</span>
+<span class="hljs-function"><span class="hljs-keyword">void</span> <span class="hljs-title">mqttCallback</span> <span class="hljs-params">(<span class="hljs-keyword">char</span>* topic, byte* payload, <span class="hljs-keyword">unsigned</span> <span class="hljs-keyword">int</span> length)</span> </span>{
+</code></pre>
+<p>mqttCallback は setup 関数の <code>mqttClient.setCallback(mqttCallback);</code> で、MQTT のデータを受け取った時（購読時）の動作として設定されています。</p>
+<ul>
+<li>topic<ul>
+<li>MQTT のデータを受け取った時のトピック</li>
+</ul>
+</li>
+<li>payload<ul>
+<li>受け取ったデータが byte データで来る</li>
+<li>実際に使うときは、char や String などに変換して使う</li>
+</ul>
+</li>
+<li>length<ul>
+<li>受け取ったデータの長さ</li>
+</ul>
+</li>
+</ul>
+<p>という内容を受け取っています。</p>
+<pre><code class="lang-c">  <span class="hljs-comment">// データ取得</span>
+  String str = <span class="hljs-string">&quot;&quot;</span>;
+  Serial.print(<span class="hljs-string">&quot;Received. topic=&quot;</span>);
+  Serial.println(topic);
+  <span class="hljs-keyword">for</span> (<span class="hljs-keyword">int</span> i = <span class="hljs-number">0</span>; i &lt; length; i++) {
+      Serial.print((<span class="hljs-keyword">char</span>)payload[i]);
+      str += (<span class="hljs-keyword">char</span>)payload[i];
+  }
+  Serial.print(<span class="hljs-string">&quot;\n&quot;</span>);
+</code></pre>
+<p>上記の引数を元に for ループを回してデータをつないで、受け取ったデータを一つの変数 str に集めます。</p>
+<p>以後は受け取った文字列を ArduinoJSON を使って JSON データに解析（デシリアライズ）します。</p>
+<pre><code class="lang-c">  <span class="hljs-comment">// 来た文字列を JSON 化して扱いやすくする</span>
+  <span class="hljs-comment">// 変換する対象は jsonData　という変数</span>
+  DeserializationError error = deserializeJson(jsonData, str);
+</code></pre>
+<p><code>deserializeJson(jsonData, str);</code> で受け取った文字列をJSON データに解析（デシリアライズ）します。もし、JSON 解析がエラーがでる場合は <code>DeserializationError error</code> が受け止めます。</p>
+<pre><code class="lang-c">  <span class="hljs-comment">// JSON パースのテスト</span>
+  <span class="hljs-keyword">if</span> (error) {
+    Serial.print(F(<span class="hljs-string">&quot;deserializeJson() failed: &quot;</span>));
+    Serial.println(error.f_str());
+    <span class="hljs-keyword">return</span>;
+  }
+</code></pre>
+<p><code>DeserializationError error</code> をみて JSON の解析の成功をチェックします。うまくいけば、このあとに進みます。</p>
+<pre><code class="lang-c">  <span class="hljs-comment">// 以下 jsonData 内が JSON として呼び出せる</span>
+  Serial.println(<span class="hljs-string">&quot;MQTT Subscribed data&quot;</span>);
+</code></pre>
+<p>ここが呼び出せるということは、うまく JSON が受け取れています。</p>
+<pre><code class="lang-c">  <span class="hljs-comment">// データの取り出し</span>
+  <span class="hljs-comment">// https://arduinojson.org/v6/example/parser/</span>
+  <span class="hljs-keyword">const</span> <span class="hljs-keyword">int</span> led = jsonData[<span class="hljs-string">&quot;led&quot;</span>];
+</code></pre>
+<p>ArduinoJSON によって解析され led の値を取り出します。</p>
+<pre><code class="lang-c">  <span class="hljs-comment">// データの表示</span>
+  Serial.print(<span class="hljs-string">&quot;led = &quot;</span>);
+  Serial.println(led);
+</code></pre>
+<p>うまく JSON 内の led 値が取得出来ているかをシリアルモニタに表示します。</p>
+<pre><code class="lang-c">  <span class="hljs-comment">// led の JSON データの 1 か 0 によって点灯が変わる</span>
+  <span class="hljs-keyword">if</span>(led == <span class="hljs-number">0</span>){
+    digitalWrite(LED_PIN, LOW);
+    Serial.print(<span class="hljs-string">&quot;LOW&quot;</span>);
+  } <span class="hljs-keyword">else</span> <span class="hljs-keyword">if</span>(led == <span class="hljs-number">1</span>){
+    digitalWrite(LED_PIN, HIGH);
+    Serial.print(<span class="hljs-string">&quot;HIGH&quot;</span>);
+  }
+</code></pre>
+<p>led の値が 1 か 0 によって点灯が変わります。</p>
+<p><code>{&quot;led&quot;:1}</code> のデータが受け取れていると ArduinoJSON によって解析され led の値が 1 なので、LED が <code>digitalWrite(LED_PIN, HIGH);</code> によって点灯します。</p>
+<p><code>{&quot;led&quot;:0}</code> のデータが受け取れていると ArduinoJSON によって解析され led の値が 0 なので、LED が <code>digitalWrite(LED_PIN, LOW);</code> によって消灯します。</p>
 <h2 id="10-7-プログラムの書き込み"><a name="10-7-プログラムの書き込み" class="plugin-anchor" href="#10-7-プログラムの書き込み"><i class="fa fa-link" aria-hidden="true"></i></a>10-7 プログラムの書き込み</h2>
 <p>Arduino IDE にプログラムを書き込みます。</p>
 <p><img src="https://i.gyazo.com/7af357caade502812ae210732cec208a.png" alt="image"></p>
@@ -815,7 +924,7 @@ StaticJsonDocument&lt;<span class="hljs-number">2048</span>&gt; jsonData;
     <script>
         var gitbook = gitbook || [];
         gitbook.push(function() {
-            gitbook.page.hasChanged({"page":{"title":"第10回 デバイス遠隔操作","level":"1.10","depth":1,"next":{"title":"第11回 LINE Notify API 基礎","level":"1.11","depth":1,"path":"lecture11/00-introduction.md","ref":"lecture11/00-introduction.md","articles":[]},"previous":{"title":"第9回 デバイスセンサーデータ送信","level":"1.9","depth":1,"path":"lecture09/00-introduction.md","ref":"lecture09/00-introduction.md","articles":[]},"dir":"ltr"},"config":{"plugins":["anchors","hide-published-with","copy-code-button","intopic-toc","back-to-top-button"],"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"pluginsConfig":{"intopic-toc":{"selector":".markdown-section h1, .markdown-section h2, .markdown-section h3, .markdown-section h4, .markdown-section h5, .markdown-section h6","mode":"nested","maxDepth":6,"isCollapsed":true,"isScrollspyActive":true,"visible":true,"label":"In this article"},"search":{},"lunr":{"maxIndexSize":1000000,"ignoreSpecialCharacters":false},"hide-published-with":{},"fontsettings":{"theme":"white","family":"sans","size":2},"highlight":{},"back-to-top-button":{},"copy-code-button":{},"theme-default":{"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"showLevel":false},"anchors":{}},"theme":"default","pdf":{"pageNumbers":true,"fontSize":12,"fontFamily":"Arial","paperSize":"a4","chapterMark":"pagebreak","pageBreaksBefore":"/","margin":{"right":62,"left":62,"top":56,"bottom":56},"embedFonts":false},"structure":{"langs":"LANGS.md","readme":"README.md","glossary":"GLOSSARY.md","summary":"SUMMARY.md"},"variables":{},"title":"タイトル","language":"ja","gitbook":"*","description":"詳細説明"},"file":{"path":"lecture10/00-introduction.md","mtime":"2022-06-27T04:55:44.282Z","type":"markdown"},"gitbook":{"version":"3.7.1","time":"2022-06-27T05:53:52.738Z"},"basePath":"..","book":{"language":""}});
+            gitbook.page.hasChanged({"page":{"title":"第10回 デバイス遠隔操作","level":"1.10","depth":1,"next":{"title":"第11回 LINE Notify API 基礎","level":"1.11","depth":1,"path":"lecture11/00-introduction.md","ref":"lecture11/00-introduction.md","articles":[]},"previous":{"title":"第9回 デバイスセンサーデータ送信","level":"1.9","depth":1,"path":"lecture09/00-introduction.md","ref":"lecture09/00-introduction.md","articles":[]},"dir":"ltr"},"config":{"plugins":["anchors","hide-published-with","copy-code-button","intopic-toc","back-to-top-button"],"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"pluginsConfig":{"intopic-toc":{"selector":".markdown-section h1, .markdown-section h2, .markdown-section h3, .markdown-section h4, .markdown-section h5, .markdown-section h6","mode":"nested","maxDepth":6,"isCollapsed":true,"isScrollspyActive":true,"visible":true,"label":"In this article"},"search":{},"lunr":{"maxIndexSize":1000000,"ignoreSpecialCharacters":false},"hide-published-with":{},"fontsettings":{"theme":"white","family":"sans","size":2},"highlight":{},"back-to-top-button":{},"copy-code-button":{},"theme-default":{"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"showLevel":false},"anchors":{}},"theme":"default","pdf":{"pageNumbers":true,"fontSize":12,"fontFamily":"Arial","paperSize":"a4","chapterMark":"pagebreak","pageBreaksBefore":"/","margin":{"right":62,"left":62,"top":56,"bottom":56},"embedFonts":false},"structure":{"langs":"LANGS.md","readme":"README.md","glossary":"GLOSSARY.md","summary":"SUMMARY.md"},"variables":{},"title":"タイトル","language":"ja","gitbook":"*","description":"詳細説明"},"file":{"path":"lecture10/00-introduction.md","mtime":"2022-06-27T12:54:44.928Z","type":"markdown"},"gitbook":{"version":"3.7.1","time":"2022-06-27T12:54:48.791Z"},"basePath":"..","book":{"language":""}});
         });
     </script>
 </div>

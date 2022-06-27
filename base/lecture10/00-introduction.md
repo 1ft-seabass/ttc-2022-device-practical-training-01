@@ -125,7 +125,32 @@ void loop() {
 
 ### 10-3-4 デジタル出力だけのプログラムの簡単な説明
 
-TODO : デジタル出力だけのプログラムの簡単な説明
+今回のプログラムの簡単な説明です。
+
+```c
+int LED_PIN = 2;
+```
+
+まず、LED_PIN という変数で今回 D2 として動かすピンを 2 として指定します。
+
+```c
+void setup() {
+  pinMode(LED_PIN, OUTPUT);
+}
+```
+
+起動時に動作する setup 関数では、`pinMode(LED_PIN, OUTPUT);` でLED を操作するピンにデジタル出力する指定をしています。
+
+```c
+void loop() {
+  digitalWrite(LED_PIN, HIGH);
+  delay(1000);
+  digitalWrite(LED_PIN, LOW);
+  delay(1000);
+}
+```
+
+起動後、動作し続ける loop 関数では、`digitalWrite(LED_PIN, HIGH);` で LED に電流が流れ点灯、`digitalWrite(LED_PIN, LOW);` で LED に電流が流れなくなり消灯します。これを `delay(1000);` によって 1000 ミリ秒つまり 1 秒ごとに切り替わっています。 
 
 ## 10-4 プログラムの準備
 
@@ -423,7 +448,129 @@ const char *mqttPassword = "";
 
 今回のメインプログラムの簡単な説明です。
 
-TODO : メインプログラムの簡単な説明
+今回のプログラムは、実は前回の授業で使った MQTT ブローカーに接続したプログラムからあの変更点はそれほど多くありません。
+
+- 前回の授業で使ったプログラムの解説はこちらです。
+  - [第8回 メインプログラム解説](../lecture08/01-explanation-main-program.md)
+
+前回の授業で使ったプログラムで、ある程度、準備できてしまっているとも言えます。
+
+今回追加したポイントを解説していきます。
+
+## 10-6-1 setup 関数前
+
+```c
+// LED のピン番号
+int LED_PIN = 2;
+ 
+void setup() {
+  Serial.begin(9600);
+```
+
+まず、LED_PIN という変数で今回 D2 として動かすピンを 2 として指定します。
+
+## 10-6-2 MQTT データ受信時の処理 mqttCallback
+
+mqttCallback で MQTT データ受信時の処理を行っています。MQTT データ受信時のみ、実行されるものです。
+
+```c
+// JSON を格納する StaticJsonDocument を準備
+StaticJsonDocument<2048> jsonData;
+```
+
+ArduinoJSON の持つ StaticJsonDocument という型で JSON を格納する変数を準備します。
+
+```c 
+// MQTT のデータを受け取った時（購読時）の動作を設定
+void mqttCallback (char* topic, byte* payload, unsigned int length) {
+```
+
+mqttCallback は setup 関数の `mqttClient.setCallback(mqttCallback);` で、MQTT のデータを受け取った時（購読時）の動作として設定されています。
+
+- topic
+  - MQTT のデータを受け取った時のトピック
+- payload
+  - 受け取ったデータが byte データで来る
+  - 実際に使うときは、char や String などに変換して使う
+- length
+  - 受け取ったデータの長さ
+
+という内容を受け取っています。
+
+```c
+  // データ取得
+  String str = "";
+  Serial.print("Received. topic=");
+  Serial.println(topic);
+  for (int i = 0; i < length; i++) {
+      Serial.print((char)payload[i]);
+      str += (char)payload[i];
+  }
+  Serial.print("\n");
+```
+
+上記の引数を元に for ループを回してデータをつないで、受け取ったデータを一つの変数 str に集めます。
+
+以後は受け取った文字列を ArduinoJSON を使って JSON データに解析（デシリアライズ）します。
+
+```c
+  // 来た文字列を JSON 化して扱いやすくする
+  // 変換する対象は jsonData　という変数
+  DeserializationError error = deserializeJson(jsonData, str);
+```
+
+`deserializeJson(jsonData, str);` で受け取った文字列をJSON データに解析（デシリアライズ）します。もし、JSON 解析がエラーがでる場合は `DeserializationError error` が受け止めます。
+
+```c
+  // JSON パースのテスト
+  if (error) {
+    Serial.print(F("deserializeJson() failed: "));
+    Serial.println(error.f_str());
+    return;
+  }
+```
+
+`DeserializationError error` をみて JSON の解析の成功をチェックします。うまくいけば、このあとに進みます。
+
+```c
+  // 以下 jsonData 内が JSON として呼び出せる
+  Serial.println("MQTT Subscribed data");
+```
+
+ここが呼び出せるということは、うまく JSON が受け取れています。
+
+```c
+  // データの取り出し
+  // https://arduinojson.org/v6/example/parser/
+  const int led = jsonData["led"];
+```
+
+ArduinoJSON によって解析され led の値を取り出します。
+
+```c 
+  // データの表示
+  Serial.print("led = ");
+  Serial.println(led);
+```
+
+うまく JSON 内の led 値が取得出来ているかをシリアルモニタに表示します。
+
+```c
+  // led の JSON データの 1 か 0 によって点灯が変わる
+  if(led == 0){
+    digitalWrite(LED_PIN, LOW);
+    Serial.print("LOW");
+  } else if(led == 1){
+    digitalWrite(LED_PIN, HIGH);
+    Serial.print("HIGH");
+  }
+```
+
+led の値が 1 か 0 によって点灯が変わります。
+
+`{"led":1}` のデータが受け取れていると ArduinoJSON によって解析され led の値が 1 なので、LED が `digitalWrite(LED_PIN, HIGH);` によって点灯します。
+
+`{"led":0}` のデータが受け取れていると ArduinoJSON によって解析され led の値が 0 なので、LED が `digitalWrite(LED_PIN, LOW);` によって消灯します。
 
 ## 10-7 プログラムの書き込み
 
