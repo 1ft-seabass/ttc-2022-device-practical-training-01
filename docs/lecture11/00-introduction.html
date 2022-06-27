@@ -339,22 +339,71 @@
                                 <section class="normal markdown-section">
                                 
                                 <h1 id="第11回-line-notify-api-基礎"><a name="第11回-line-notify-api-基礎" class="plugin-anchor" href="#第11回-line-notify-api-基礎"><i class="fa fa-link" aria-hidden="true"></i></a>第11回 LINE Notify API 基礎</h1>
-<h2 id="line-notify-とは"><a name="line-notify-とは" class="plugin-anchor" href="#line-notify-とは"><i class="fa fa-link" aria-hidden="true"></i></a>LINE Notify とは</h2>
+<p><img src="https://i.gyazo.com/078142258b3c0026c184d54eda2ccba9.jpg" alt="image"></p>
+<p>まず、今日は LINE アプリを使っていくので、手元のスマホで LINE アプリがあるか確認しましょう。</p>
+<h2 id="11-1-line-notify-とは"><a name="11-1-line-notify-とは" class="plugin-anchor" href="#11-1-line-notify-とは"><i class="fa fa-link" aria-hidden="true"></i></a>11-1 LINE Notify とは</h2>
 <p>LINE Notify の大まかな仕組みを把握します。</p>
-<h2 id="iot-における通知"><a name="iot-における通知" class="plugin-anchor" href="#iot-における通知"><i class="fa fa-link" aria-hidden="true"></i></a>IoT における通知</h2>
+<p><img src="https://i.gyazo.com/5ee7b4482f1b28caaf860e72744cd2f5.png" alt="image"></p>
+<p>LINE Notify <a href="https://notify-bot.line.me/ja/" target="_blank">https://notify-bot.line.me/ja/</a></p>
+<blockquote>
+<p>Webサービスと連携すると、LINEが提供する公式アカウント&quot;LINE Notify&quot;から通知が届きます。
+複数のサービスと連携でき、グループでも通知を受信することが可能です。</p>
+</blockquote>
+<p><img src="https://i.gyazo.com/8dddc3621b4a77af65be36d7907cd02a.png" alt="image"></p>
+<p>つまり「LINE Notifyと連携を行うことで、LINEユーザーが簡単にサービスの通知を受信できるようになります」</p>
+<h2 id="11-2-iot-における通知"><a name="11-2-iot-における通知" class="plugin-anchor" href="#11-2-iot-における通知"><i class="fa fa-link" aria-hidden="true"></i></a>11-2 IoT における通知</h2>
 <p>LINE Notify のような IoT における通知の重要性を把握します。</p>
-<h2 id="line-notify-事例1"><a name="line-notify-事例1" class="plugin-anchor" href="#line-notify-事例1"><i class="fa fa-link" aria-hidden="true"></i></a>LINE Notify 事例1</h2>
-<p>LINE Notify に関する使いどころ（ユースケース）を個人面で把握します</p>
-<h2 id="line-notify-事例2"><a name="line-notify-事例2" class="plugin-anchor" href="#line-notify-事例2"><i class="fa fa-link" aria-hidden="true"></i></a>LINE Notify 事例2</h2>
-<p>LINE Notify に関する使いどころ（ユースケース）をIoT事例面で把握します</p>
-<h2 id="line-アカウント確認"><a name="line-アカウント確認" class="plugin-anchor" href="#line-アカウント確認"><i class="fa fa-link" aria-hidden="true"></i></a>LINE アカウント確認</h2>
+<p><img src="https://i.gyazo.com/9e70b598a6e055b9b1a7ddab800f6f8a.png" alt="image"></p>
+<p>自分の LINE に通知としてメッセージを受け取ることができる仕組みです。</p>
+<ul>
+<li>自分から見に行かなくてもメッセージで知らせてくれる仕組み</li>
+<li>複数人に一斉にメッセージを受け取る仕組み</li>
+<li>何かしらの情報をまとめて知らせてくれる仕組み</li>
+</ul>
+<p>といったものを作ることができます。</p>
+<p>自分たちが設定した情報だけを手軽に LINE ユーザーに配信できるので、WEB アプリの仕組みと相性がよく「こういう通知内容は実際役に立つだろうか？」といった形で、自分たちの考えた発想を試しやすいです。</p>
+<p>また、そういったメッセージを受け付ける部分を LINE に任せることで、LINE アプリの使い慣れた洗練されたレイアウトで、すぐにメッセージを表示できることも良い点です。</p>
+<p>もし、このレベルに使いやすい仕組みを自分でイチからつくるとなると、WEB サーバーの知識・HTML/CSS/JavaScript といった WEB 表示の知識・セキュリティへの配慮・多くのユーザーがいる状況などなど整えるべきことが数多くあります。「こういう通知内容は実際役に立つだろうか？」というシンプルな試行錯誤をするまでに、たくさんの時間がかかります。</p>
+<p>このあたりを、LINE Nofity および LINE アプリで、すぐに試せるというのは、自分たちの構想を試して良くしていくときには強い味方になります。</p>
+<h2 id="11-3-line-notify-事例"><a name="11-3-line-notify-事例" class="plugin-anchor" href="#11-3-line-notify-事例"><i class="fa fa-link" aria-hidden="true"></i></a>11-3 LINE Notify 事例</h2>
+<p>LINE Notify に関する使いどころ（ユースケース）を個人面・IoT事例面で把握します</p>
+<ul>
+<li>個人面<ul>
+<li>自分の興味のありそうなカテゴリのニュースを定期的に通知</li>
+<li>家族共有の Google カレンダーが更新されると通知して共有</li>
+</ul>
+</li>
+<li>IoT事例面<ul>
+<li>温度・湿度センサーを設置しておき熱中症アラートを出す（冷房を促すこともセットで）</li>
+<li>CO2 センサーを設置しておき一定量の濃度に到達したら換気を促す</li>
+<li>新生児の健康指標事例<ul>
+<li><a href="https://www.1ft-seabass.jp/memo/2019/11/06/unko-button-getting-start/" target="_blank">https://www.1ft-seabass.jp/memo/2019/11/06/unko-button-getting-start/</a></li>
+<li><a href="https://www.1ft-seabass.jp/memo/2020/07/13/summary-of-oyako-tech-lt/" target="_blank">https://www.1ft-seabass.jp/memo/2020/07/13/summary-of-oyako-tech-lt/</a></li>
+</ul>
+</li>
+<li>事例<ul>
+<li><a href="https://speakerdeck.com/1ftseabass/developers-summit-2021" target="_blank">https://speakerdeck.com/1ftseabass/developers-summit-2021</a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<h2 id="11-4-line-アカウント確認"><a name="11-4-line-アカウント確認" class="plugin-anchor" href="#11-4-line-アカウント確認"><i class="fa fa-link" aria-hidden="true"></i></a>11-4 LINE アカウント確認</h2>
+<p><img src="https://guide.line.me/ja/install_5.png" width="200"></p>
 <p>LINE アカウントとスマホアプリインストールを確認します。</p>
 <h2 id="line-notify-サイトログイン"><a name="line-notify-サイトログイン" class="plugin-anchor" href="#line-notify-サイトログイン"><i class="fa fa-link" aria-hidden="true"></i></a>LINE Notify サイトログイン</h2>
 <p>LINE Notify サイトにログインしアカウント確認をします。</p>
-<h2 id="line-notify-設定の取得"><a name="line-notify-設定の取得" class="plugin-anchor" href="#line-notify-設定の取得"><i class="fa fa-link" aria-hidden="true"></i></a>LINE Notify 設定の取得</h2>
-<p>LINE Notify 設定しトークンの取得を行います。</p>
 <p><img src="https://i.gyazo.com/c45ee309aa6793bc12f67c24f3a905ce.png" alt="image"></p>
-<p><a href="https://notify-bot.line.me/ja/" target="_blank">https://notify-bot.line.me/ja/</a> からログインします。</p>
+<p><a href="https://notify-bot.line.me/ja/" target="_blank">https://notify-bot.line.me/ja/</a> に、まずアクセスします。</p>
+<p><img src="https://i.gyazo.com/043d433bfa913e2edaee4bb917e92bb2.png" alt="image"></p>
+<p>右上のログインをクリック。</p>
+<p><img src="https://i.gyazo.com/d2a7444465cb56a81eedb3e957403806.png" alt="image"></p>
+<p>下部の QR コードログインをクリックします。（メールアドレス・パスワードは、おそらくみなさん設定していないのと、いまから設定をやるとなると、PCとアプリを行き来して、まあまあ大変になるので今回は避けます。）</p>
+<p><img src="https://i.gyazo.com/a6834bc86db3d0f024a0cb5886664883.png" alt="image"></p>
+<p>QR コードが表示されます。 LINE アプリでスキャンするとログインできます。QR コードのスキャン方法は下部のリンクをクリックすると表示されます。</p>
+<p><img src="https://i.gyazo.com/e3856b10d3a1b933f284f7f81f3fac64.png" alt="image"></p>
+<h2 id="11-5-line-notify-設定の取得"><a name="11-5-line-notify-設定の取得" class="plugin-anchor" href="#11-5-line-notify-設定の取得"><i class="fa fa-link" aria-hidden="true"></i></a>11-5 LINE Notify 設定の取得</h2>
+<p>LINE Notify 設定しトークンの取得を行います。</p>
 <p><img src="https://i.gyazo.com/bf26cdcf093a783aee4ff510ec9ddb68.png" alt="image"></p>
 <p>ログインすると、右上にアカウント名が出るのでクリックします。</p>
 <p><img src="https://i.gyazo.com/7cdb07c7e588bac278a5fb0b2dbc9d83.png" alt="image"></p>
@@ -380,16 +429,58 @@
 <p>このようにトークンが表示されるのでメモしましょう。</p>
 <p><strong>このページから移動すると、新しく発行されたトークンは二度と表示されないので気をつけましょう</strong></p>
 <p>メモしたらウィンドウを閉じるボタンをクリックして閉じます。</p>
+<h2 id="11-6-line-notify-設定の確認"><a name="11-6-line-notify-設定の確認" class="plugin-anchor" href="#11-6-line-notify-設定の確認"><i class="fa fa-link" aria-hidden="true"></i></a>11-6 LINE Notify 設定の確認</h2>
+<p>LINE で LINE Notify 設定されたかメッセージ確認を行います。</p>
 <p><img src="https://i.gyazo.com/2fcf2f7f0d039737510759301a619485.png" alt="image"></p>
 <p>リストに追加されたことを確認しておきます。</p>
 <p><img src="https://i.gyazo.com/07a33eec5562fc6fd67e52aeaa5c2bc9.png" alt="image"></p>
-<p>今回選択した LINE Notify 先のアカウントにこのようなメッセージが来ていることも確認します。</p>
-<h2 id="line-notify-設定の確認"><a name="line-notify-設定の確認" class="plugin-anchor" href="#line-notify-設定の確認"><i class="fa fa-link" aria-hidden="true"></i></a>LINE Notify 設定の確認</h2>
-<p>LINE で LINE Notify 設定されたかメッセージ確認を行います。</p>
-<h2 id="line-notify-の技術仕様"><a name="line-notify-の技術仕様" class="plugin-anchor" href="#line-notify-の技術仕様"><i class="fa fa-link" aria-hidden="true"></i></a>LINE Notify の技術仕様</h2>
+<p>今回選択した LINE Notify 先のアカウントにこのようなメッセージが来ていることも確認します。このように、LINE Notify API のアクセストークンの発行されると LINE アプリに Personal Access Token 発行の通知が来ます。</p>
+<h2 id="11-7-line-notify-の技術仕様"><a name="11-7-line-notify-の技術仕様" class="plugin-anchor" href="#11-7-line-notify-の技術仕様"><i class="fa fa-link" aria-hidden="true"></i></a>11-7 LINE Notify の技術仕様</h2>
 <p>LINE Notify の技術的な仕様やメッセージデータを確認します。</p>
-<h2 id="line-notify-のツール"><a name="line-notify-のツール" class="plugin-anchor" href="#line-notify-のツール"><i class="fa fa-link" aria-hidden="true"></i></a>LINE Notify のツール</h2>
+<h3 id="11-7-1-技術的な仕様やドキュメント"><a name="11-7-1-技術的な仕様やドキュメント" class="plugin-anchor" href="#11-7-1-技術的な仕様やドキュメント"><i class="fa fa-link" aria-hidden="true"></i></a>11-7-1 技術的な仕様やドキュメント</h3>
+<p>LINE Notify API のデータのやり取りは HTTP プロトコルで行います。 </p>
+<p><img src="https://i.gyazo.com/279081acd57f3204852561b29cab2aef.png" alt="image"></p>
+<p>ドキュメントは LINE Notify サイトから確認できます。</p>
+<ul>
+<li><a href="https://notify-bot.line.me/ja/" target="_blank">https://notify-bot.line.me/ja/</a></li>
+</ul>
+<p><img src="https://i.gyazo.com/6865fb59897f753ac0e2f0eec54e6739.png" alt="image"></p>
+<p>こんな感じです。</p>
+<h3 id="11-7-2-通知系を把握していこう"><a name="11-7-2-通知系を把握していこう" class="plugin-anchor" href="#11-7-2-通知系を把握していこう"><i class="fa fa-link" aria-hidden="true"></i></a>11-7-2 通知系を把握していこう</h3>
+<p><img src="https://i.gyazo.com/8d51aa1bceb0f9b8531a879bc8d11ef8.png" alt="image"></p>
+<p>ドキュメントのつくりとして、はじめに「API 全体の流れと、実装の必要な箇所について」や「認証系」がありますが、今回はメッセージのやり取りを行う「通知系」をみていきます。</p>
+<p>いままで勉強した HTTP の知識で一緒に読み解いていきましょう。</p>
+<p><img src="https://i.gyazo.com/2717cf9a01715977b1a52f20243d0280.png" alt="image"></p>
+<p>リクエスト方法、必要なヘッダーを把握します。</p>
+<ul>
+<li>LINE への通知のためのAPI<ul>
+<li>メソッド<ul>
+<li>POST</li>
+</ul>
+</li>
+<li>URL<ul>
+<li><a href="https://notify-api.line.me/api/notify" target="_blank">https://notify-api.line.me/api/notify</a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<p><img src="https://i.gyazo.com/26199a652d191b61f11b0a747fe3285d.png" alt="image"></p>
+<p>送信できるデータはリクエストパラメータで確認できます。テキスト・画像・スタンプを送ることができます。</p>
+<p><img src="https://i.gyazo.com/433127ff3540c8c9aab3ed4e37e934be.png" alt="image"></p>
+<p>各サービスごとに1時間にAPIをcallできる回数の上限 API Rate Limit も注意しましょう。</p>
+<h2 id="11-8-line-notify-のツール"><a name="11-8-line-notify-のツール" class="plugin-anchor" href="#11-8-line-notify-のツール"><i class="fa fa-link" aria-hidden="true"></i></a>11-8 LINE Notify のツール</h2>
 <p>PC版アプリのツールを把握します。</p>
+<p><img src="https://i.gyazo.com/895157df89c2ef3c8127e202c065eb76.png" alt="image"></p>
+<ul>
+<li>パソコンでLINEを利用する｜LINEみんなの使い方ガイド<ul>
+<li><a href="https://guide.line.me/ja/services/pc-line.html" target="_blank">https://guide.line.me/ja/services/pc-line.html</a></li>
+</ul>
+</li>
+</ul>
+<p>こちらをみつつ、インストールしていきましょう。</p>
+<p><img src="https://i.gyazo.com/a9812231b44c092ae5c3b7a072207e7a.png" alt="image"></p>
+<p>QR コードログインがおススメです。</p>
 
                                 
                                 </section>
@@ -429,7 +520,7 @@
     <script>
         var gitbook = gitbook || [];
         gitbook.push(function() {
-            gitbook.page.hasChanged({"page":{"title":"第11回 LINE Notify API 基礎","level":"1.11","depth":1,"next":{"title":"第12回 LINE Notify API 演習","level":"1.12","depth":1,"ref":"","articles":[]},"previous":{"title":"第10回 デバイス遠隔操作","level":"1.10","depth":1,"path":"lecture10/00-introduction.md","ref":"lecture10/00-introduction.md","articles":[]},"dir":"ltr"},"config":{"plugins":["anchors","hide-published-with","copy-code-button","intopic-toc","back-to-top-button"],"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"pluginsConfig":{"intopic-toc":{"selector":".markdown-section h1, .markdown-section h2, .markdown-section h3, .markdown-section h4, .markdown-section h5, .markdown-section h6","mode":"nested","maxDepth":6,"isCollapsed":true,"isScrollspyActive":true,"visible":true,"label":"In this article"},"search":{},"lunr":{"maxIndexSize":1000000,"ignoreSpecialCharacters":false},"hide-published-with":{},"fontsettings":{"theme":"white","family":"sans","size":2},"highlight":{},"back-to-top-button":{},"copy-code-button":{},"theme-default":{"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"showLevel":false},"anchors":{}},"theme":"default","pdf":{"pageNumbers":true,"fontSize":12,"fontFamily":"Arial","paperSize":"a4","chapterMark":"pagebreak","pageBreaksBefore":"/","margin":{"right":62,"left":62,"top":56,"bottom":56},"embedFonts":false},"structure":{"langs":"LANGS.md","readme":"README.md","glossary":"GLOSSARY.md","summary":"SUMMARY.md"},"variables":{},"title":"タイトル","language":"ja","gitbook":"*","description":"詳細説明"},"file":{"path":"lecture11/00-introduction.md","mtime":"2022-06-25T22:48:56.793Z","type":"markdown"},"gitbook":{"version":"3.7.1","time":"2022-06-27T04:56:30.611Z"},"basePath":"..","book":{"language":""}});
+            gitbook.page.hasChanged({"page":{"title":"第11回 LINE Notify API 基礎","level":"1.11","depth":1,"next":{"title":"第12回 LINE Notify API 演習","level":"1.12","depth":1,"ref":"","articles":[]},"previous":{"title":"第10回 デバイス遠隔操作","level":"1.10","depth":1,"path":"lecture10/00-introduction.md","ref":"lecture10/00-introduction.md","articles":[]},"dir":"ltr"},"config":{"plugins":["anchors","hide-published-with","copy-code-button","intopic-toc","back-to-top-button"],"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"pluginsConfig":{"intopic-toc":{"selector":".markdown-section h1, .markdown-section h2, .markdown-section h3, .markdown-section h4, .markdown-section h5, .markdown-section h6","mode":"nested","maxDepth":6,"isCollapsed":true,"isScrollspyActive":true,"visible":true,"label":"In this article"},"search":{},"lunr":{"maxIndexSize":1000000,"ignoreSpecialCharacters":false},"hide-published-with":{},"fontsettings":{"theme":"white","family":"sans","size":2},"highlight":{},"back-to-top-button":{},"copy-code-button":{},"theme-default":{"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"showLevel":false},"anchors":{}},"theme":"default","pdf":{"pageNumbers":true,"fontSize":12,"fontFamily":"Arial","paperSize":"a4","chapterMark":"pagebreak","pageBreaksBefore":"/","margin":{"right":62,"left":62,"top":56,"bottom":56},"embedFonts":false},"structure":{"langs":"LANGS.md","readme":"README.md","glossary":"GLOSSARY.md","summary":"SUMMARY.md"},"variables":{},"title":"タイトル","language":"ja","gitbook":"*","description":"詳細説明"},"file":{"path":"lecture11/00-introduction.md","mtime":"2022-06-27T05:53:49.469Z","type":"markdown"},"gitbook":{"version":"3.7.1","time":"2022-06-27T05:53:52.738Z"},"basePath":"..","book":{"language":""}});
         });
     </script>
 </div>
