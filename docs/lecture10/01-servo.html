@@ -5,12 +5,12 @@
         <meta charset="UTF-8">
         <head prefix="og: https://ogp.me/ns# fb: https://ogp.me/ns/fb# article: https://ogp.me/ns/article#"></head>
         <meta property="og:type" content="article">
-        <meta property="og:url" content="lecture08/01-explanation-main-program.html">
+        <meta property="og:url" content="lecture10/01-servo.html">
         <meta property="og:image" content="https://i.gyazo.com/800eb533b2b3a652c4e9973a62bb9f97.png">
         <meta property="og:title" content="タイトル">
         <meta property="og:description" content="詳細説明">
         <meta property="og:locale" content="ja">
-        <title>第8回 メインプログラム解説 · タイトル</title>
+        <title>サーボ実践 · タイトル</title>
         <meta http-equiv="X-UA-Compatible" content="IE=edge" />
         <meta name="description" content="">
         <meta name="generator" content="HonKit 3.7.1">
@@ -75,7 +75,7 @@
     <link rel="shortcut icon" href="../gitbook/images/favicon.ico" type="image/x-icon">
 
     
-    <link rel="next" href="../lecture09/00-introduction.html" />
+    <link rel="next" href="../lecture11/00-introduction.html" />
     
     
     <link rel="prev" href="00-introduction.html" />
@@ -198,9 +198,9 @@
             
         </li>
     
-        <li class="chapter " data-level="1.8" data-path="00-introduction.html">
+        <li class="chapter " data-level="1.8" data-path="../lecture08/00-introduction.html">
             
-                <a href="00-introduction.html">
+                <a href="../lecture08/00-introduction.html">
             
                     
                     第8回 デバイス MQTT 接続
@@ -212,9 +212,9 @@
             <ul class="articles">
                 
     
-        <li class="chapter active" data-level="1.8.1" data-path="01-explanation-main-program.html">
+        <li class="chapter " data-level="1.8.1" data-path="../lecture08/01-explanation-main-program.html">
             
-                <a href="01-explanation-main-program.html">
+                <a href="../lecture08/01-explanation-main-program.html">
             
                     
                     第8回 メインプログラム解説
@@ -243,9 +243,9 @@
             
         </li>
     
-        <li class="chapter " data-level="1.10" data-path="../lecture10/00-introduction.html">
+        <li class="chapter " data-level="1.10" data-path="00-introduction.html">
             
-                <a href="../lecture10/00-introduction.html">
+                <a href="00-introduction.html">
             
                     
                     第10回 デバイス遠隔操作
@@ -257,9 +257,9 @@
             <ul class="articles">
                 
     
-        <li class="chapter " data-level="1.10.1" data-path="../lecture10/01-servo.html">
+        <li class="chapter active" data-level="1.10.1" data-path="01-servo.html">
             
-                <a href="../lecture10/01-servo.html">
+                <a href="01-servo.html">
             
                     
                     サーボ実践
@@ -344,7 +344,7 @@
     <!-- Title -->
     <h1>
         <i class="fa fa-circle-o-notch fa-spin"></i>
-        <a href=".." >第8回 メインプログラム解説</a>
+        <a href=".." >サーボ実践</a>
     </h1>
 </div>
 
@@ -359,8 +359,68 @@
     
                                 <section class="normal markdown-section">
                                 
-                                <h1 id="メインプログラムの流れ"><a name="メインプログラムの流れ" class="plugin-anchor" href="#メインプログラムの流れ"><i class="fa fa-link" aria-hidden="true"></i></a>メインプログラムの流れ</h1>
-<h2 id="まずはライブラリの準備"><a name="まずはライブラリの準備" class="plugin-anchor" href="#まずはライブラリの準備"><i class="fa fa-link" aria-hidden="true"></i></a>まずはライブラリの準備</h2>
+                                <h1 id="サーボを動かしてみよう"><a name="サーボを動かしてみよう" class="plugin-anchor" href="#サーボを動かしてみよう"><i class="fa fa-link" aria-hidden="true"></i></a>サーボを動かしてみよう</h1>
+<p><img src="https://i.gyazo.com/6159ef068fb9eada7a5c954f5ceef0fc.jpg" alt="image"></p>
+<h2 id="10-1-1-パーツの準備"><a name="10-1-1-パーツの準備" class="plugin-anchor" href="#10-1-1-パーツの準備"><i class="fa fa-link" aria-hidden="true"></i></a>10-1-1 パーツの準備</h2>
+<p><img src="https://i.gyazo.com/d01b83c7d7f8781c0a9a1f937918fbbb.jpg" alt="image"></p>
+<p>サーボを用意します。</p>
+<p><img src="https://i.gyazo.com/57ee7573918cf47c8143e367a11fed7e.jpg" alt="image"></p>
+<p><img src="https://i.gyazo.com/4fd96f1ab56d17be72321ae58a295ba7.jpg" alt="image"></p>
+<ul>
+<li>長めの黄ケーブル</li>
+<li>長めの赤ケーブル</li>
+<li>短めの黒ケーブル</li>
+</ul>
+<p>を準備します。</p>
+<h2 id="10-1-2-サーボとケーブルをつなぎます"><a name="10-1-2-サーボとケーブルをつなぎます" class="plugin-anchor" href="#10-1-2-サーボとケーブルをつなぎます"><i class="fa fa-link" aria-hidden="true"></i></a>10-1-2 サーボとケーブルをつなぎます</h2>
+<p><img src="https://i.gyazo.com/2104f01b46c0a4c3ce97c67404db5849.jpg" alt="image"></p>
+<p>サーボ側の穴を確認します。</p>
+<p><img src="https://i.gyazo.com/6159ef068fb9eada7a5c954f5ceef0fc.jpg" alt="image"></p>
+<p>ケーブルを差し込みます。</p>
+<ul>
+<li>サーボ側の黄色ケーブルがある穴<ul>
+<li>黄色ケーブル</li>
+</ul>
+</li>
+<li>サーボ側の赤ケーブルがある穴<ul>
+<li>赤ケーブル</li>
+</ul>
+</li>
+<li>サーボ側の茶色ケーブルがある穴<ul>
+<li>黒ケーブル</li>
+</ul>
+</li>
+</ul>
+<p><img src="https://i.gyazo.com/409275787ee28b516e0adb5bcbf6d59b.jpg" alt="image"></p>
+<p>サーボの部品を用意します。</p>
+<p><img src="https://i.gyazo.com/4e8facd18d0200a75814856648462e43.jpg" alt="image"></p>
+<p>サーボにはめこみます。</p>
+<h2 id="10-1-3-回路図"><a name="10-1-3-回路図" class="plugin-anchor" href="#10-1-3-回路図"><i class="fa fa-link" aria-hidden="true"></i></a>10-1-3 回路図</h2>
+<p>こちらの回路図に合わせてとりつけます。</p>
+<p><img src="https://i.gyazo.com/c06acb72b4ac63692030e7146eba5aba.png" alt="image"></p>
+<h2 id="10-1-4--ソースコード1"><a name="10-1-4--ソースコード1" class="plugin-anchor" href="#10-1-4--ソースコード1"><i class="fa fa-link" aria-hidden="true"></i></a>10-1-4  ソースコード1</h2>
+<p>Arduino IDE でファイルを新規作成して以下のソースコードをコピーアンドペーストして <code>TTC-Demo-2022-Servo-Simple</code> で保存。</p>
+<pre><code class="lang-c"><span class="hljs-meta">#<span class="hljs-meta-keyword">include</span> <span class="hljs-meta-string">&lt;Servo.h&gt;</span></span>
+
+Servo myservo;
+
+<span class="hljs-function"><span class="hljs-keyword">void</span> <span class="hljs-title">setup</span><span class="hljs-params">()</span> </span>{
+  <span class="hljs-comment">// 今回は2ピン</span>
+  myservo.attach(<span class="hljs-number">2</span>);
+}
+
+<span class="hljs-function"><span class="hljs-keyword">void</span> <span class="hljs-title">loop</span><span class="hljs-params">()</span> </span>{
+  myservo.write(<span class="hljs-number">0</span>);
+  delay(<span class="hljs-number">5000</span>);
+  myservo.write(<span class="hljs-number">180</span>);
+  delay(<span class="hljs-number">5000</span>);
+  myservo.write(<span class="hljs-number">90</span>);
+  delay(<span class="hljs-number">5000</span>);
+}
+</code></pre>
+<p>書き込んで、サーボが回るか定期チェックします。</p>
+<h2 id="10-1-5-ソースコード2"><a name="10-1-5-ソースコード2" class="plugin-anchor" href="#10-1-5-ソースコード2"><i class="fa fa-link" aria-hidden="true"></i></a>10-1-5 ソースコード2</h2>
+<p>Arduino IDE でファイルを新規作成して以下のソースコードをコピーアンドペーストして <code>TTC-Demo-2022-Servo-MQTT</code> で保存。</p>
 <pre><code class="lang-c"><span class="hljs-comment">// WiFiNINA ライブラリ</span>
 <span class="hljs-meta">#<span class="hljs-meta-keyword">include</span> <span class="hljs-meta-string">&lt;SPI.h&gt;</span></span>
 <span class="hljs-meta">#<span class="hljs-meta-keyword">include</span> <span class="hljs-meta-string">&lt;WiFiNINA.h&gt;</span></span>
@@ -370,20 +430,21 @@
 <span class="hljs-meta">#<span class="hljs-meta-keyword">include</span> <span class="hljs-meta-string">&lt;PubSubClient.h&gt;</span>  <span class="hljs-comment">// インストールすれば色がつく</span></span>
 <span class="hljs-comment">// JSON を扱いやすくするライブラリ</span>
 <span class="hljs-meta">#<span class="hljs-meta-keyword">include</span> <span class="hljs-meta-string">&lt;ArduinoJson.h&gt;</span> <span class="hljs-comment">// こちらは色がついてなくてOK</span></span>
-</code></pre>
-<h2 id="wi-fi-まわりの設定"><a name="wi-fi-まわりの設定" class="plugin-anchor" href="#wi-fi-まわりの設定"><i class="fa fa-link" aria-hidden="true"></i></a>Wi-Fi まわりの設定</h2>
-<pre><code class="lang-c"><span class="hljs-comment">// Wi-FiのSSID</span>
-<span class="hljs-keyword">char</span> *ssid = <span class="hljs-string">&quot;&lt;Wi-FiのSSID&gt;&quot;</span>;
+
+<span class="hljs-comment">// Servo の宣言</span>
+<span class="hljs-meta">#<span class="hljs-meta-keyword">include</span> <span class="hljs-meta-string">&lt;Servo.h&gt;</span></span>
+
+<span class="hljs-comment">// Wi-FiのSSID</span>
+<span class="hljs-keyword">char</span> *ssid = <span class="hljs-string">&quot;Wi-FiのSSID&quot;</span>;
 <span class="hljs-comment">// Wi-Fiのパスワード</span>
-<span class="hljs-keyword">char</span> *password = <span class="hljs-string">&quot;&lt;Wi-Fiのパスワード&gt;&quot;</span>;
-</code></pre>
-<h2 id="mqtt-まわりの設定"><a name="mqtt-まわりの設定" class="plugin-anchor" href="#mqtt-まわりの設定"><i class="fa fa-link" aria-hidden="true"></i></a>MQTT まわりの設定</h2>
-<pre><code class="lang-c"><span class="hljs-comment">// 今回使いたい Beebotte のブローカーのアドレス</span>
+<span class="hljs-keyword">char</span> *password = <span class="hljs-string">&quot;Wi-Fiのパスワード&quot;</span>;
+
+<span class="hljs-comment">// 今回使いたい Beebotte のブローカーのアドレス</span>
 <span class="hljs-keyword">const</span> <span class="hljs-keyword">char</span> *mqttEndpoint = <span class="hljs-string">&quot;mqtt.beebotte.com&quot;</span>;
 <span class="hljs-comment">// 今回使いたい Beebotte のポート</span>
 <span class="hljs-keyword">const</span> <span class="hljs-keyword">int</span> mqttPort = <span class="hljs-number">1883</span>;
 <span class="hljs-comment">// 今回使いたい Beebotte のユーザー名</span>
-<span class="hljs-keyword">const</span> <span class="hljs-keyword">char</span> *mqttUsername = <span class="hljs-string">&quot;&lt;今回使いたい Beebotte のユーザー名&gt;&quot;</span>;
+<span class="hljs-keyword">const</span> <span class="hljs-keyword">char</span> *mqttUsername = <span class="hljs-string">&quot;今回使いたい Beebotte のユーザー名&quot;</span>;
 <span class="hljs-comment">// 今回使いたい Beebotte のパスワード</span>
 <span class="hljs-keyword">const</span> <span class="hljs-keyword">char</span> *mqttPassword = <span class="hljs-string">&quot;&quot;</span>;
 
@@ -398,49 +459,43 @@
 
 <span class="hljs-comment">// MQTT メッセージを受け取るトピック</span>
 <span class="hljs-keyword">char</span> *subTopic = <span class="hljs-string">&quot;ttc2022/res&quot;</span>;
-</code></pre>
-<p>ここまでは、以後使う様々な設定を変数で宣言しています。</p>
-<pre><code class="lang-c"><span class="hljs-comment">// JSON 送信時に使う buffer</span>
+
+<span class="hljs-comment">// JSON 送信時に使う buffer</span>
 <span class="hljs-keyword">char</span> pubJson[<span class="hljs-number">255</span>];
-</code></pre>
-<p>このあと JSON のオブジェクトを文字列に格納するための変数として pubJson を宣言しています。</p>
-<pre><code class="lang-c"><span class="hljs-comment">// PubSubClient まわりの準備</span>
+
+<span class="hljs-comment">// PubSubClient まわりの準備</span>
 WiFiClient httpClient;
 <span class="hljs-function">PubSubClient <span class="hljs-title">mqttClient</span><span class="hljs-params">(httpClient)</span></span>;
-</code></pre>
-<p>MQTT まわりのやり取りを行う PubSubClient を準備しています。<code>WiFiClient httpClient;</code> によって、WiFi 接続後に指定されたインターネットIPアドレスとポートに接続できるクライアントを作成します。何かしらのつなぐためのクライアントとしての準備です。</p>
-<p><code>PubSubClient mqttClient(httpClient);</code> によって、PubSubClient が MQTT に特化して MQTT クライアントを準備します。以後、<code>mqttClient</code> という変数で MQTT まわりのやり取りを行います。</p>
-<h2 id="起動時に動作する-setup-関数"><a name="起動時に動作する-setup-関数" class="plugin-anchor" href="#起動時に動作する-setup-関数"><i class="fa fa-link" aria-hidden="true"></i></a>起動時に動作する setup 関数</h2>
-<p>起動時に動作する setup 関数の前半では、おもに Wi-Fi の接続をしています。</p>
-<pre><code class="lang-c"><span class="hljs-function"><span class="hljs-keyword">void</span> <span class="hljs-title">setup</span><span class="hljs-params">()</span> </span>{
+
+<span class="hljs-comment">// Servo のピン番号</span>
+<span class="hljs-keyword">int</span> SERVO_PIN = <span class="hljs-number">2</span>;
+
+<span class="hljs-comment">// Servo</span>
+Servo myservo;
+
+<span class="hljs-function"><span class="hljs-keyword">void</span> <span class="hljs-title">setup</span><span class="hljs-params">()</span> </span>{
   Serial.begin(<span class="hljs-number">9600</span>);
-</code></pre>
-<p>Arduino 上で Serial 関数の Serial.begin によってボーレート（1秒間にどれくらい送れるかというデータ転送レートのbps値）に合わせておくとデータが受信できます。今回は 9600 bps です。</p>
-<pre><code class="lang-c">  <span class="hljs-comment">// WiFi 接続開始</span>
+
+  <span class="hljs-comment">// WiFi 接続開始</span>
   Serial.print(<span class="hljs-string">&quot;WiFi Connecting WPA SSID: &quot;</span>);
   Serial.println(ssid);
-</code></pre>
-<p>シリアルモニタ上で <code>WiFi Connecting WPA SSID:</code> という文字列を出した後、今回つなぐ Wi-Fi の SSID を表示してチェックできるようにしています。</p>
-<pre><code class="lang-c">  <span class="hljs-keyword">while</span> (WiFi.status() != WL_CONNECTED) {
+  <span class="hljs-keyword">while</span> (WiFi.status() != WL_CONNECTED) {
     delay(<span class="hljs-number">500</span>);
     <span class="hljs-comment">// Connect to WPA/WPA2 network:</span>
     WiFi.begin(ssid, password);
     Serial.print(<span class="hljs-string">&quot;.&quot;</span>);
   }
-</code></pre>
-<p><code>WiFi.status()</code> が <code>WL_CONNECTED</code> という接続成功の値になるまで待つことで、Wi-Fi の接続を待っています。</p>
-<p><code>WiFi.begin(ssid, password);</code> の部分で、WPA/WPA2 の Wi-Fi ネットワークへつないでいます。<code>Serial.print(&quot;.&quot;);</code> でつながるまで、ずっと <code>..........</code> とピリオドを出し続けることで読み込み中を表現しています。</p>
-<pre><code class="lang-c">  <span class="hljs-comment">// 接続完了メッセージ</span>
+
+  <span class="hljs-comment">// 接続完了メッセージ</span>
   Serial.print(<span class="hljs-string">&quot;WiFi Connected&quot;</span>);
   printCurrentNet();
   printWifiData();
 
+  <span class="hljs-comment">// Servo 設定</span>
+  myservo.attach(SERVO_PIN);
+
   delay(<span class="hljs-number">2000</span>);
-</code></pre>
-<p>接続完了後に接続した現在のネットワーク状況を表示します。この関数はプログラムの後半に記述されているので、のちほど紹介します。</p>
-<h3 id="mqtt-に接続する-setup-後半と-mqttconnect"><a name="mqtt-に接続する-setup-後半と-mqttconnect" class="plugin-anchor" href="#mqtt-に接続する-setup-後半と-mqttconnect"><i class="fa fa-link" aria-hidden="true"></i></a>MQTT に接続する setup 後半と mqttConnect</h3>
-<p>setup 後半は Wi-Fi の接続ができて MQTT ブローカーに接続します。</p>
-<pre><code class="lang-c">
+
   <span class="hljs-comment">// MQTT の接続先設定</span>
   mqttClient.setServer(mqttEndpoint, mqttPort);
   <span class="hljs-comment">// MQTT のデータを受け取った時（購読時）の動作を設定</span>
@@ -449,9 +504,8 @@ WiFiClient httpClient;
   mqttConnect();
 
 }
-</code></pre>
-<p>まず setup 後半では、PubSubClient の mqttClient ので、MQTT の接続先設定・MQTT のデータを受け取った時（購読時）の動作を設定をした後に、実際の MQTT の接続するために <code>mqttConnect</code> 関数を呼び出します。</p>
-<pre><code class="lang-c"><span class="hljs-function"><span class="hljs-keyword">void</span> <span class="hljs-title">mqttConnect</span><span class="hljs-params">()</span> </span>{
+
+<span class="hljs-function"><span class="hljs-keyword">void</span> <span class="hljs-title">mqttConnect</span><span class="hljs-params">()</span> </span>{
 
   <span class="hljs-comment">// MQTT clientID のランダム化（名称重複対策）</span>
   <span class="hljs-keyword">char</span> clientID[<span class="hljs-number">40</span>] = <span class="hljs-string">&quot;clientID&quot;</span>;
@@ -464,46 +518,28 @@ WiFiClient httpClient;
   Serial.println(<span class="hljs-string">&quot;&quot;</span>);
   Serial.println(<span class="hljs-string">&quot;- clientID &quot;</span>);
   Serial.println(clientID);
-</code></pre>
-<p>ここはやや長めに書いてありますが MQTT クライアントが自分の名前をクライアント ID として送受信時に宣言していますが、同じ MQTT ブローカー上で名前が被ると、誰が誰のデータをやり取りしているか判断できず混乱するのでランダムな値を生成するようにしています。</p>
-<p>この名前の前半の固定値は <code>char *deviceID = &quot;UNO-Rev2-WiFi&quot;;</code> として上部の方で設定しているので、可能であれば、<code>&quot;UNO-Rev2-WiFi-seigo-328y69&quot;</code> のように自分の名前＋ランダムっぽい値を自分で加えると、より被りにくい名前になるのでおススメです。</p>
-<p>ちなみに、Node-RED の場合は、気を効かせてクライアント IDを勝手にランダムのIDにしてくれています。</p>
-<pre><code class="lang-c">  <span class="hljs-comment">// 接続されるまで待ちます</span>
+
+  <span class="hljs-comment">// 接続されるまで待ちます</span>
   <span class="hljs-keyword">while</span> (!mqttClient.connected()) {
     <span class="hljs-keyword">if</span> (mqttClient.connect(clientID,mqttUsername,mqttPassword)) {
       Serial.println(<span class="hljs-string">&quot;- MQTT Connected.&quot;</span>);
-</code></pre>
-<p><code>while (!mqttClient.connected()) {</code> によって MQTT ブローカーにつながるまで待っています。実際の接続は <code>mqttClient.connect(clientID,mqttUsername,mqttPassword)</code> で行っています。</p>
-<pre><code class="lang-c">      <span class="hljs-comment">// subTopic 変数で指定されたトピックに向けてデータを送ります</span>
+
+      <span class="hljs-comment">// subTopic 変数で指定されたトピックに向けてデータを送ります</span>
       <span class="hljs-keyword">int</span> qos = <span class="hljs-number">0</span>;
       mqttClient.subscribe(subTopic, qos);
       Serial.println(<span class="hljs-string">&quot;- MQTT Subscribe start.&quot;</span>);
       Serial.println(subTopic);
-</code></pre>
-<p>subTopic 変数で指定されたトピックに向けてデータを送っています。<code>mqttClient.subscribe(subTopic, qos);</code> によって実際には設定しています。</p>
-<p>MQTT メッセージを受け取るトピックは <code>char *subTopic = &quot;ttc2022/res&quot;;</code> として上部の方で設定しています。</p>
-<pre><code class="lang-c">      <span class="hljs-comment">// 初回データ送信 publish ///////////</span>
+
+      <span class="hljs-comment">// 初回データ送信 publish ///////////</span>
       <span class="hljs-comment">// データ送信のための JSON をつくる</span>
       <span class="hljs-function">DynamicJsonDocument <span class="hljs-title">doc</span><span class="hljs-params">(<span class="hljs-number">1024</span>)</span></span>;
       doc[<span class="hljs-string">&quot;message&quot;</span>] = <span class="hljs-string">&quot;Connected&quot;</span>;
+      doc[<span class="hljs-string">&quot;servo&quot;</span>] = <span class="hljs-number">0</span>;
       <span class="hljs-comment">// pubJson という変数に JSON 文字列化されたものが入る</span>
       serializeJson(doc, pubJson);
       <span class="hljs-comment">// pubTopic 変数で指定されたトピックに向けてデータを送ります</span>
       mqttClient.publish(pubTopic, pubJson);
-</code></pre>
-<p>こちらは、接続したての時に初回データ送信を行ってデータ送信や接続チェックをしやすくしています。</p>
-<p>接続成立後に、すぐ MQTT ブローカに一度 <code>{&quot;message&quot;:&quot;Connected&quot;}</code> という JSON データを送っています。</p>
-<p><code>// 初回データ送信 publish ///////////</code> 以降がデータ送っています。</p>
-<p>以後は、</p>
-<ul>
-<li>DynamicJsonDocument という ArduinoJSON から提供された型でこれから作成する JSON データのベースとなる doc という変数を宣言</li>
-<li>doc に message という値を設定し <code>Connected</code> というデータを入れる</li>
-<li>serializeJson で doc を解析することで <code>{&quot;message&quot;:&quot;Connected&quot;}</code> というデータとなる</li>
-<li>serializeJson の第 2 引数で、事前に pubJson と宣言した JSON 送信時に使う buffer 型に <code>{&quot;message&quot;:&quot;Connected&quot;}</code> を渡す</li>
-<li><code>mqttClient.publish(pubTopic, pubJson);</code> で第 1 引数で pubTopic 変数で指定されたトピック ttc2022/res を指定していて、トピックに向けて <code>{&quot;message&quot;:&quot;Connected&quot;}</code> のデータを送っています</li>
-</ul>
-<p>ということを行っています。</p>
-<pre><code class="lang-c">    } <span class="hljs-keyword">else</span> {
+    } <span class="hljs-keyword">else</span> {
       <span class="hljs-comment">// MQTT 接続エラーの場合はつながるまで 5 秒ごとに繰り返します</span>
       Serial.print(<span class="hljs-string">&quot;Failed. Error state=&quot;</span>);
       Serial.println(mqttClient.state());
@@ -512,35 +548,14 @@ WiFiClient httpClient;
     }
   }
 }
-</code></pre>
-<p>この部分は、接続されるまで、MQTT 接続エラーの場合はつながるまで 5 秒ごとに再接続を繰り返しています。</p>
-<h2 id="mqtt-データ受信時の処理-mqttcallback"><a name="mqtt-データ受信時の処理-mqttcallback" class="plugin-anchor" href="#mqtt-データ受信時の処理-mqttcallback"><i class="fa fa-link" aria-hidden="true"></i></a>MQTT データ受信時の処理 mqttCallback</h2>
-<p>mqttCallback は MQTT データ受信時の処理を行っています。MQTT データ受信時のみ、実行されるものです。</p>
-<pre><code class="lang-c"><span class="hljs-comment">// JSON を格納する StaticJsonDocument を準備</span>
+
+<span class="hljs-comment">// JSON を格納する StaticJsonDocument を準備</span>
 StaticJsonDocument&lt;<span class="hljs-number">2048</span>&gt; jsonData;
-</code></pre>
-<p>ArduinoJSON の持つ StaticJsonDocument という型で JSON を格納する変数を準備します。</p>
-<pre><code class="lang-c"><span class="hljs-comment">// MQTT のデータを受け取った時（購読時）の動作を設定</span>
+
+<span class="hljs-comment">// MQTT のデータを受け取った時（購読時）の動作を設定</span>
 <span class="hljs-function"><span class="hljs-keyword">void</span> <span class="hljs-title">mqttCallback</span> <span class="hljs-params">(<span class="hljs-keyword">char</span>* topic, byte* payload, <span class="hljs-keyword">unsigned</span> <span class="hljs-keyword">int</span> length)</span> </span>{
-</code></pre>
-<p>mqttCallback は setup 関数の <code>mqttClient.setCallback(mqttCallback);</code> で、MQTT のデータを受け取った時（購読時）の動作として設定されています。</p>
-<ul>
-<li>topic<ul>
-<li>MQTT のデータを受け取った時のトピック</li>
-</ul>
-</li>
-<li>payload<ul>
-<li>受け取ったデータが byte データで来る</li>
-<li>実際に使うときは、char や String などに変換して使う</li>
-</ul>
-</li>
-<li>length<ul>
-<li>受け取ったデータの長さ</li>
-</ul>
-</li>
-</ul>
-<p>という内容を受け取っています。</p>
-<pre><code class="lang-c">  <span class="hljs-comment">// データ取得</span>
+
+  <span class="hljs-comment">// データ取得</span>
   String str = <span class="hljs-string">&quot;&quot;</span>;
   Serial.print(<span class="hljs-string">&quot;Received. topic=&quot;</span>);
   Serial.println(topic);
@@ -549,40 +564,34 @@ StaticJsonDocument&lt;<span class="hljs-number">2048</span>&gt; jsonData;
       str += (<span class="hljs-keyword">char</span>)payload[i];
   }
   Serial.print(<span class="hljs-string">&quot;\n&quot;</span>);
-</code></pre>
-<p>上記の引数を元に for ループを回してデータをつないで、受け取ったデータを一つの変数 str に集めます。</p>
-<p>以後は受け取った文字列を ArduinoJSON を使って JSON データに解析（デシリアライズ）します。</p>
-<pre><code class="lang-c">  <span class="hljs-comment">// 来た文字列を JSON 化して扱いやすくする</span>
+
+  <span class="hljs-comment">// 来た文字列を JSON 化して扱いやすくする</span>
   <span class="hljs-comment">// 変換する対象は jsonData　という変数</span>
   DeserializationError error = deserializeJson(jsonData, str);
-</code></pre>
-<p><code>deserializeJson(jsonData, str);</code> で受け取った文字列をJSON データに解析（デシリアライズ）します。もし、JSON 解析がエラーがでる場合は <code>DeserializationError error</code> が受け止めます。</p>
-<pre><code class="lang-c">  <span class="hljs-comment">// JSON パースのテスト</span>
+
+  <span class="hljs-comment">// JSON パースのテスト</span>
   <span class="hljs-keyword">if</span> (error) {
     Serial.print(F(<span class="hljs-string">&quot;deserializeJson() failed: &quot;</span>));
     Serial.println(error.f_str());
     <span class="hljs-keyword">return</span>;
   }
-</code></pre>
-<p><code>DeserializationError error</code> をみて JSON の解析の成功をチェックします。うまくいけば、このあとに進みます。</p>
-<pre><code class="lang-c">  <span class="hljs-comment">// 以下 jsonData 内が JSON として呼び出せる</span>
+
+  <span class="hljs-comment">// 以下 jsonData 内が JSON として呼び出せる</span>
   Serial.println(<span class="hljs-string">&quot;MQTT Subscribed data&quot;</span>);
-</code></pre>
-<p>ここが呼び出せるということは、うまく JSON が受け取れています。</p>
-<pre><code class="lang-c">  <span class="hljs-comment">// データの取り出し</span>
+
+  <span class="hljs-comment">// データの取り出し</span>
   <span class="hljs-comment">// https://arduinojson.org/v6/example/parser/</span>
-  <span class="hljs-keyword">const</span> <span class="hljs-keyword">char</span>* message = jsonData[<span class="hljs-string">&quot;message&quot;</span>];
-</code></pre>
-<p>たとえば、<code>{&quot;message&quot;:&quot;Connected&quot;}</code> のデータが受け取れていると ArduinoJSON によって解析され <code>message</code> には <code>Connected</code> の文字列が取得できます。</p>
-<pre><code class="lang-c">  <span class="hljs-comment">// データの表示</span>
-  Serial.println(message);
+  <span class="hljs-keyword">const</span> <span class="hljs-keyword">int</span> servo = jsonData[<span class="hljs-string">&quot;servo&quot;</span>];
+
+  <span class="hljs-comment">// データの表示</span>
+  Serial.print(<span class="hljs-string">&quot;servo = &quot;</span>);
+  Serial.println(servo);
+
+  <span class="hljs-comment">// サーボの角度に反映</span>
+  myservo.write(servo);
 
 }
-</code></pre>
-<p>最後に、うまく JSON 内の message 値が取得出来ているかをシリアルモニタに表示します。</p>
-<h2 id="起動後、動作し続ける-loop-関数"><a name="起動後、動作し続ける-loop-関数" class="plugin-anchor" href="#起動後、動作し続ける-loop-関数"><i class="fa fa-link" aria-hidden="true"></i></a>起動後、動作し続ける loop 関数</h2>
-<p>loop 関数は MQTT 接続の維持をしています。SubPubClient ライブラリの処理が中心です。</p>
-<pre><code class="lang-c">
+
 <span class="hljs-comment">// 常にチェックして切断されたら復帰できるようにする対応</span>
 <span class="hljs-function"><span class="hljs-keyword">void</span> <span class="hljs-title">mqttLoop</span><span class="hljs-params">()</span> </span>{
   <span class="hljs-keyword">if</span> (!mqttClient.connected()) {
@@ -595,13 +604,8 @@ StaticJsonDocument&lt;<span class="hljs-number">2048</span>&gt; jsonData;
   <span class="hljs-comment">// 常にチェックして切断されたら復帰できるようにする対応</span>
   mqttLoop();
 }
-</code></pre>
-<p>接続の維持は <code>mqttClient.loop();</code> です。</p>
-<p>常に <code>mqttClient.connected()</code> で接続状態をチェックして、もし切断されたら <code>mqttConnect</code> MQTT 接続関数を実行して復帰できるようにする対応をしています。</p>
-<h2 id="wi-fi-接続時のシリアルコンソール通知まわり"><a name="wi-fi-接続時のシリアルコンソール通知まわり" class="plugin-anchor" href="#wi-fi-接続時のシリアルコンソール通知まわり"><i class="fa fa-link" aria-hidden="true"></i></a>Wi-Fi 接続時のシリアルコンソール通知まわり</h2>
-<p>WiFiNINA ライブラリの初期プログラムにもついている、Wi-Fi 接続時の基本的なコード。</p>
-<p>Wi-Fi でつながった IP アドレスや MAC アドレスなどを取得して表示。</p>
-<pre><code class="lang-c"><span class="hljs-function"><span class="hljs-keyword">void</span> <span class="hljs-title">printWifiData</span><span class="hljs-params">()</span> </span>{
+
+<span class="hljs-function"><span class="hljs-keyword">void</span> <span class="hljs-title">printWifiData</span><span class="hljs-params">()</span> </span>{
   <span class="hljs-comment">// print your board&apos;s IP address:</span>
   IPAddress ip = WiFi.localIP();
   Serial.print(<span class="hljs-string">&quot;IP Address: &quot;</span>);
@@ -651,6 +655,11 @@ StaticJsonDocument&lt;<span class="hljs-number">2048</span>&gt; jsonData;
   Serial.println();
 }
 </code></pre>
+<p>Wi-Fi と自分の MQTT ブローカーへの設定を行って書き込みます。</p>
+<h2 id="10-1-6-node-red-の変更"><a name="10-1-6-node-red-の変更" class="plugin-anchor" href="#10-1-6-node-red-の変更"><i class="fa fa-link" aria-hidden="true"></i></a>10-1-6 Node-RED の変更</h2>
+<p>inject ノードの送るデータを変更してみましょう。</p>
+<p><img src="https://i.gyazo.com/83e9a71f40ab25d6d3272a4f56b270bd.png" alt="image"></p>
+<p>servo という値にして、角度を整数で送ってあげます。0～180まで操作できます。</p>
 
                                 
                                 </section>
@@ -678,12 +687,12 @@ StaticJsonDocument&lt;<span class="hljs-number">2048</span>&gt; jsonData;
 
             
                 
-                <a href="00-introduction.html" class="navigation navigation-prev " aria-label="Previous page: 第8回 デバイス MQTT 接続">
+                <a href="00-introduction.html" class="navigation navigation-prev " aria-label="Previous page: 第10回 デバイス遠隔操作">
                     <i class="fa fa-angle-left"></i>
                 </a>
                 
                 
-                <a href="../lecture09/00-introduction.html" class="navigation navigation-next " aria-label="Next page: 第9回 デバイスセンサーデータ送信">
+                <a href="../lecture11/00-introduction.html" class="navigation navigation-next " aria-label="Next page: 第11回 LINE Notify API 基礎">
                     <i class="fa fa-angle-right"></i>
                 </a>
                 
@@ -694,7 +703,7 @@ StaticJsonDocument&lt;<span class="hljs-number">2048</span>&gt; jsonData;
     <script>
         var gitbook = gitbook || [];
         gitbook.push(function() {
-            gitbook.page.hasChanged({"page":{"title":"第8回 メインプログラム解説","level":"1.8.1","depth":2,"next":{"title":"第9回 デバイスセンサーデータ送信","level":"1.9","depth":1,"path":"lecture09/00-introduction.md","ref":"lecture09/00-introduction.md","articles":[]},"previous":{"title":"第8回 デバイス MQTT 接続","level":"1.8","depth":1,"path":"lecture08/00-introduction.md","ref":"lecture08/00-introduction.md","articles":[{"title":"第8回 メインプログラム解説","level":"1.8.1","depth":2,"path":"lecture08/01-explanation-main-program.md","ref":"lecture08/01-explanation-main-program.md","articles":[]}]},"dir":"ltr"},"config":{"plugins":["anchors","hide-published-with","copy-code-button","intopic-toc","back-to-top-button"],"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"pluginsConfig":{"intopic-toc":{"selector":".markdown-section h1, .markdown-section h2, .markdown-section h3, .markdown-section h4, .markdown-section h5, .markdown-section h6","mode":"nested","maxDepth":6,"isCollapsed":true,"isScrollspyActive":true,"visible":true,"label":"In this article"},"search":{},"lunr":{"maxIndexSize":1000000,"ignoreSpecialCharacters":false},"hide-published-with":{},"fontsettings":{"theme":"white","family":"sans","size":2},"highlight":{},"back-to-top-button":{},"copy-code-button":{},"theme-default":{"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"showLevel":false},"anchors":{}},"theme":"default","pdf":{"pageNumbers":true,"fontSize":12,"fontFamily":"Arial","paperSize":"a4","chapterMark":"pagebreak","pageBreaksBefore":"/","margin":{"right":62,"left":62,"top":56,"bottom":56},"embedFonts":false},"structure":{"langs":"LANGS.md","readme":"README.md","glossary":"GLOSSARY.md","summary":"SUMMARY.md"},"variables":{},"title":"タイトル","language":"ja","gitbook":"*","description":"詳細説明"},"file":{"path":"lecture08/01-explanation-main-program.md","mtime":"2022-06-20T14:21:57.291Z","type":"markdown"},"gitbook":{"version":"3.7.1","time":"2022-06-28T00:18:54.135Z"},"basePath":"..","book":{"language":""}});
+            gitbook.page.hasChanged({"page":{"title":"サーボ実践","level":"1.10.1","depth":2,"next":{"title":"第11回 LINE Notify API 基礎","level":"1.11","depth":1,"path":"lecture11/00-introduction.md","ref":"lecture11/00-introduction.md","articles":[]},"previous":{"title":"第10回 デバイス遠隔操作","level":"1.10","depth":1,"path":"lecture10/00-introduction.md","ref":"lecture10/00-introduction.md","articles":[{"title":"サーボ実践","level":"1.10.1","depth":2,"path":"lecture10/01-servo.md","ref":"lecture10/01-servo.md","articles":[]}]},"dir":"ltr"},"config":{"plugins":["anchors","hide-published-with","copy-code-button","intopic-toc","back-to-top-button"],"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"pluginsConfig":{"intopic-toc":{"selector":".markdown-section h1, .markdown-section h2, .markdown-section h3, .markdown-section h4, .markdown-section h5, .markdown-section h6","mode":"nested","maxDepth":6,"isCollapsed":true,"isScrollspyActive":true,"visible":true,"label":"In this article"},"search":{},"lunr":{"maxIndexSize":1000000,"ignoreSpecialCharacters":false},"hide-published-with":{},"fontsettings":{"theme":"white","family":"sans","size":2},"highlight":{},"back-to-top-button":{},"copy-code-button":{},"theme-default":{"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"showLevel":false},"anchors":{}},"theme":"default","pdf":{"pageNumbers":true,"fontSize":12,"fontFamily":"Arial","paperSize":"a4","chapterMark":"pagebreak","pageBreaksBefore":"/","margin":{"right":62,"left":62,"top":56,"bottom":56},"embedFonts":false},"structure":{"langs":"LANGS.md","readme":"README.md","glossary":"GLOSSARY.md","summary":"SUMMARY.md"},"variables":{},"title":"タイトル","language":"ja","gitbook":"*","description":"詳細説明"},"file":{"path":"lecture10/01-servo.md","mtime":"2022-06-28T00:17:51.672Z","type":"markdown"},"gitbook":{"version":"3.7.1","time":"2022-06-28T00:18:54.135Z"},"basePath":"..","book":{"language":""}});
         });
     </script>
 </div>

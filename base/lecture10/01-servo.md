@@ -1,9 +1,57 @@
 # サーボを動かしてみよう
 
-## 用意するもの
+![image](https://i.gyazo.com/6159ef068fb9eada7a5c954f5ceef0fc.jpg)
 
+## 10-1-1 パーツの準備
 
-## ソースコード1
+![image](https://i.gyazo.com/d01b83c7d7f8781c0a9a1f937918fbbb.jpg)
+
+サーボを用意します。
+
+![image](https://i.gyazo.com/57ee7573918cf47c8143e367a11fed7e.jpg)
+
+![image](https://i.gyazo.com/4fd96f1ab56d17be72321ae58a295ba7.jpg)
+
+- 長めの黄ケーブル
+- 長めの赤ケーブル
+- 短めの黒ケーブル
+
+を準備します。
+
+## 10-1-2 サーボとケーブルをつなぎます
+
+![image](https://i.gyazo.com/2104f01b46c0a4c3ce97c67404db5849.jpg)
+
+サーボ側の穴を確認します。
+
+![image](https://i.gyazo.com/6159ef068fb9eada7a5c954f5ceef0fc.jpg)
+
+ケーブルを差し込みます。
+
+- サーボ側の黄色ケーブルがある穴
+  - 黄色ケーブル
+- サーボ側の赤ケーブルがある穴
+  - 赤ケーブル
+- サーボ側の茶色ケーブルがある穴
+  - 黒ケーブル
+
+![image](https://i.gyazo.com/409275787ee28b516e0adb5bcbf6d59b.jpg)
+
+サーボの部品を用意します。
+
+![image](https://i.gyazo.com/4e8facd18d0200a75814856648462e43.jpg)
+
+サーボにはめこみます。
+
+## 10-1-3 回路図
+
+こちらの回路図に合わせてとりつけます。
+
+![image](https://i.gyazo.com/c06acb72b4ac63692030e7146eba5aba.png)
+
+## 10-1-4  ソースコード1
+
+Arduino IDE でファイルを新規作成して以下のソースコードをコピーアンドペーストして `TTC-Demo-2022-Servo-Simple` で保存。
 
 ```c
 #include <Servo.h>
@@ -25,9 +73,11 @@ void loop() {
 }
 ```
 
-## ソースコード2
+書き込んで、サーボが回るか定期チェックします。
 
-`TTC-Demo-2022-Servo-MQTT` で保存。
+## 10-1-5 ソースコード2
+
+Arduino IDE でファイルを新規作成して以下のソースコードをコピーアンドペーストして `TTC-Demo-2022-Servo-MQTT` で保存。
 
 ```c
 // WiFiNINA ライブラリ
@@ -265,6 +315,12 @@ void printMacAddress(byte mac[]) {
 }
 ```
 
-## Node-RED
+Wi-Fi と自分の MQTT ブローカーへの設定を行って書き込みます。
+
+## 10-1-6 Node-RED の変更
+
+inject ノードの送るデータを変更してみましょう。
 
 ![image](https://i.gyazo.com/83e9a71f40ab25d6d3272a4f56b270bd.png)
+
+servo という値にして、角度を整数で送ってあげます。0～180まで操作できます。
