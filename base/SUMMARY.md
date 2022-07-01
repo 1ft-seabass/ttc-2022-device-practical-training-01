@@ -13,5 +13,5 @@
 - [第10回 デバイス遠隔操作](lecture10/00-introduction.md)
   - [サーボ実践](lecture10/01-servo.md)
 - [第11回 LINE Notify API 基礎](lecture11/00-introduction.md)
-- 第12回 LINE Notify API 演習
-- 第13回 センサー通知演習
+- [第12回 LINE Notify API 演習](lecture12/00-introduction.md)
+- [第13回 センサー通知演習](lecture13/00-introduction.md)
