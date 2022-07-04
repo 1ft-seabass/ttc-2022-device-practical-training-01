@@ -80,9 +80,11 @@ Node-RED から LINE Notify へのメッセージ送信含め、フロー全体�
 
 Node-RED で様々なユーザーインターフェースやグラフ表示ができるノード群、ダッシュボードノードの体験していきましょう。
 
-![image](http://nodered.org/images/dashboarde.png)
+![image](https://i.gyazo.com/0245d94fb6c895872799bc0da4e89237.png)
 
 https://flows.nodered.org/node/node-red-dashboard
+
+詳しくは、メインテキストの 5.2 Node-RED ダッシュボードノードにも書かれています。
 
 Node-RED ダッシュボード機能は標準では使えないので、node-red-contrib-line-messaging-api ノードと同じようにノードをインストールします。
 
