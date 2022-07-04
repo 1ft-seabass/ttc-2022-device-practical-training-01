@@ -4,21 +4,17 @@
 
 今回の Node-RED 動作の大まかな流れを把握します。
 
-TODO : 前回のフローを発展させる話
+![image](https://i.gyazo.com/d69f0a82e9d9ecb77b6c5ddeea4cd435.png)
 
-## デバイス準備
+[第9回の仕組み](../lecture09/00-introduction.md) で取得した部屋の明るさをセンサーが捉えて、Node-RED に送りその明るさに応じて LINE Notify ノードによって LINE アプリに通知を送ります。
+
+## デバイス準備→書き込み→デバイス動作確認
+
+![image](https://i.gyazo.com/fa7747862927454bf64c9866d5cc1fa7.jpg)
 
 以前行なったセンサー値を取得するプログラムをデバイスに書き込み準備します。
 
-TODO : [第9回の回路](../lecture09/00-introduction.md)
-
-## デバイス書き込み
-
-プログラムに MQTT の設定をし、デバイスに書き込み準備します。
-
-## デバイス動作確認
-
-Arduino IDE 上でデバイスの動作や MQTT 接続を確認します。
+TODO : [第9回の仕組み](../lecture09/00-introduction.md)
 
 ## デバイス連携 フロー作成
 

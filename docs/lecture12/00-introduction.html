@@ -362,14 +362,64 @@
                                 <h1 id="line-notify-api-演習"><a name="line-notify-api-演習" class="plugin-anchor" href="#line-notify-api-演習"><i class="fa fa-link" aria-hidden="true"></i></a>LINE Notify API 演習</h1>
 <h2 id="演習概要"><a name="演習概要" class="plugin-anchor" href="#演習概要"><i class="fa fa-link" aria-hidden="true"></i></a>演習概要</h2>
 <p>今回の Node-RED 動作の大まかな流れを把握します。</p>
-<h2 id="フロー作成"><a name="フロー作成" class="plugin-anchor" href="#フロー作成"><i class="fa fa-link" aria-hidden="true"></i></a>フロー作成</h2>
-<p>今回の Node-RED フローを作成します。</p>
+<p><img src="https://i.gyazo.com/5e069bdbcfa1b742ebc6e60aebcf6fab.png" alt="image"></p>
 <h2 id="フロー準備"><a name="フロー準備" class="plugin-anchor" href="#フロー準備"><i class="fa fa-link" aria-hidden="true"></i></a>フロー準備</h2>
-<p>Node-RED で LINE Notify API ノードをインストールします。</p>
-<p>TODO : インストールの方法を伝える
-TODO : 他の有用なノードをどこで探すか</p>
-<h2 id="ノード設定"><a name="ノード設定" class="plugin-anchor" href="#ノード設定"><i class="fa fa-link" aria-hidden="true"></i></a>ノード設定</h2>
+<p>今回の Node-RED フローを作成します。</p>
+<h3 id="ひとまずフローを全部選択して削除します"><a name="ひとまずフローを全部選択して削除します" class="plugin-anchor" href="#ひとまずフローを全部選択して削除します"><i class="fa fa-link" aria-hidden="true"></i></a>ひとまずフローを全部選択して削除します</h3>
+<p><img src="https://i.gyazo.com/a4540fb1b4ae851b96978b5916dcd434.png" alt="image"></p>
+<p>まず、今回の 2 回の授業でつくるフローに集中するため、マウスでドラッグして選択して DELETE キーを押して以前のフローを削除します。</p>
+<p>MQTT の設定については、ちゃんと保持されているので大丈夫です。</p>
+<p><img src="https://i.gyazo.com/8325d656243200bdb6a3038fe4185eb8.png" alt="image"></p>
+<p>右下の + や - 、ナビデータで全体を確認してちゃんと削除できているか、確認しましょう。</p>
+<h2 id="インストール"><a name="インストール" class="plugin-anchor" href="#インストール"><i class="fa fa-link" aria-hidden="true"></i></a>インストール</h2>
+<p>Node-RED で node-red-contrib-line-messaging-api ノードをインストールします。</p>
+<p><img src="https://i.gyazo.com/cefbac6bf2f4ed2a7bcd43668754d2a8.png" alt="image"></p>
+<p>インストール方法については、メインテキスト 4.1 「ノードの追加」を確認します。</p>
+<h3 id="node-red-contrib-line-messaging-api-のインストール"><a name="node-red-contrib-line-messaging-api-のインストール" class="plugin-anchor" href="#node-red-contrib-line-messaging-api-のインストール"><i class="fa fa-link" aria-hidden="true"></i></a>node-red-contrib-line-messaging-api のインストール</h3>
+<p>右上のメニューからパレットの管理を選択し、ノードを追加タブをクリックします。</p>
+<p><img src="https://i.gyazo.com/d34533f2121a058f738053dbe569b593.png" alt="image"></p>
+<p>検索エリアで node-red-contrib-line-messaging-api と検索します。</p>
+<p><img src="https://i.gyazo.com/f4c5e7e4e78f8b1f8bb70790c7763475.png" alt="image"></p>
+<p>node-red-contrib-line-messaging-api ノードがでてくるので ノードを追加ボタンをクリックします。</p>
+<p><img src="https://i.gyazo.com/4e77a504f4ffe3e7eda850cacae7a981.png" alt="image"></p>
+<p>追加ボタンをクリック。</p>
+<p><img src="https://i.gyazo.com/3363d8d868b06f72e58582cb4c31f266.png" alt="image"></p>
+<p>インストールがはじまります。</p>
+<p><img src="https://i.gyazo.com/3f76df2d9dacead696791d6a06b2aef5.png" alt="image"></p>
+<p>インストール完了画面がでます。</p>
+<p><img src="https://i.gyazo.com/3346529bf5c5fcaae3934f2ed6c01d1c.png" alt="image"></p>
+<p>パレットに node-red-contrib-line-messaging-api 一式が追加されました。</p>
+<p><img src="https://i.gyazo.com/9033bc48ccf1167a6974babdd6788f72.png" alt="image"></p>
+<p>こちらの Notify ノードを使います。</p>
+<h2 id="フロー作成"><a name="フロー作成" class="plugin-anchor" href="#フロー作成"><i class="fa fa-link" aria-hidden="true"></i></a>フロー作成</h2>
+<p><img src="https://i.gyazo.com/bd32b73de73d9cd164aefba556330a1a.png" alt="image"></p>
+<p>inject ノードと Notify ノードでこのようなフローを作成します。</p>
+<h3 id="inject-ノード設定"><a name="inject-ノード設定" class="plugin-anchor" href="#inject-ノード設定"><i class="fa fa-link" aria-hidden="true"></i></a>inject ノード設定</h3>
+<p>inject ノードは文字列が送れるようにします。</p>
+<p><img src="https://i.gyazo.com/a1cfdc7bba9247330b554432d9558ef9.png" alt="image"></p>
+<p>inject ノードをダブルクリックしてプロパティを設定します。</p>
+<ul>
+<li>データタイプ<ul>
+<li>文字列</li>
+</ul>
+</li>
+<li>対象<ul>
+<li>msg.payload</li>
+</ul>
+</li>
+<li>データ<ul>
+<li>やっほー</li>
+</ul>
+</li>
+</ul>
+<p>と設定します。</p>
+<h3 id="notify-ノード設定"><a name="notify-ノード設定" class="plugin-anchor" href="#notify-ノード設定"><i class="fa fa-link" aria-hidden="true"></i></a>Notify ノード設定</h3>
+<p>事前に前回設定した LINE Notify トークンを用意しましょう。</p>
 <p>今回の Node-RED フローの LINE Notify 設定を行います。</p>
+<p><img src="https://i.gyazo.com/bd32b73de73d9cd164aefba556330a1a.png" alt="image"></p>
+<p>Notify ノードをダブルクリックしてプロパティを設定します。</p>
+<p><img src="https://i.gyazo.com/2e3da8b38259ba510ef150eab2cc6ec5.png" alt="image"></p>
+<p>LINE Notify ノードのプロパティで LINE Notify AccessToken 項目に入力して設定します。</p>
 <h2 id="フロー確認"><a name="フロー確認" class="plugin-anchor" href="#フロー確認"><i class="fa fa-link" aria-hidden="true"></i></a>フロー確認</h2>
 <p>LINE Notify API の設定ができたか確認します。</p>
 <h2 id="フロー実行"><a name="フロー実行" class="plugin-anchor" href="#フロー実行"><i class="fa fa-link" aria-hidden="true"></i></a>フロー実行</h2>
@@ -387,6 +437,12 @@ TODO : メインテキストにもあるよと伝える</p>
 <p>MQTT からメッセージを送り Node-RED 経由で LINE Notify にメッセージします。</p>
 <p>TODO : 自前で送る形
 TODO : 回路準備もしちゃおう</p>
+<h2 id="次の授業の準備"><a name="次の授業の準備" class="plugin-anchor" href="#次の授業の準備"><i class="fa fa-link" aria-hidden="true"></i></a>次の授業の準備</h2>
+<p><img src="https://i.gyazo.com/265cbce628625903232b6ac0ea992175.png" alt="image"></p>
+<p>次の授業のために明るさセンサーの仕組み（回路）を準備します。</p>
+<p><img src="https://i.gyazo.com/fa7747862927454bf64c9866d5cc1fa7.jpg" alt="image"></p>
+<p>以前行なった明るさセンサー値を取得するプログラムをデバイスに書き込み準備します。</p>
+<p>→ <a href="../lecture09/00-introduction.html">第9回の仕組み</a></p>
 
                                 
                                 </section>
@@ -430,7 +486,7 @@ TODO : 回路準備もしちゃおう</p>
     <script>
         var gitbook = gitbook || [];
         gitbook.push(function() {
-            gitbook.page.hasChanged({"page":{"title":"第12回 LINE Notify API 演習","level":"1.12","depth":1,"next":{"title":"第13回 センサー通知演習","level":"1.13","depth":1,"path":"lecture13/00-introduction.md","ref":"lecture13/00-introduction.md","articles":[]},"previous":{"title":"第11回 LINE Notify API 基礎","level":"1.11","depth":1,"path":"lecture11/00-introduction.md","ref":"lecture11/00-introduction.md","articles":[]},"dir":"ltr"},"config":{"plugins":["anchors","hide-published-with","copy-code-button","intopic-toc","back-to-top-button"],"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"pluginsConfig":{"intopic-toc":{"selector":".markdown-section h1, .markdown-section h2, .markdown-section h3, .markdown-section h4, .markdown-section h5, .markdown-section h6","mode":"nested","maxDepth":6,"isCollapsed":true,"isScrollspyActive":true,"visible":true,"label":"In this article"},"search":{},"lunr":{"maxIndexSize":1000000,"ignoreSpecialCharacters":false},"hide-published-with":{},"fontsettings":{"theme":"white","family":"sans","size":2},"highlight":{},"back-to-top-button":{},"copy-code-button":{},"theme-default":{"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"showLevel":false},"anchors":{}},"theme":"default","pdf":{"pageNumbers":true,"fontSize":12,"fontFamily":"Arial","paperSize":"a4","chapterMark":"pagebreak","pageBreaksBefore":"/","margin":{"right":62,"left":62,"top":56,"bottom":56},"embedFonts":false},"structure":{"langs":"LANGS.md","readme":"README.md","glossary":"GLOSSARY.md","summary":"SUMMARY.md"},"variables":{},"title":"タイトル","language":"ja","gitbook":"*","description":"詳細説明"},"file":{"path":"lecture12/00-introduction.md","mtime":"2022-07-01T14:40:36.286Z","type":"markdown"},"gitbook":{"version":"3.7.1","time":"2022-07-01T14:51:15.497Z"},"basePath":"..","book":{"language":""}});
+            gitbook.page.hasChanged({"page":{"title":"第12回 LINE Notify API 演習","level":"1.12","depth":1,"next":{"title":"第13回 センサー通知演習","level":"1.13","depth":1,"path":"lecture13/00-introduction.md","ref":"lecture13/00-introduction.md","articles":[]},"previous":{"title":"第11回 LINE Notify API 基礎","level":"1.11","depth":1,"path":"lecture11/00-introduction.md","ref":"lecture11/00-introduction.md","articles":[]},"dir":"ltr"},"config":{"plugins":["anchors","hide-published-with","copy-code-button","intopic-toc","back-to-top-button"],"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"pluginsConfig":{"intopic-toc":{"selector":".markdown-section h1, .markdown-section h2, .markdown-section h3, .markdown-section h4, .markdown-section h5, .markdown-section h6","mode":"nested","maxDepth":6,"isCollapsed":true,"isScrollspyActive":true,"visible":true,"label":"In this article"},"search":{},"lunr":{"maxIndexSize":1000000,"ignoreSpecialCharacters":false},"hide-published-with":{},"fontsettings":{"theme":"white","family":"sans","size":2},"highlight":{},"back-to-top-button":{},"copy-code-button":{},"theme-default":{"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"showLevel":false},"anchors":{}},"theme":"default","pdf":{"pageNumbers":true,"fontSize":12,"fontFamily":"Arial","paperSize":"a4","chapterMark":"pagebreak","pageBreaksBefore":"/","margin":{"right":62,"left":62,"top":56,"bottom":56},"embedFonts":false},"structure":{"langs":"LANGS.md","readme":"README.md","glossary":"GLOSSARY.md","summary":"SUMMARY.md"},"variables":{},"title":"タイトル","language":"ja","gitbook":"*","description":"詳細説明"},"file":{"path":"lecture12/00-introduction.md","mtime":"2022-07-04T07:58:31.655Z","type":"markdown"},"gitbook":{"version":"3.7.1","time":"2022-07-04T07:58:43.960Z"},"basePath":"..","book":{"language":""}});
         });
     </script>
 </div>
