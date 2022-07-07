@@ -6,12 +6,12 @@
         <meta property="og:type" content="article">
         <meta property="og:url" content="{{ file.path | replace('.md', '.html') }}">
         <meta property="og:image" content="https://i.gyazo.com/800eb533b2b3a652c4e9973a62bb9f97.png">
-        <meta property="og:title" content="{{ config.title|d("HonKit", true) }}">
+        <meta property="og:title" content="[{{ config.title | d("HonKit", true) }}] {{ page.title }}">
         <meta property="og:description" content="{{ config.description }}">
         <meta property="og:locale" content="{{ config.language }}">
-        <title>{% block title %}{{ config.title|d("HonKit", true) }}{% endblock %}</title>
+        <title>[{{ config.title | d("HonKit", true) }}] {{ page.title }}</title>
         <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-        <meta name="description" content="{% block description %}{% endblock %}">
+        <meta name="description" content="{{ config.description }}">
         <meta name="generator" content="HonKit {{ gitbook.version }}">
         {% if config.author %}<meta name="author" content="{{ config.author }}">{% endif %}
         {% if config.isbn %}<meta name="identifier" content="{{ config.isbn }}" scheme="ISBN">{% endif %}
