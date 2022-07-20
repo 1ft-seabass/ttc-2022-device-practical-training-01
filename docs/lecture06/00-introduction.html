@@ -360,319 +360,102 @@
                                 <section class="normal markdown-section">
                                 
                                 <h1 id="第6回-mqtt-プロトコル"><a name="第6回-mqtt-プロトコル" class="plugin-anchor" href="#第6回-mqtt-プロトコル"><i class="fa fa-link" aria-hidden="true"></i></a>第6回 MQTT プロトコル</h1>
-<h2 id="mqtt-プロトコル仕様"><a name="mqtt-プロトコル仕様" class="plugin-anchor" href="#mqtt-プロトコル仕様"><i class="fa fa-link" aria-hidden="true"></i></a>MQTT プロトコル仕様</h2>
-<p>MQTT プロトコルの仕様を把握します</p>
+<h2 id="mqtt-プロトコル基礎"><a name="mqtt-プロトコル基礎" class="plugin-anchor" href="#mqtt-プロトコル基礎"><i class="fa fa-link" aria-hidden="true"></i></a>MQTT プロトコル基礎</h2>
 <ul>
 <li>教材<ul>
-<li>サブテキスト</li>
+<li>サブテキスト<ul>
+<li><a href="https://zenn.dev/tseigo/books/node-red-with-arduino-device-simple-version/viewer/mqtt-basic" target="_blank">https://zenn.dev/tseigo/books/node-red-with-arduino-device-simple-version/viewer/mqtt-basic</a></li>
 </ul>
 </li>
 </ul>
-<p>MQTT（Message Queuing Telemetry Transport）は、モノのインターネット（IoT）用に作られたメッセージングプロトコルです。非常に軽量にデータがやり取りできるよう仕様側で設計されており、稼働時に占有・消費が小さく運用できます。IoT では送受信するデータが少ないことが多く、とても向いています。</p>
-<p>また、ネットワーク帯域幅が最小（ネットワークが細く・遅い）状況でも、リモートでセンサーやデバイスを接続するのに最適です。</p>
-<p><img src="https://i.gyazo.com/56b2b9e564db928ebe70566f85d8e817.png" alt="image"></p>
-<p>MQTT のくわしい使い方は、MQTT の仕様を伝える有名な Web サイト MQTT.org <a href="https://mqtt.org/" target="_blank">https://mqtt.org/</a> をみていきましょう。</p>
-<h2 id="mqtt-利用シーン"><a name="mqtt-利用シーン" class="plugin-anchor" href="#mqtt-利用シーン"><i class="fa fa-link" aria-hidden="true"></i></a>MQTT 利用シーン</h2>
-<p>IoT における MQTT の利用シーンを把握します。</p>
+</li>
+<li>内容<ul>
+<li>MQTT プロトコル仕様<ul>
+<li>MQTT プロトコルの仕様を把握します</li>
+</ul>
+</li>
+<li>MQTT 利用シーン<ul>
+<li>IoT における MQTT の利用シーンを把握します。</li>
+</ul>
+</li>
+<li>HTTP との違い<ul>
+<li>主に MQTT 受信に関しての HTTP との違い・メリットを把握します。</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<h2 id="node-red-での-mqtt-プロトコル接続と受信体験"><a name="node-red-での-mqtt-プロトコル接続と受信体験" class="plugin-anchor" href="#node-red-での-mqtt-プロトコル接続と受信体験"><i class="fa fa-link" aria-hidden="true"></i></a>Node-RED での MQTT プロトコル接続と受信体験</h2>
 <ul>
 <li>教材<ul>
-<li>サブテキスト</li>
+<li>サブテキスト<ul>
+<li><a href="https://zenn.dev/tseigo/books/node-red-with-arduino-device-simple-version/viewer/mqtt-node-red-mqtt-broker-connect-and-subscribe" target="_blank">https://zenn.dev/tseigo/books/node-red-with-arduino-device-simple-version/viewer/mqtt-node-red-mqtt-broker-connect-and-subscribe</a></li>
+</ul>
+</li>
+<li>内容<ul>
+<li>MQTT ノード概要<ul>
+<li>Node-RED の MQTT ノードについて把握します。</li>
+</ul>
+</li>
+<li>MQTT ブローカー作成<ul>
+<li>教材の MQTT ブローカーを把握します。</li>
+</ul>
+</li>
+<li>MQTT ノード設定<ul>
+<li>MQTT ノードの接続設定を把握します。</li>
+</ul>
+</li>
+<li>MQTT 受信フロー作成<ul>
+<li>MQTT ノードを使った受信フローを作成します。</li>
+</ul>
+</li>
+<li>MQTT 接続確認および受信<ul>
+<li>接続状況をノードのインジケータで動作確認します。</li>
 </ul>
 </li>
 </ul>
-<blockquote>
-<p><img src="https://i.gyazo.com/f3124e146e9d45c7baf844d7054220e2.png" alt="image"></p>
-<p>MQTT.org <a href="https://mqtt.org/" target="_blank">https://mqtt.org/</a> のトップページの翻訳</p>
-</blockquote>
-<ul>
-<li>双方向制御するもの</li>
-<li>数百万の IoT デバイスがつながっても稼働するもの</li>
-<li>通信環境が悪い場合でも確実に送りたいもの</li>
-<li>データを軽量に効率的に送りたいもの</li>
-</ul>
-<p>このあたりがポイントです。</p>
-<ul>
-<li>大量にデバイスをつなぎセンサーデータを集めたいとき</li>
-<li>ロボットアームのようなデバイス遠隔で何かしらを動かしたいとき</li>
-<li>さまざまな場所からデータが集められ分析したいもの</li>
-</ul>
-<p>などが向いています。</p>
-<p><img src="https://i.gyazo.com/3f18f61e5c1b8b93e1c61d2901aca1e2.jpg" alt="image"></p>
-<p>時間があれば MQTT.org のユースケース <a href="https://mqtt.org/use-cases/" target="_blank">https://mqtt.org/use-cases/</a> も見ていきましょう。 </p>
-<h2 id="mqtt-ノード概要"><a name="mqtt-ノード概要" class="plugin-anchor" href="#mqtt-ノード概要"><i class="fa fa-link" aria-hidden="true"></i></a>MQTT ノード概要</h2>
-<p>Node-RED の MQTT ノードについて把握します。</p>
-<ul>
-<li>教材<ul>
-<li>サブテキスト</li>
+</li>
 </ul>
 </li>
 </ul>
-<p><img src="https://i.gyazo.com/89a0ad3dcc8b67042cc9c85352aae382.png" alt="image"></p>
-<p>パレットには MQTT 関連のノードとして MQTT の購読（Subscriber）として機能する mqtt in ノードと、MQTT の発行（Publisher）として機能する mqtt out ノードがあります。</p>
-<p>技術的なくわしい用語や仕組みは次回説明するので、今回はまず動かすことで体験していきましょう。</p>
-<h2 id="mqtt-ブローカー作成"><a name="mqtt-ブローカー作成" class="plugin-anchor" href="#mqtt-ブローカー作成"><i class="fa fa-link" aria-hidden="true"></i></a>MQTT ブローカー作成</h2>
-<p>教材の MQTT ブローカーを把握します。</p>
+<h2 id="node-red-での-mqtt-プロトコル送信体験"><a name="node-red-での-mqtt-プロトコル送信体験" class="plugin-anchor" href="#node-red-での-mqtt-プロトコル送信体験"><i class="fa fa-link" aria-hidden="true"></i></a>Node-RED での MQTT プロトコル送信体験</h2>
 <ul>
 <li>教材<ul>
-<li>サブテキスト</li>
+<li>サブテキスト<ul>
+<li><a href="https://zenn.dev/tseigo/books/node-red-with-arduino-device-simple-version/viewer/mqtt-node-red-mqtt-broker-publish" target="_blank">https://zenn.dev/tseigo/books/node-red-with-arduino-device-simple-version/viewer/mqtt-node-red-mqtt-broker-publish</a></li>
+</ul>
+</li>
+<li>内容<ul>
+<li>MQTT 送信フロー更新<ul>
+<li>データを送信するフローに更新します。</li>
+</ul>
+</li>
+<li>MQTT 送信フロー確認<ul>
+<li>データを送信するフローを確認します。</li>
 </ul>
 </li>
 </ul>
-<p><img src="https://i.gyazo.com/807b4351a8300dd22c0c7f47293c5888.jpg" alt="image"></p>
-<p>今回の教材では、講師が事前に用意した <a href="https://beebotte.com/" target="_blank">beebotte</a> の MQTT ブローカーを生徒のみなさんで共有して使います。</p>
-<p>設定情報については、このあと Slack で共有していきます。</p>
-<h2 id="mqtt-ノード設定"><a name="mqtt-ノード設定" class="plugin-anchor" href="#mqtt-ノード設定"><i class="fa fa-link" aria-hidden="true"></i></a>MQTT ノード設定</h2>
-<p>MQTT ノードの接続設定を把握します。</p>
+</li>
+</ul>
+</li>
+</ul>
+<h2 id="自分の-mqtt-ブローカを-beebotte-というサービスから取得しよう"><a name="自分の-mqtt-ブローカを-beebotte-というサービスから取得しよう" class="plugin-anchor" href="#自分の-mqtt-ブローカを-beebotte-というサービスから取得しよう"><i class="fa fa-link" aria-hidden="true"></i></a>自分の MQTT ブローカを Beebotte というサービスから取得しよう</h2>
 <ul>
 <li>教材<ul>
-<li>サブテキスト</li>
+<li>サブテキスト<ul>
+<li><a href="https://zenn.dev/tseigo/books/node-red-with-arduino-device-simple-version/viewer/mqtt-broker-get-from-beebotte" target="_blank">https://zenn.dev/tseigo/books/node-red-with-arduino-device-simple-version/viewer/mqtt-broker-get-from-beebotte</a></li>
 </ul>
 </li>
-</ul>
-<p><img src="https://i.gyazo.com/0d1c0dba7b9b6816eaa89cccfdc4da15.png" alt="image"></p>
-<p>MQTT ノードの接続設定は、mqtt in ノード・mqtt out ノードのプロパティで、サーバという項目があり、そこで新規に mqtt-broker を追加して行います。</p>
-<p><img src="https://i.gyazo.com/8e6eb36270d3841a77da3a368f22c21a.png" alt="image"></p>
-<p>接続するためにこのような設定を行って行きます。いまは、手を動かさず、こういう設定があるんだなという把握でOKです。</p>
-<p>このあと手を動かして、実際に接続していきましょう。</p>
-<h2 id="mqtt-受信フロー作成"><a name="mqtt-受信フロー作成" class="plugin-anchor" href="#mqtt-受信フロー作成"><i class="fa fa-link" aria-hidden="true"></i></a>MQTT 受信フロー作成</h2>
-<p>MQTT ノードを使った受信フローを作成します。</p>
-<ul>
-<li>教材<ul>
-<li>サブテキスト</li>
-</ul>
-</li>
-</ul>
-<p><img src="https://i.gyazo.com/04239974c6ae9381dd86bd7eda8eef5a.png" alt="image"></p>
-<p>mqtt in ノードをつかって、まず MQTT ブローカに接続してデータを受信する準備を行いましょう。</p>
-<p><img src="https://i.gyazo.com/e4295e95d66bdeb4145f01dd41faa6be.png" alt="image"></p>
-<p>パレットの mqtt in ノードを確認します。</p>
-<p><img src="https://i.gyazo.com/e22e638df81b888483fc03b89fc4fbf1.png" alt="image"></p>
-<p>パレットから mqtt in ノードを配置します。</p>
-<p><img src="https://i.gyazo.com/57813ce841e819dde0408263fce0663f.png" alt="image"></p>
-<p>パレットから debug ノードを配置します。</p>
-<p><img src="https://i.gyazo.com/959f9db988047a31f71bac567ddcb32e.png" alt="image"></p>
-<p>mqtt in ノードとdebug ノードをつなぎます。</p>
-<p><img src="https://i.gyazo.com/cdbd10e9b9de19cd4788c94fc2b44e2c.png" alt="image"></p>
-<p>mqtt in ノードをダブルクリックしてプロパティを表示します。</p>
-<p><img src="https://i.gyazo.com/0158881fc593d0e7dcc60086cdb26c6b.png" alt="image"></p>
-<p>サーバが「新規に mqtt-broker を追加」と選択されていることを確認し、鉛筆ボタンを押して編集します。</p>
-<p><img src="https://i.gyazo.com/1d6631c72466a9b06266d963c8dd8360.png" alt="image"></p>
-<p>mqtt-broker 設定のプロパティです。</p>
-<ul>
-<li>接続<ul>
-<li>サーバ<ul>
-<li>mqtt.beebotte.com</li>
-</ul>
-</li>
-<li>ポート<ul>
-<li>1883</li>
+<li>内容<ul>
+<li>MQTT ブローカー<ul>
+<li>今回利用している MQTT ブローカの紹介とアカウント取得を行います。</li>
 </ul>
 </li>
 </ul>
 </li>
 </ul>
-<p><img src="https://i.gyazo.com/3328dc86ec4ba36c07134523e60605f3.png" alt="image"></p>
-<ul>
-<li>セキュリティ<ul>
-<li>ユーザ名<ul>
-<li>Slack で伝えるトークン</li>
-</ul>
-</li>
-<li>パスワード<ul>
-<li>（なにも書かない）</li>
-</ul>
 </li>
 </ul>
-</li>
-</ul>
-<p>パスワードは何も書かず空欄でOKです。</p>
-<p>設定ができたら、追加ボタンをクリックします。</p>
-<p><img src="https://i.gyazo.com/aee27081639de637775784d8253d235d.png" alt="image"></p>
-<p>すると、サーバの設定が mqtt.beebotte.com:1883 となっています。</p>
-<p>最後にトピックを</p>
-<ul>
-<li>トピック<ul>
-<li>ttc2022/res</li>
-</ul>
-</li>
-</ul>
-<p>にします。</p>
-<p>設定できたら、完了をクリックします。</p>
-<ul>
-<li>参考文献<ul>
-<li>Beebotte の MQTT ブローカーと Node-RED の MQTT ノードでやり取りをするメモ – 1ft-seabass.jp.MEMO<ul>
-<li><a href="https://www.1ft-seabass.jp/memo/2022/02/28/connecting-beebotte-using-nodered/" target="_blank">https://www.1ft-seabass.jp/memo/2022/02/28/connecting-beebotte-using-nodered/</a></li>
-</ul>
-</li>
-</ul>
-</li>
-</ul>
-<h2 id="mqtt-接続確認および受信"><a name="mqtt-接続確認および受信" class="plugin-anchor" href="#mqtt-接続確認および受信"><i class="fa fa-link" aria-hidden="true"></i></a>MQTT 接続確認および受信</h2>
-<p>接続状況をノードのインジケータで動作確認します。</p>
-<ul>
-<li>教材<ul>
-<li>サブテキスト</li>
-</ul>
-</li>
-</ul>
-<p><img src="https://i.gyazo.com/eab4be1c4e188aee9581749553399a00.png" alt="image"></p>
-<p>設定ができたら、デプロイをクリックして反映させます。</p>
-<p><img src="https://i.gyazo.com/4d2a3b9511d6fcf2c79cac35d42d8abd.png" alt="image"></p>
-<p>mqtt in ノードの下部に「接続済」と表示されていれば、接続成功です。</p>
-<h3 id="受信を待つ"><a name="受信を待つ" class="plugin-anchor" href="#受信を待つ"><i class="fa fa-link" aria-hidden="true"></i></a>受信を待つ</h3>
-<p><img src="https://i.gyazo.com/6163626b6ca2c315c7a884217f913c4a.png" alt="image"></p>
-<p>デバッグタブを表示します。</p>
-<p><img src="https://i.gyazo.com/9fc44988721a674da27869afd6e8e96e.png" alt="image"></p>
-<p>いまから、講師の方からデータを送るので、受信を待ちましょう。</p>
-<h2 id="mqtt-送信フロー更新"><a name="mqtt-送信フロー更新" class="plugin-anchor" href="#mqtt-送信フロー更新"><i class="fa fa-link" aria-hidden="true"></i></a>MQTT 送信フロー更新</h2>
-<p><img src="https://i.gyazo.com/275951a6f374034b6f953630f6e6b8fb.png" alt="image"></p>
-<p>つづいて、データを送信するフローに更新します。</p>
-<ul>
-<li>教材<ul>
-<li>サブテキスト</li>
-</ul>
-</li>
-</ul>
-<p><img src="https://i.gyazo.com/784c57ac8a0f993e149e11ee9b72bd4c.png" alt="image"></p>
-<p>このように、現在作った mqtt in ノードで受信したデータを debug ノードで受け取るフローはそのままです。</p>
-<p><img src="https://i.gyazo.com/59389203ec29843a423a20d2f6bc2401.png" alt="image"></p>
-<p>パレットの mqtt out ノードを確認します。</p>
-<p><img src="https://i.gyazo.com/e01b81c4bded2133a5c86cd79a648e70.png" alt="image"></p>
-<p>パレットから mqtt out ノードを配置します。</p>
-<p><img src="https://i.gyazo.com/05d1bbdc77ddf4e2a2501c1ea6889a50.png" alt="image"></p>
-<p>パレットから inject ノードを配置します。</p>
-<p><img src="https://i.gyazo.com/f3a0ce187d32284939a3d2bc31102d82.png" alt="image"></p>
-<p>inject ノードと mqtt out ノードをつなぎます。</p>
-<p><img src="https://i.gyazo.com/a7c8eb9660cc05ec348360b70d3e6c64.png" alt="image"></p>
-<p>mqtt out ノードをダブルクリックして、プロパティの設定を以下のようにします。</p>
-<ul>
-<li>サーバ<ul>
-<li>さきほど設定した mqtt.beebotte.com:1883 を選択</li>
-</ul>
-</li>
-<li>トピック<ul>
-<li>ttc2022/res</li>
-</ul>
-</li>
-</ul>
-<p><img src="https://i.gyazo.com/6210b658702cdd05b9f5cb8002e1a4db.png" alt="image"></p>
-<p>設定できたら、完了ボタンをクリックします。</p>
-<p><img src="https://i.gyazo.com/eab4be1c4e188aee9581749553399a00.png" alt="image"></p>
-<p>デプロイをクリックして反映させます。</p>
-<h2 id="mqtt-送信フロー確認"><a name="mqtt-送信フロー確認" class="plugin-anchor" href="#mqtt-送信フロー確認"><i class="fa fa-link" aria-hidden="true"></i></a>MQTT 送信フロー確認</h2>
-<p>データを送信するフローを確認します。</p>
-<ul>
-<li>教材<ul>
-<li>サブテキスト</li>
-</ul>
-</li>
-</ul>
-<p><img src="https://i.gyazo.com/6163626b6ca2c315c7a884217f913c4a.png" alt="image"></p>
-<p>デバッグタブを表示します。</p>
-<p><img src="https://i.gyazo.com/43afebfce493c0d072139356d9dd9c0b.png" alt="image"></p>
-<p>inject ノードのボタンをクリックします。</p>
-<p><img src="https://i.gyazo.com/dc9d410e40acac94d53fc8006361c42f.png" alt="image"></p>
-<p>いまデータが大量に来るのは、生徒みんなが同じ場所（MQTTブローカー）につないでいて、同じトピックを購読して、さらに、そのトピックにデータを送っているので、そう見えています。</p>
-<p><img src="https://i.gyazo.com/f478961c49c306bf87dfb99b919c6db0.png" alt="image"></p>
-<p>さらに、みなさんで自分のフローの inject ノードの送るデータを、文字列にして、自分の名前を含んだ自由メッセージに変更すると、より実感できるでしょう。</p>
-<p><img src="https://i.gyazo.com/11954132a185cf8c6bc7c430310f9c1c.png" alt="image"></p>
-<p>たぶんカオス。</p>
-<p><img src="https://i.gyazo.com/b029a2e04732d57ca12dd12be5c7d9ce.png" alt="image"></p>
-<p>これはセンサーデータと見立てれば、実際にたくさんの飛び交っている状態を体感できますが、実際には自分だけの仕組みでやり取りしたいときもありますよね。</p>
-<p>ということで、次の章で、自分の MQTT ブローカーを取得し、自分だけのデータをやりとりできるよう設定していきましょう。</p>
-<h2 id="mqtt-ブローカー"><a name="mqtt-ブローカー" class="plugin-anchor" href="#mqtt-ブローカー"><i class="fa fa-link" aria-hidden="true"></i></a>MQTT ブローカー</h2>
-<p><img src="https://i.gyazo.com/2adecc55a89867a2b64cfdf493239b9f.png" alt="image"></p>
-<p>今回利用している MQTT ブローカの紹介とアカウント取得を行います。</p>
-<ul>
-<li>教材<ul>
-<li>サブテキスト</li>
-</ul>
-</li>
-</ul>
-<h3 id="beebotte"><a name="beebotte" class="plugin-anchor" href="#beebotte"><i class="fa fa-link" aria-hidden="true"></i></a>Beebotte</h3>
-<p><img src="https://i.gyazo.com/807b4351a8300dd22c0c7f47293c5888.jpg" alt="image"></p>
-<p>今回利用している MQTT ブローカーは Beebotte <a href="https://beebotte.com" target="_blank">https://beebotte.com</a> です。</p>
-<p>リアルタイム接続オブジェクト用のクラウドプラットフォームで、IoT にも相性がよく REST、WebSocket、MQTTをサポートする豊富なAPIがあります。</p>
-<p>今回は、このサービスの MQTT ブローカーを使います。</p>
-<p><img src="https://i.gyazo.com/4402402ead31ebeb569764acd3651cc1.png" alt="image"></p>
-<p>2022 年 6 月現在、Free プランでも、</p>
-<blockquote>
-<p>Unlimited Channels<br>50,000 Messages/day<br>5,000 Persistent Messages/day<br>3 Months History<br>SSL Encryption  </p>
-</blockquote>
-<p>日本語に訳してみると、</p>
-<blockquote>
-<p>無制限のチャンネル<br>50,000メッセージ/日<br>5,000永続メッセージ/日<br>3ヶ月の履歴<br>SSL暗号化  </p>
-</blockquote>
-<p>なので、ホビーレベルであれば、制限内でも十分に使えます。</p>
-<p><img src="https://i.gyazo.com/9289e9a31fee68ba7e5787b0515908e8.png" alt="image"></p>
-<p>クレジットカードも必要とせず登録できるので、みなさんもはじめやすいでしょう。</p>
-<h3 id="beebotte-アカウント登録"><a name="beebotte-アカウント登録" class="plugin-anchor" href="#beebotte-アカウント登録"><i class="fa fa-link" aria-hidden="true"></i></a>Beebotte アカウント登録</h3>
-<ul>
-<li>MQTT Broker「Beebotte」のユーザ登録、チャネル作成、ダッシュボード作成｜IoT Gym<ul>
-<li><a href="https://poche.xsrv.jp/iot-gym/2018/08/25/beebotte-sign-up/" target="_blank">https://poche.xsrv.jp/iot-gym/2018/08/25/beebotte-sign-up/</a></li>
-</ul>
-</li>
-</ul>
-<p>早速、こちらを参考にアカウント登録をしてみましょう。</p>
-<p><img src="https://i.gyazo.com/cfb7ddeadbc1461bef6f5fa886cd2e3a.png" alt="image"></p>
-<p>右上の Sign Up をクリックします。</p>
-<p><img src="https://i.gyazo.com/ee7ee93c708a2eace46826700bfe371d.png" alt="image"></p>
-<p>情報を入力して SIGN UP ボタンをクリックします。</p>
-<p>今回入力したメールが届くのでリンクをクリックしましょう。</p>
-<p><img src="https://i.gyazo.com/cfb7ddeadbc1461bef6f5fa886cd2e3a.png" alt="image"></p>
-<p>これで、アカウント登録は完了するので、Sign In からログインしましょう。</p>
-<p><img src="https://i.gyazo.com/9f8c04c8c3c67c5320204c258281bce6.png" alt="image"></p>
-<p>ログインできたらアカウント登録は成功です。</p>
-<h3 id="beebotte-で-自分の-mqtt-ブローカー設定を作成"><a name="beebotte-で-自分の-mqtt-ブローカー設定を作成" class="plugin-anchor" href="#beebotte-で-自分の-mqtt-ブローカー設定を作成"><i class="fa fa-link" aria-hidden="true"></i></a>Beebotte で 自分の MQTT ブローカー設定を作成</h3>
-<p>講師が作成した MQTT ブローカーを同じような設定で自分の MQTT ブローカーを設定しましょう。</p>
-<p><img src="https://i.gyazo.com/156e37d87fea312fddf358d3c061512f.png" alt="image"></p>
-<p>ログインしたら、左のメニューから Channels をクリックします。</p>
-<p><img src="https://i.gyazo.com/ab4d4fd369e43434746f42489e77f04e.png" alt="image"></p>
-<p>Create New ボタンをクリックします。</p>
-<p><img src="https://i.gyazo.com/f946908028e4606db690125356c3a2e8.png" alt="image"></p>
-<ul>
-<li>チャンネル名<ul>
-<li>ttc2022</li>
-</ul>
-</li>
-<li>Configured Resources<ul>
-<li>resource name<ul>
-<li>res</li>
-</ul>
-</li>
-</ul>
-</li>
-</ul>
-<p>と図のように設定して Create channel をクリックします。</p>
-<p><img src="https://i.gyazo.com/bee21ed9bf0ebdf9622a35cc533619f3.png" alt="image"></p>
-<p>設定できると、リストに ttc2022 が現れます。タイトルをクリックしてみましょう。</p>
-<p><img src="https://i.gyazo.com/86d93174aad525eb647ed2301e3abfd6.png" alt="image"></p>
-<p>クリックするとチャンネルの詳細が表示されるので、</p>
-<ul>
-<li>Configured resources に res があること確認</li>
-<li>Channel Token の赤文字全部をメモ</li>
-</ul>
-<p>をしておきましょう。</p>
-<h3 id="自分の-mqtt-ブローカー設定に-node-red-を変更する"><a name="自分の-mqtt-ブローカー設定に-node-red-を変更する" class="plugin-anchor" href="#自分の-mqtt-ブローカー設定に-node-red-を変更する"><i class="fa fa-link" aria-hidden="true"></i></a>自分の MQTT ブローカー設定に Node-RED を変更する</h3>
-<p>さきほどメモした Channel Token を反映すれば、講師の MQTT ブローカーから、自分の取得した MQTT ブローカーに切り替わります。</p>
-<p><img src="https://i.gyazo.com/59b936f0a076ffc538b6a2210cc2e826.png" alt="image"></p>
-<p>mqtt in ノードをダブルクリックしてプロパティを表示します。</p>
-<p><img src="https://i.gyazo.com/7253afa06ab3a1ebd2744a640967205d.png" alt="image"></p>
-<p>サーバが mqtt.beebotte.com:1883 となっていることを確認して鉛筆ボタンをクリックします。</p>
-<p><img src="https://i.gyazo.com/b0cfa4cc219b65306965532eecdf6209.png" alt="image"></p>
-<p>MQTTブローカーノードの設定 &gt; セキュリティで、ユーザ名のところを、自分の取得した MQTT ブローカーの Channel Token に置き換えます。</p>
-<p>更新ボタンをクリックして、mqtt in ノードのプロパティに戻り、完了ボタンをクリックします。</p>
-<p><img src="https://i.gyazo.com/eab4be1c4e188aee9581749553399a00.png" alt="image"></p>
-<p>デプロイをクリックして反映させます。</p>
-<h3 id="動作確認"><a name="動作確認" class="plugin-anchor" href="#動作確認"><i class="fa fa-link" aria-hidden="true"></i></a>動作確認</h3>
-<p><img src="https://i.gyazo.com/6163626b6ca2c315c7a884217f913c4a.png" alt="image"></p>
-<p>デバッグタブを表示します。</p>
-<p><img src="https://i.gyazo.com/43afebfce493c0d072139356d9dd9c0b.png" alt="image"></p>
-<p>inject ノードのボタンをクリックします。</p>
-<p><img src="https://i.gyazo.com/6f5d8545b5a2682811a8735d8d40a135.png" alt="image"></p>
-<p>今回は自分の送ったデータが来ることが確認できるはずです。</p>
-<p><img src="https://i.gyazo.com/524ba275de6884ad2fe8da8275ed0394.png" alt="image"></p>
-<p>これで、今後、仕組みを作るときに自分だけのデータのやり取りが可能になります。</p>
 
                                 
                                 </section>
@@ -716,7 +499,7 @@
     <script>
         var gitbook = gitbook || [];
         gitbook.push(function() {
-            gitbook.page.hasChanged({"page":{"title":"第6回 MQTT プロトコル","level":"1.6","depth":1,"next":{"title":"第7回 MQTT データ連携演習","level":"1.7","depth":1,"path":"lecture07/00-introduction.md","ref":"lecture07/00-introduction.md","articles":[]},"previous":{"title":"第5回 HTTP フロー作成の演習","level":"1.5","depth":1,"path":"lecture05/00-introduction.md","ref":"lecture05/00-introduction.md","articles":[]},"dir":"ltr"},"config":{"plugins":["anchors","hide-published-with","copy-code-button","intopic-toc","back-to-top-button"],"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"pluginsConfig":{"intopic-toc":{"selector":".markdown-section h1, .markdown-section h2, .markdown-section h3, .markdown-section h4, .markdown-section h5, .markdown-section h6","mode":"nested","maxDepth":6,"isCollapsed":true,"isScrollspyActive":true,"visible":true,"label":"In this article"},"search":{},"lunr":{"maxIndexSize":1000000,"ignoreSpecialCharacters":false},"hide-published-with":{},"fontsettings":{"theme":"white","family":"sans","size":2},"highlight":{},"back-to-top-button":{},"copy-code-button":{},"theme-default":{"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"showLevel":false},"anchors":{}},"theme":"default","pdf":{"pageNumbers":true,"fontSize":12,"fontFamily":"Arial","paperSize":"a4","chapterMark":"pagebreak","pageBreaksBefore":"/","margin":{"right":62,"left":62,"top":56,"bottom":56},"embedFonts":false},"structure":{"langs":"LANGS.md","readme":"README.md","glossary":"GLOSSARY.md","summary":"SUMMARY.md"},"variables":{},"title":"デバイス実習1 教材","language":"ja","gitbook":"*","description":"東京テクニカルカレッジ 2022 年 デバイス実習1 授業教材"},"file":{"path":"lecture06/00-introduction.md","mtime":"2022-06-13T22:17:39.225Z","type":"markdown"},"gitbook":{"version":"3.7.1","time":"2022-07-07T01:18:05.836Z"},"basePath":"..","book":{"language":""}});
+            gitbook.page.hasChanged({"page":{"title":"第6回 MQTT プロトコル","level":"1.6","depth":1,"next":{"title":"第7回 MQTT データ連携演習","level":"1.7","depth":1,"path":"lecture07/00-introduction.md","ref":"lecture07/00-introduction.md","articles":[]},"previous":{"title":"第5回 HTTP フロー作成の演習","level":"1.5","depth":1,"path":"lecture05/00-introduction.md","ref":"lecture05/00-introduction.md","articles":[]},"dir":"ltr"},"config":{"plugins":["anchors","hide-published-with","copy-code-button","intopic-toc","back-to-top-button"],"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"pluginsConfig":{"intopic-toc":{"selector":".markdown-section h1, .markdown-section h2, .markdown-section h3, .markdown-section h4, .markdown-section h5, .markdown-section h6","mode":"nested","maxDepth":6,"isCollapsed":true,"isScrollspyActive":true,"visible":true,"label":"In this article"},"search":{},"lunr":{"maxIndexSize":1000000,"ignoreSpecialCharacters":false},"hide-published-with":{},"fontsettings":{"theme":"white","family":"sans","size":2},"highlight":{},"back-to-top-button":{},"copy-code-button":{},"theme-default":{"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"showLevel":false},"anchors":{}},"theme":"default","pdf":{"pageNumbers":true,"fontSize":12,"fontFamily":"Arial","paperSize":"a4","chapterMark":"pagebreak","pageBreaksBefore":"/","margin":{"right":62,"left":62,"top":56,"bottom":56},"embedFonts":false},"structure":{"langs":"LANGS.md","readme":"README.md","glossary":"GLOSSARY.md","summary":"SUMMARY.md"},"variables":{},"title":"デバイス実習1 教材","language":"ja","gitbook":"*","description":"東京テクニカルカレッジ 2022 年 デバイス実習1 授業教材"},"file":{"path":"lecture06/00-introduction.md","mtime":"2022-07-20T13:15:12.984Z","type":"markdown"},"gitbook":{"version":"3.7.1","time":"2022-07-20T13:16:31.378Z"},"basePath":"..","book":{"language":""}});
         });
     </script>
 </div>

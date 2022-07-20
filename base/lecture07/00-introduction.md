@@ -1,111 +1,13 @@
 # 第7回 MQTT データ連携演習
 
-## MQTT 送受信の概要
-
-MQTT の送受信に関して大きく概念を理解する
+## MQTT の送受信基礎
 
 - 教材
   - サブテキスト
-
-前回の授業で MQTT の送受信は、MQTT ブローカがデータのやり取りを仲立ちして、送信したデータが届くことが体感できました。
-
-![image](https://i.gyazo.com/3cbc0a8248c21bca8b0719a9623ec3de.png)
-
-MQTT プロトコル上で、データやりとりする要素として、以下のようにあります。
-
-- メッセージ
-  - MQTT 上でやりとりするデータ
-- トピック
-  - メッセージの送り先や指定したメッセージを受け取る機能
-- MQTT ブローカ
-  - メッセージを受け取って、メッセージを配る
-- Publisher
-  - メッセージを送る（発行する）クライアント
-- Subscriber
-  - メッセージを受け取る（購読する）クライアント
-
-まず、トピックはメッセージの送り先や指定したメッセージを受け取る機能です。Publisher と Subscriber で共通でトピックを扱います。
-
-前回の授業で設定したトピックは ttc2022/res でしたが、それを例にします。
-
-![image](https://i.gyazo.com/a12f376874ec401ad2107d53f93b11bb.png)
-
-- Publisher は MQTT ブローカに対してトピックでメッセージの送り先を指定して送ることができます。
-- Subscriber は MQTT ブローカに対してトピックで指定したメッセージを受け取ることができます。
-
-この仕組みでデータのやり取りを行っていました。
-
-![image](https://i.gyazo.com/62023965804747c723b4bd1fd741da5f.png)
-
-MQTT ブローカがデータのやり取りを指揮してくれるので、Publisher が発行したメッセージは、発行したトピックを購読している Subscriber 側が複数でもすべて受信することができます。ですので、前回、生徒みんなでデータを送りあってもデータが飛び交うことができたのです。
-
-![image](https://i.gyazo.com/616011e99de06bfbdc9714e306727459.png)
-
-もちろん、購読するトピックが違えば、今回の ttc2022/res にメッセージを送る Publisher のデータを受け取ることができません。
-
-### トピックの階層構造
-
-トピックは `/` で階層構造が表現できます。
-
-```
-ttc2022/res
-```
-
-みなさんは、すでに Beebotte では、このように ttc2022 の階層の res という指定をしました。これは Beebotte の MQTT ブローカ仕様 https://beebotte.com/docs/mqtt として決められていますが、MQTT の仕様としては、自由に決められるものです。
-
-![image](https://i.gyazo.com/3509d32c6e67ac5baa0f43948516a824.png)
-
-住所のイメージに近いかもしれません。
-
-```
-東京都/中野区/東中野/4丁目/2/3/東京テクニカルカレッジ
-```
-
-また Subscriber が購読時では 1 つのトピック指定で複数のトピックを同時に指定できる、ワイルドカードと呼ばれるものがあり `#` や `+` が使えます。
-
-```
-東京都/中野区/東中野/4丁目/#
-```
-
-`#` でこのように指定すると、それ以降の階層がなんでもとれるよう指定できます。つまり東京都中野区東中野4丁目全域のデータがとれます。
-
-```
-東京都/中野区/+/4丁目/+
-```
-
-`+` でこのように指定すると、指定した階層はすべて取得できます。この場合は、東京都中野区の様々な町（中野とか新井とか）の 4 丁目内のデータがとれます。
-
-この発想で、仮にある施設で温度・湿度・気圧のセンサーデータがパブリッシュされているとしましょう。
-
-```
-building/F1/sensors/temperature
-building/F1/sensors/humidity
-building/F1/sensors/pressure
-building/F2/sensors/temperature
-building/F2/sensors/humidity
-building/F3/sensors/pressure
-  |
-  |
-building/F10/sensors/temperature
-building/F10/sensors/humidity
-building/F10/sensors/pressure
-```
-
-この場合、
-
-```
-building/+/sensors/temperature
-```
-
-各階の温度データが取得できます。
-
-```
-building/F1/sensors/#
-```
-
-1階の温度・湿度・気圧データが取得できます。
-
-前回、講師のブローカでみなさんがデータで送り合う仕組みも、同一トピックだから色々なデータが飛び交っていましたが、本来であればセンサーごとにトピックを分けると、効率よくデータ発行と購読が出来るようになります。
+    - https://zenn.dev/tseigo/books/node-red-with-arduino-device-simple-version/viewer/mqtt-topic
+  - 内容
+    - MQTT 送受信の概要
+      - MQTT の送受信に関して大きく概念を理解する
 
 ## サブスクライブフロー作成
 
@@ -382,47 +284,6 @@ inject ノードをクリックして、データを送って、オンライン�
 すべて Node-RED で動いているので、ぜひポテンシャルを感じてください。
 
 ちなみに、この enebular という仕組みは、次の 3 期で学べます！お楽しみに！
-
-## HTTP との違い
-
-主に MQTT 受信に関しての HTTP との違い・メリットを把握します。
-
-- 教材
-  - サブテキスト
-
-![image](https://i.gyazo.com/61a4eb793076c0e2ca0a2f48d175a039.png)
-
-HTTP は以前ざっくり学びましたが、IoT でももちろん使われているものです。HTTP リクエストとレスポンスでできていて仕様は シンプルで、長く使われているので Web の世界の仕組みを応用しやすいところは良いポイントです。
-
-ですが、データを送るためにたとえば HTTP ヘッダーが必要だったり、受け取るときも HTTP ステータスコードが必要だったりとオーバーヘッドの大きさが、それほどパワーのないデバイスを扱う IoT においては影響が大きく負担になることもあります。
-
-また、HTTP は、基本的に 1 対 1 の通信でやりとりされるので、大量のデバイスからセンサーデータを受け取るような IoT のユースケースの時に、どんどん通信が増えて、ここでも負担になる可能性があります。
-
-その点において、MQTT は以下の点が優れています。
-
-- MQTT では非同期に1対複数のやりとりができる。仮に接続が増えても MQTT ブローカが（さばける限りは）効率的にデータがやりとりできる
-- HTTP と比べて MQTT はデータが軽量なので IoT で扱うようなデバイスでも負担が少なくできる
-- MQTT はデータを再送できる機能があり HTTP と比べて確実なデータ送信ができる
-
-![image](https://i.gyazo.com/b6a6502d55568da154370b4f16c6b98b.png)
-
-## IoT における MQTT
-
-IoT における MQTT の重要性や使いどころを把握します。
-
-- 教材
-  - サブテキスト
-
-ここまで HTTP との違いや MQTT の仕様を Node-RED を交えて体験してきました。
-
-身近な事例を交えながら、MQTT を使うイメージを高めていきましょう。
-
-- M5Stack で MQTT から Node-RED 経由で JSON データでまとめてシナリオを渡してビジュアルが変わる仕組みを作ったメモ – 1ft-seabass.jp.MEMO
-  - https://www.1ft-seabass.jp/memo/2020/10/31/controlling-m5stack-from-node-red-mqtt-json-senarios/
-- Node-RED MQTTブローカー経由でNefryBT＋フルカラーテープLEDを動かすメモ – 1ft-seabass.jp.MEMO
-  - https://www.1ft-seabass.jp/memo/2017/10/10/nefrybt-mqtt-tape-led/
-- E-textile Electric fabric “nüno” のデータをM5StackからMQTTでつないでNode-REDにつなげるメモ – 1ft-seabass.jp.MEMO
-  - https://www.1ft-seabass.jp/memo/2019/07/27/etextile-nuno-meets-mqtt-and-nodered/
 
 ## 次回への伝達事項
 

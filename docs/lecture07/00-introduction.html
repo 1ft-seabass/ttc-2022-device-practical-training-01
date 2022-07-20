@@ -360,81 +360,23 @@
                                 <section class="normal markdown-section">
                                 
                                 <h1 id="第7回-mqtt-データ連携演習"><a name="第7回-mqtt-データ連携演習" class="plugin-anchor" href="#第7回-mqtt-データ連携演習"><i class="fa fa-link" aria-hidden="true"></i></a>第7回 MQTT データ連携演習</h1>
-<h2 id="mqtt-送受信の概要"><a name="mqtt-送受信の概要" class="plugin-anchor" href="#mqtt-送受信の概要"><i class="fa fa-link" aria-hidden="true"></i></a>MQTT 送受信の概要</h2>
-<p>MQTT の送受信に関して大きく概念を理解する</p>
+<h2 id="mqtt-の送受信基礎"><a name="mqtt-の送受信基礎" class="plugin-anchor" href="#mqtt-の送受信基礎"><i class="fa fa-link" aria-hidden="true"></i></a>MQTT の送受信基礎</h2>
 <ul>
 <li>教材<ul>
-<li>サブテキスト</li>
+<li>サブテキスト<ul>
+<li><a href="https://zenn.dev/tseigo/books/node-red-with-arduino-device-simple-version/viewer/mqtt-topic" target="_blank">https://zenn.dev/tseigo/books/node-red-with-arduino-device-simple-version/viewer/mqtt-topic</a></li>
+</ul>
+</li>
+<li>内容<ul>
+<li>MQTT 送受信の概要<ul>
+<li>MQTT の送受信に関して大きく概念を理解する</li>
 </ul>
 </li>
 </ul>
-<p>前回の授業で MQTT の送受信は、MQTT ブローカがデータのやり取りを仲立ちして、送信したデータが届くことが体感できました。</p>
-<p><img src="https://i.gyazo.com/3cbc0a8248c21bca8b0719a9623ec3de.png" alt="image"></p>
-<p>MQTT プロトコル上で、データやりとりする要素として、以下のようにあります。</p>
-<ul>
-<li>メッセージ<ul>
-<li>MQTT 上でやりとりするデータ</li>
-</ul>
 </li>
-<li>トピック<ul>
-<li>メッセージの送り先や指定したメッセージを受け取る機能</li>
-</ul>
-</li>
-<li>MQTT ブローカ<ul>
-<li>メッセージを受け取って、メッセージを配る</li>
-</ul>
-</li>
-<li>Publisher<ul>
-<li>メッセージを送る（発行する）クライアント</li>
-</ul>
-</li>
-<li>Subscriber<ul>
-<li>メッセージを受け取る（購読する）クライアント</li>
 </ul>
 </li>
 </ul>
-<p>まず、トピックはメッセージの送り先や指定したメッセージを受け取る機能です。Publisher と Subscriber で共通でトピックを扱います。</p>
-<p>前回の授業で設定したトピックは ttc2022/res でしたが、それを例にします。</p>
-<p><img src="https://i.gyazo.com/a12f376874ec401ad2107d53f93b11bb.png" alt="image"></p>
-<ul>
-<li>Publisher は MQTT ブローカに対してトピックでメッセージの送り先を指定して送ることができます。</li>
-<li>Subscriber は MQTT ブローカに対してトピックで指定したメッセージを受け取ることができます。</li>
-</ul>
-<p>この仕組みでデータのやり取りを行っていました。</p>
-<p><img src="https://i.gyazo.com/62023965804747c723b4bd1fd741da5f.png" alt="image"></p>
-<p>MQTT ブローカがデータのやり取りを指揮してくれるので、Publisher が発行したメッセージは、発行したトピックを購読している Subscriber 側が複数でもすべて受信することができます。ですので、前回、生徒みんなでデータを送りあってもデータが飛び交うことができたのです。</p>
-<p><img src="https://i.gyazo.com/616011e99de06bfbdc9714e306727459.png" alt="image"></p>
-<p>もちろん、購読するトピックが違えば、今回の ttc2022/res にメッセージを送る Publisher のデータを受け取ることができません。</p>
-<h3 id="トピックの階層構造"><a name="トピックの階層構造" class="plugin-anchor" href="#トピックの階層構造"><i class="fa fa-link" aria-hidden="true"></i></a>トピックの階層構造</h3>
-<p>トピックは <code>/</code> で階層構造が表現できます。</p>
-<pre><code>ttc2022/res
-</code></pre><p>みなさんは、すでに Beebotte では、このように ttc2022 の階層の res という指定をしました。これは Beebotte の MQTT ブローカ仕様 <a href="https://beebotte.com/docs/mqtt" target="_blank">https://beebotte.com/docs/mqtt</a> として決められていますが、MQTT の仕様としては、自由に決められるものです。</p>
-<p><img src="https://i.gyazo.com/3509d32c6e67ac5baa0f43948516a824.png" alt="image"></p>
-<p>住所のイメージに近いかもしれません。</p>
-<pre><code>東京都/中野区/東中野/4丁目/2/3/東京テクニカルカレッジ
-</code></pre><p>また Subscriber が購読時では 1 つのトピック指定で複数のトピックを同時に指定できる、ワイルドカードと呼ばれるものがあり <code>#</code> や <code>+</code> が使えます。</p>
-<pre><code>東京都/中野区/東中野/4丁目/#
-</code></pre><p><code>#</code> でこのように指定すると、それ以降の階層がなんでもとれるよう指定できます。つまり東京都中野区東中野4丁目全域のデータがとれます。</p>
-<pre><code>東京都/中野区/+/4丁目/+
-</code></pre><p><code>+</code> でこのように指定すると、指定した階層はすべて取得できます。この場合は、東京都中野区の様々な町（中野とか新井とか）の 4 丁目内のデータがとれます。</p>
-<p>この発想で、仮にある施設で温度・湿度・気圧のセンサーデータがパブリッシュされているとしましょう。</p>
-<pre><code>building/F1/sensors/temperature
-building/F1/sensors/humidity
-building/F1/sensors/pressure
-building/F2/sensors/temperature
-building/F2/sensors/humidity
-building/F3/sensors/pressure
-  |
-  |
-building/F10/sensors/temperature
-building/F10/sensors/humidity
-building/F10/sensors/pressure
-</code></pre><p>この場合、</p>
-<pre><code>building/+/sensors/temperature
-</code></pre><p>各階の温度データが取得できます。</p>
-<pre><code>building/F1/sensors/#
-</code></pre><p>1階の温度・湿度・気圧データが取得できます。</p>
-<p>前回、講師のブローカでみなさんがデータで送り合う仕組みも、同一トピックだから色々なデータが飛び交っていましたが、本来であればセンサーごとにトピックを分けると、効率よくデータ発行と購読が出来るようになります。</p>
 <h2 id="サブスクライブフロー作成"><a name="サブスクライブフロー作成" class="plugin-anchor" href="#サブスクライブフロー作成"><i class="fa fa-link" aria-hidden="true"></i></a>サブスクライブフロー作成</h2>
 <p>Node-RED でデータ受信フローを作成します。</p>
 <ul>
@@ -673,49 +615,6 @@ building/F10/sensors/pressure
 <p>実は今回の仕組みは、enebular という Node-RED が動くサービスを利用して Node-RED のサーバーを立てて、オンラインの表示の仕組みやデバイス制御しています。</p>
 <p>すべて Node-RED で動いているので、ぜひポテンシャルを感じてください。</p>
 <p>ちなみに、この enebular という仕組みは、次の 3 期で学べます！お楽しみに！</p>
-<h2 id="http-との違い"><a name="http-との違い" class="plugin-anchor" href="#http-との違い"><i class="fa fa-link" aria-hidden="true"></i></a>HTTP との違い</h2>
-<p>主に MQTT 受信に関しての HTTP との違い・メリットを把握します。</p>
-<ul>
-<li>教材<ul>
-<li>サブテキスト</li>
-</ul>
-</li>
-</ul>
-<p><img src="https://i.gyazo.com/61a4eb793076c0e2ca0a2f48d175a039.png" alt="image"></p>
-<p>HTTP は以前ざっくり学びましたが、IoT でももちろん使われているものです。HTTP リクエストとレスポンスでできていて仕様は シンプルで、長く使われているので Web の世界の仕組みを応用しやすいところは良いポイントです。</p>
-<p>ですが、データを送るためにたとえば HTTP ヘッダーが必要だったり、受け取るときも HTTP ステータスコードが必要だったりとオーバーヘッドの大きさが、それほどパワーのないデバイスを扱う IoT においては影響が大きく負担になることもあります。</p>
-<p>また、HTTP は、基本的に 1 対 1 の通信でやりとりされるので、大量のデバイスからセンサーデータを受け取るような IoT のユースケースの時に、どんどん通信が増えて、ここでも負担になる可能性があります。</p>
-<p>その点において、MQTT は以下の点が優れています。</p>
-<ul>
-<li>MQTT では非同期に1対複数のやりとりができる。仮に接続が増えても MQTT ブローカが（さばける限りは）効率的にデータがやりとりできる</li>
-<li>HTTP と比べて MQTT はデータが軽量なので IoT で扱うようなデバイスでも負担が少なくできる</li>
-<li>MQTT はデータを再送できる機能があり HTTP と比べて確実なデータ送信ができる</li>
-</ul>
-<p><img src="https://i.gyazo.com/b6a6502d55568da154370b4f16c6b98b.png" alt="image"></p>
-<h2 id="iot-における-mqtt"><a name="iot-における-mqtt" class="plugin-anchor" href="#iot-における-mqtt"><i class="fa fa-link" aria-hidden="true"></i></a>IoT における MQTT</h2>
-<p>IoT における MQTT の重要性や使いどころを把握します。</p>
-<ul>
-<li>教材<ul>
-<li>サブテキスト</li>
-</ul>
-</li>
-</ul>
-<p>ここまで HTTP との違いや MQTT の仕様を Node-RED を交えて体験してきました。</p>
-<p>身近な事例を交えながら、MQTT を使うイメージを高めていきましょう。</p>
-<ul>
-<li>M5Stack で MQTT から Node-RED 経由で JSON データでまとめてシナリオを渡してビジュアルが変わる仕組みを作ったメモ – 1ft-seabass.jp.MEMO<ul>
-<li><a href="https://www.1ft-seabass.jp/memo/2020/10/31/controlling-m5stack-from-node-red-mqtt-json-senarios/" target="_blank">https://www.1ft-seabass.jp/memo/2020/10/31/controlling-m5stack-from-node-red-mqtt-json-senarios/</a></li>
-</ul>
-</li>
-<li>Node-RED MQTTブローカー経由でNefryBT＋フルカラーテープLEDを動かすメモ – 1ft-seabass.jp.MEMO<ul>
-<li><a href="https://www.1ft-seabass.jp/memo/2017/10/10/nefrybt-mqtt-tape-led/" target="_blank">https://www.1ft-seabass.jp/memo/2017/10/10/nefrybt-mqtt-tape-led/</a></li>
-</ul>
-</li>
-<li>E-textile Electric fabric “nüno” のデータをM5StackからMQTTでつないでNode-REDにつなげるメモ – 1ft-seabass.jp.MEMO<ul>
-<li><a href="https://www.1ft-seabass.jp/memo/2019/07/27/etextile-nuno-meets-mqtt-and-nodered/" target="_blank">https://www.1ft-seabass.jp/memo/2019/07/27/etextile-nuno-meets-mqtt-and-nodered/</a></li>
-</ul>
-</li>
-</ul>
 <h2 id="次回への伝達事項"><a name="次回への伝達事項" class="plugin-anchor" href="#次回への伝達事項"><i class="fa fa-link" aria-hidden="true"></i></a>次回への伝達事項</h2>
 <h3 id="arduino-バージョン"><a name="arduino-バージョン" class="plugin-anchor" href="#arduino-バージョン"><i class="fa fa-link" aria-hidden="true"></i></a>Arduino バージョン</h3>
 <p><img src="https://i.gyazo.com/249398704d5d737e76ed55b6c5d0950d.png" alt="image"></p>
@@ -769,7 +668,7 @@ building/F10/sensors/pressure
     <script>
         var gitbook = gitbook || [];
         gitbook.push(function() {
-            gitbook.page.hasChanged({"page":{"title":"第7回 MQTT データ連携演習","level":"1.7","depth":1,"next":{"title":"第8回 デバイス MQTT 接続","level":"1.8","depth":1,"path":"lecture08/00-introduction.md","ref":"lecture08/00-introduction.md","articles":[{"title":"第8回 メインプログラム解説","level":"1.8.1","depth":2,"path":"lecture08/01-explanation-main-program.md","ref":"lecture08/01-explanation-main-program.md","articles":[]}]},"previous":{"title":"第6回 MQTT プロトコル","level":"1.6","depth":1,"path":"lecture06/00-introduction.md","ref":"lecture06/00-introduction.md","articles":[]},"dir":"ltr"},"config":{"plugins":["anchors","hide-published-with","copy-code-button","intopic-toc","back-to-top-button"],"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"pluginsConfig":{"intopic-toc":{"selector":".markdown-section h1, .markdown-section h2, .markdown-section h3, .markdown-section h4, .markdown-section h5, .markdown-section h6","mode":"nested","maxDepth":6,"isCollapsed":true,"isScrollspyActive":true,"visible":true,"label":"In this article"},"search":{},"lunr":{"maxIndexSize":1000000,"ignoreSpecialCharacters":false},"hide-published-with":{},"fontsettings":{"theme":"white","family":"sans","size":2},"highlight":{},"back-to-top-button":{},"copy-code-button":{},"theme-default":{"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"showLevel":false},"anchors":{}},"theme":"default","pdf":{"pageNumbers":true,"fontSize":12,"fontFamily":"Arial","paperSize":"a4","chapterMark":"pagebreak","pageBreaksBefore":"/","margin":{"right":62,"left":62,"top":56,"bottom":56},"embedFonts":false},"structure":{"langs":"LANGS.md","readme":"README.md","glossary":"GLOSSARY.md","summary":"SUMMARY.md"},"variables":{},"title":"デバイス実習1 教材","language":"ja","gitbook":"*","description":"東京テクニカルカレッジ 2022 年 デバイス実習1 授業教材"},"file":{"path":"lecture07/00-introduction.md","mtime":"2022-06-13T22:26:31.697Z","type":"markdown"},"gitbook":{"version":"3.7.1","time":"2022-07-07T01:18:05.836Z"},"basePath":"..","book":{"language":""}});
+            gitbook.page.hasChanged({"page":{"title":"第7回 MQTT データ連携演習","level":"1.7","depth":1,"next":{"title":"第8回 デバイス MQTT 接続","level":"1.8","depth":1,"path":"lecture08/00-introduction.md","ref":"lecture08/00-introduction.md","articles":[{"title":"第8回 メインプログラム解説","level":"1.8.1","depth":2,"path":"lecture08/01-explanation-main-program.md","ref":"lecture08/01-explanation-main-program.md","articles":[]}]},"previous":{"title":"第6回 MQTT プロトコル","level":"1.6","depth":1,"path":"lecture06/00-introduction.md","ref":"lecture06/00-introduction.md","articles":[]},"dir":"ltr"},"config":{"plugins":["anchors","hide-published-with","copy-code-button","intopic-toc","back-to-top-button"],"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"pluginsConfig":{"intopic-toc":{"selector":".markdown-section h1, .markdown-section h2, .markdown-section h3, .markdown-section h4, .markdown-section h5, .markdown-section h6","mode":"nested","maxDepth":6,"isCollapsed":true,"isScrollspyActive":true,"visible":true,"label":"In this article"},"search":{},"lunr":{"maxIndexSize":1000000,"ignoreSpecialCharacters":false},"hide-published-with":{},"fontsettings":{"theme":"white","family":"sans","size":2},"highlight":{},"back-to-top-button":{},"copy-code-button":{},"theme-default":{"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"showLevel":false},"anchors":{}},"theme":"default","pdf":{"pageNumbers":true,"fontSize":12,"fontFamily":"Arial","paperSize":"a4","chapterMark":"pagebreak","pageBreaksBefore":"/","margin":{"right":62,"left":62,"top":56,"bottom":56},"embedFonts":false},"structure":{"langs":"LANGS.md","readme":"README.md","glossary":"GLOSSARY.md","summary":"SUMMARY.md"},"variables":{},"title":"デバイス実習1 教材","language":"ja","gitbook":"*","description":"東京テクニカルカレッジ 2022 年 デバイス実習1 授業教材"},"file":{"path":"lecture07/00-introduction.md","mtime":"2022-07-20T13:15:42.471Z","type":"markdown"},"gitbook":{"version":"3.7.1","time":"2022-07-20T13:16:31.378Z"},"basePath":"..","book":{"language":""}});
         });
     </script>
 </div>
