@@ -358,136 +358,19 @@
                                 <section class="normal markdown-section">
                                 
                                 <h1 id="センサー通知実習"><a name="センサー通知実習" class="plugin-anchor" href="#センサー通知実習"><i class="fa fa-link" aria-hidden="true"></i></a>センサー通知実習</h1>
-<h2 id="13-1-演習概要"><a name="13-1-演習概要" class="plugin-anchor" href="#13-1-演習概要"><i class="fa fa-link" aria-hidden="true"></i></a>13-1 演習概要</h2>
-<p>今回の Node-RED 動作の大まかな流れを把握します。</p>
-<p><img src="https://i.gyazo.com/d69f0a82e9d9ecb77b6c5ddeea4cd435.png" alt="image"></p>
-<p><a href="../lecture09/00-introduction.html">第9回の仕組み</a> で取得した部屋の明るさをセンサーが捉えて、Node-RED に送りその明るさに応じて LINE Notify ノードによって LINE アプリに通知を送ります。</p>
-<h2 id="13-2-デバイス準備-→-書き込み-→-デバイス動作確認"><a name="13-2-デバイス準備-→-書き込み-→-デバイス動作確認" class="plugin-anchor" href="#13-2-デバイス準備-→-書き込み-→-デバイス動作確認"><i class="fa fa-link" aria-hidden="true"></i></a>13-2 デバイス準備 → 書き込み → デバイス動作確認</h2>
-<p><img src="https://i.gyazo.com/fa7747862927454bf64c9866d5cc1fa7.jpg" alt="image"></p>
-<p>以前行なったセンサー値を取得するプログラムをデバイスに書き込み準備します。</p>
-<p>→ <a href="../lecture09/00-introduction.html">第9回の仕組み</a></p>
-<h2 id="13-3-データ受信確認"><a name="13-3-データ受信確認" class="plugin-anchor" href="#13-3-データ受信確認"><i class="fa fa-link" aria-hidden="true"></i></a>13-3 データ受信確認</h2>
-<p>Node-RED がデバイスからデータ受信できてるか部分確認します。</p>
-<p><img src="https://i.gyazo.com/dc535bb8fc74717cf0441b7c11348028.png" alt="image"></p>
-<p>前回使ったフローで mqtt in ノード につながった debug ノードに注目します。</p>
-<p><img src="https://i.gyazo.com/96991ded5dabcf495debac5c0e262207.png" alt="image"></p>
-<p>デバイスに電源を入れてみてデータが受信されていることを確認します。</p>
-<h2 id="13-4-line-notify-フロー追加"><a name="13-4-line-notify-フロー追加" class="plugin-anchor" href="#13-4-line-notify-フロー追加"><i class="fa fa-link" aria-hidden="true"></i></a>13-4 LINE Notify フロー追加</h2>
-<p>Node-RED LINE Notify 連携部分のフローを追加します。</p>
-<p><img src="https://i.gyazo.com/f9ff2247fb72dedf9ccfe98e4edf291b.png" alt="image"></p>
-<p>現在の状態だと、switch ノードがセンサー値の値ではなく 1 と 0 で判定したままです。<code>{&quot;light&quot;:361}</code> という値で判定できるよう設定を追加します。</p>
-<p><img src="https://i.gyazo.com/a23fbe5bd2da227fb843dd17c15827da.png" alt="image"></p>
-<p>JSON データで mqtt in ノードが受け取れるよう、プロパティの出力の項目を <code>JSONオブジェクト</code> に変更します。</p>
-<p><img src="https://i.gyazo.com/8446b03326f477ba0453aa2923613c55.png" alt="image"></p>
-<p>switch ノードをこのように変更します。450 の部分は、センサー値で「明るい」「暗い」が馬上手く判定できる値を設定しましょう。</p>
 <ul>
-<li>プロパティ<ul>
-<li>msg.payload.light</li>
+<li>教材<ul>
+<li>サブテキスト<ul>
+<li><a href="https://zenn.dev/tseigo/books/node-red-with-arduino-device-simple-version/viewer/sensor-notify" target="_blank">https://zenn.dev/tseigo/books/node-red-with-arduino-device-simple-version/viewer/sensor-notify</a></li>
 </ul>
 </li>
-<li>振り分けルール<ul>
-<li>1 番目<ul>
-<li>データタイプ<ul>
-<li>数値</li>
-</ul>
-</li>
-<li>評価<ul>
-<li><code>&lt;</code></li>
-</ul>
-</li>
-<li>値<ul>
-<li>450</li>
-</ul>
-</li>
-</ul>
-</li>
-<li>2 番目<ul>
-<li>データタイプ<ul>
-<li>数値</li>
-</ul>
-</li>
-<li>評価<ul>
-<li>その他</li>
+<li>内容<ul>
+<li>センサー通知実習</li>
 </ul>
 </li>
 </ul>
 </li>
 </ul>
-</li>
-</ul>
-<p><img src="https://i.gyazo.com/943b4630e0163a28b3c7973b4d060418.png" alt="image"></p>
-<p>設定ができたらデプロイします。</p>
-<h2 id="13-5-line-notify-確認"><a name="13-5-line-notify-確認" class="plugin-anchor" href="#13-5-line-notify-確認"><i class="fa fa-link" aria-hidden="true"></i></a>13-5 LINE Notify 確認</h2>
-<p>Node-RED から LINE Notify へのメッセージ送信含め、フロー全体の動作を確認します。</p>
-<p><img src="https://i.gyazo.com/219c1d17523fa694dbbe75e98d0fe429.jpg" alt="image"></p>
-<p>手をかぶせて暗くして変化をみてみましょう。</p>
-<p><img src="https://i.gyazo.com/aa8117d634b36267f670da6d3e4c98c9.png" alt="image"></p>
-<p>実際にメッセージが変化するか確かめてみましょう。</p>
-<h2 id="13-6-フロー実践"><a name="13-6-フロー実践" class="plugin-anchor" href="#13-6-フロー実践"><i class="fa fa-link" aria-hidden="true"></i></a>13-6 フロー実践</h2>
-<p>Node-RED で様々なユーザーインターフェースやグラフ表示ができるノード群、ダッシュボードノードの体験していきましょう。</p>
-<p><img src="https://i.gyazo.com/0245d94fb6c895872799bc0da4e89237.png" alt="image"></p>
-<p><a href="https://flows.nodered.org/node/node-red-dashboard" target="_blank">https://flows.nodered.org/node/node-red-dashboard</a></p>
-<p>詳しくは、メインテキストの 5.2 Node-RED ダッシュボードノードにも書かれています。</p>
-<p>Node-RED ダッシュボード機能は標準では使えないので、node-red-contrib-line-messaging-api ノードと同じようにノードをインストールします。</p>
-<p>右上のメニューからパレットの管理を選択し、ノードを追加タブをクリックします。</p>
-<p><img src="https://i.gyazo.com/d9cd7057710d5ad758e5ae171852b8c6.png" alt="image"></p>
-<p>検索エリアで node-red-dashboard と検索します。同名の node-red-dashboard をインストールします。</p>
-<p><img src="https://i.gyazo.com/6bb975afc7cc08c3cbdd58fb213fe9d4.png" alt="image"></p>
-<p>パレットにダッシュボードノード群がインストールされます。</p>
-<h3 id="13-6-1-ダッシュボードノードの設定"><a name="13-6-1-ダッシュボードノードの設定" class="plugin-anchor" href="#13-6-1-ダッシュボードノードの設定"><i class="fa fa-link" aria-hidden="true"></i></a>13-6-1 ダッシュボードノードの設定</h3>
-<p>ダッシュボードノードをインストール後にダッシュボードそのものの設定は、ノード情報ウィンドウのダッシュボード設定から行えます。</p>
-<p><img src="https://i.gyazo.com/ea05c3b8aeabf484b9623429796e3aac.png" alt="image"></p>
-<p>ノード情報ウィンドウの右上のボタンからこのように Dashboard をクリックします。（インストール後に登場します）</p>
-<p><img src="https://i.gyazo.com/4e268a41b6ff191e9bb0dde897b306f3.png" alt="image"></p>
-<p>今回は表示上の最低限の配置を決めるので、まずタブを一つ設定するためタブボタンを1度クリックします。</p>
-<p><img src="https://i.gyazo.com/5fbf8f675d84c7c978ee7cd276f20f2c.png" alt="image"></p>
-<p>クリックするとこのように Tab1 が追加されます。</p>
-<p><img src="https://i.gyazo.com/4de8ee071822619a3de4d69ca3336144.png" alt="image"></p>
-<p>Tab1 にマウスを乗せると、グループなどボタンが出てくるのでグループをクリックします。</p>
-<p><img src="https://i.gyazo.com/ca64703ce05d03cc7a5bac3f4d5c877b.png" alt="image"></p>
-<p>これで最低限の設定は完了です。</p>
-<h3 id="13-6-2-グラフを配置してみる"><a name="13-6-2-グラフを配置してみる" class="plugin-anchor" href="#13-6-2-グラフを配置してみる"><i class="fa fa-link" aria-hidden="true"></i></a>13-6-2 グラフを配置してみる</h3>
-<p><img src="https://i.gyazo.com/1c7152a1c4122202c84f09e62536001a.png" alt="image"></p>
-<p>折れ線グラフが作れる chart ノードを試してみます。IoT ではセンサー値をまずは見てみて、ブラッシュアップしていくことは多いので、こういった可視化の手法は役に立ちます。</p>
-<p><img src="https://i.gyazo.com/67eaa2346c78473d9e2477db9af7d55e.png" alt="image"></p>
-<p>chart ノードはこちらです。</p>
-<p><img src="https://i.gyazo.com/aa5a3edaefd7f7ab88760dfc43167ffc.png" alt="image"></p>
-<p>このあたりに change ノードと chart ノードを配置してつなぎます。</p>
-<p><img src="https://i.gyazo.com/f5f64323531c63333286e56c768dca81.png" alt="image"></p>
-<p>change ノードは chart ノードに msg.payload で値を届けるために光センサーの値が入っている msg.payload.light からデータを移動します。</p>
-<p><img src="https://i.gyazo.com/e06c7a33c0ec110e5e727c9b0c874c96.png" alt="image"></p>
-<p>chart ノードのプロパティは、今回はグループが <code>[Tab1] Group1</code> になっているかを確認します。</p>
-<p><img src="https://i.gyazo.com/943b4630e0163a28b3c7973b4d060418.png" alt="image"></p>
-<p>設定ができたらデプロイします。</p>
-<p><img src="https://i.gyazo.com/b83c3f661924d04ab784911ea698412c.png" alt="image"></p>
-<p>設定できるとこのようなフローの見た目になっているはずです。</p>
-<h3 id="13-6-3-ダッシュボードの確認"><a name="13-6-3-ダッシュボードの確認" class="plugin-anchor" href="#13-6-3-ダッシュボードの確認"><i class="fa fa-link" aria-hidden="true"></i></a>13-6-3 ダッシュボードの確認</h3>
-<p>ダッシュボードは、インストールした瞬間から Node-RED の URL に <code>/ui</code> をつけた形で確認できます。Node-RED が <code>http://localhost:1880/</code> で起動されている場合は <code>http://localhost:1880/ui</code> です。</p>
-<p><img src="https://i.gyazo.com/3bd11ea311de237d06ed7e1e9468b552.png" alt="image"></p>
-<p>そのかに、さきほど設定したノード情報ウィンドウの右上のボタンから Dashboard を表示した、このアイコンからも <code>http://localhost:1880/ui</code> にアクセスできるので、今回はこれでやってみましょう。</p>
-<p><img src="https://i.gyazo.com/447840e5bb78e56b317d17076df4d198.png" alt="image"></p>
-<p>このように、センサー値がリアルタイムに折れ線グラフで表示されます。</p>
-<h3 id="13-6-4-ボタンを配置してみる"><a name="13-6-4-ボタンを配置してみる" class="plugin-anchor" href="#13-6-4-ボタンを配置してみる"><i class="fa fa-link" aria-hidden="true"></i></a>13-6-4 ボタンを配置してみる</h3>
-<p>グラフのようなデータの可視化だけでなく、ユーザーインターフェースもつくれます。IoT のプロトタイピングでは、このようにユーザ操作をうまく受け入れる仕組みは重宝します。</p>
-<p><img src="https://i.gyazo.com/77fb193859b14169a50d67120abae655.png" alt="image"></p>
-<p>button ノードはこちらです。今回は、ボタンを押すと「ボタンが押されました！」と LINE Notify にメッセージ送る仕組みを加えます。</p>
-<p><img src="https://i.gyazo.com/4c5f492ecc4ec8b5c705662bb659c9d7.png" alt="image"></p>
-<p>このあたりに button ノードを配置して、Notify ノードにつなぎます。</p>
-<p><img src="https://i.gyazo.com/b1f59f59d20362de64b6143ba12f23dd.png" alt="image"></p>
-<p>button ノードのプロパティは、まずグループが <code>[Tab1] Group1</code> になっているかを確認します。</p>
-<p><img src="https://i.gyazo.com/f28b78b80853415bc10f7dad43aad535.png" alt="image"></p>
-<p>つづいて、ボタンを押したときの送るメッセージを決める <code>When clicked, send:</code> 項目の Payload を「ボタンが押されました！」の文字列にします。</p>
-<p><img src="https://i.gyazo.com/943b4630e0163a28b3c7973b4d060418.png" alt="image"></p>
-<p>設定ができたらデプロイします。</p>
-<p><img src="https://i.gyazo.com/9b45f4d681483d6c116433a6b3fa707e.png" alt="image"></p>
-<p><code>http://localhost:1880/ui</code> にアクセスするとボタンができているので、何度かクリックしてみましょう。</p>
-<p><img src="https://i.gyazo.com/a304b5dd9aadc3b8a1de0251fc1111cc.png" alt="image"></p>
-<p>このように、センサー値のメッセージの間に「ボタンが押されました！」の通知が来ます。</p>
-<h2 id="おさらい"><a name="おさらい" class="plugin-anchor" href="#おさらい"><i class="fa fa-link" aria-hidden="true"></i></a>おさらい</h2>
-<p><img src="https://i.gyazo.com/d31c0288e196aecd8106de0675c8f516.png" alt="image"></p>
-<p>このデバイス実習 1 の授業では、たとえ理解しきっていなくても知っているところから、つくる一歩を踏み出せるように進めていきました。「まずはうごかす」ということで、手を動かしながら理解していく雰囲気がつかめたでしょう。</p>
-<p>新しい知識や技術に触れたとき、分かりきってからでないとつくれないと気負ってしまうかもしれませんが、最近の技術はインターネット上で検索して調べればたくさんの情報が出てくることも多く扱いやすくなっています。</p>
-<p>さらに Node-RED のようなローコードツールのサポートがあれば、動かすための設定や情報が GUI で用意されているのではじめやすく、知った段階でも試行錯誤してつくりはじめることができるので、今後もこういったサッと動かしてどんどん良くしていくプロトタイピングの考え方も上手く自分の気持ちに取り込んで、いろいろと作っていきましょう！</p>
 
                                 
                                 </section>
@@ -527,7 +410,7 @@
     <script>
         var gitbook = gitbook || [];
         gitbook.push(function() {
-            gitbook.page.hasChanged({"page":{"title":"第13回 センサー通知演習","level":"1.13","depth":1,"previous":{"title":"第12回 LINE Notify API 演習","level":"1.12","depth":1,"path":"lecture12/00-introduction.md","ref":"lecture12/00-introduction.md","articles":[]},"dir":"ltr"},"config":{"plugins":["anchors","hide-published-with","copy-code-button","intopic-toc","back-to-top-button"],"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"pluginsConfig":{"intopic-toc":{"selector":".markdown-section h1, .markdown-section h2, .markdown-section h3, .markdown-section h4, .markdown-section h5, .markdown-section h6","mode":"nested","maxDepth":6,"isCollapsed":true,"isScrollspyActive":true,"visible":true,"label":"In this article"},"search":{},"lunr":{"maxIndexSize":1000000,"ignoreSpecialCharacters":false},"hide-published-with":{},"fontsettings":{"theme":"white","family":"sans","size":2},"highlight":{},"back-to-top-button":{},"copy-code-button":{},"theme-default":{"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"showLevel":false},"anchors":{}},"theme":"default","pdf":{"pageNumbers":true,"fontSize":12,"fontFamily":"Arial","paperSize":"a4","chapterMark":"pagebreak","pageBreaksBefore":"/","margin":{"right":62,"left":62,"top":56,"bottom":56},"embedFonts":false},"structure":{"langs":"LANGS.md","readme":"README.md","glossary":"GLOSSARY.md","summary":"SUMMARY.md"},"variables":{},"title":"デバイス実習1 教材","language":"ja","gitbook":"*","description":"東京テクニカルカレッジ 2022 年 デバイス実習1 授業教材"},"file":{"path":"lecture13/00-introduction.md","mtime":"2022-07-04T22:35:41.127Z","type":"markdown"},"gitbook":{"version":"3.7.1","time":"2022-12-19T13:15:18.089Z"},"basePath":"..","book":{"language":""}});
+            gitbook.page.hasChanged({"page":{"title":"第13回 センサー通知演習","level":"1.13","depth":1,"previous":{"title":"第12回 LINE Notify API 演習","level":"1.12","depth":1,"path":"lecture12/00-introduction.md","ref":"lecture12/00-introduction.md","articles":[]},"dir":"ltr"},"config":{"plugins":["anchors","hide-published-with","copy-code-button","intopic-toc","back-to-top-button"],"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"pluginsConfig":{"intopic-toc":{"selector":".markdown-section h1, .markdown-section h2, .markdown-section h3, .markdown-section h4, .markdown-section h5, .markdown-section h6","mode":"nested","maxDepth":6,"isCollapsed":true,"isScrollspyActive":true,"visible":true,"label":"In this article"},"search":{},"lunr":{"maxIndexSize":1000000,"ignoreSpecialCharacters":false},"hide-published-with":{},"fontsettings":{"theme":"white","family":"sans","size":2},"highlight":{},"back-to-top-button":{},"copy-code-button":{},"theme-default":{"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"showLevel":false},"anchors":{}},"theme":"default","pdf":{"pageNumbers":true,"fontSize":12,"fontFamily":"Arial","paperSize":"a4","chapterMark":"pagebreak","pageBreaksBefore":"/","margin":{"right":62,"left":62,"top":56,"bottom":56},"embedFonts":false},"structure":{"langs":"LANGS.md","readme":"README.md","glossary":"GLOSSARY.md","summary":"SUMMARY.md"},"variables":{},"title":"デバイス実習1 教材","language":"ja","gitbook":"*","description":"東京テクニカルカレッジ 2022 年 デバイス実習1 授業教材"},"file":{"path":"lecture13/00-introduction.md","mtime":"2022-12-19T13:24:53.777Z","type":"markdown"},"gitbook":{"version":"3.7.1","time":"2022-12-19T13:26:36.298Z"},"basePath":"..","book":{"language":""}});
         });
     </script>
 </div>
